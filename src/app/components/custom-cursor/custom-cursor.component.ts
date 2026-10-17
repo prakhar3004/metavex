@@ -1,18 +1,17 @@
 import { Component, OnInit, OnDestroy, HostListener, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-custom-cursor',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   template: `
     @if (isVisible()) {
-      <div 
+      <div aria-hidden="true"
         class="custom-cursor-dot pointer-events-none fixed z-[10000]"
         [style.left.px]="mouseX()"
         [style.top.px]="mouseY()">
       </div>
-      <div 
+      <div aria-hidden="true"
         class="custom-cursor-follower pointer-events-none fixed z-[9999]"
         [class.hovering]="isHovering()"
         [style.left.px]="trailingX()"
@@ -36,23 +35,20 @@ export class CustomCursorComponent implements OnInit, OnDestroy {
   public isVisible = signal<boolean>(false);
 
   private rafId: number | null = null;
+  private enabled = false;
   private currentX = -100;
   private currentY = -100;
 
   ngOnInit() {
-    if (typeof window !== 'undefined') {
-      // Check if touch device - if touch, disable custom cursor to prevent blocking touch interactions
-      if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
-        this.isVisible.set(false);
-        return;
-      }
-      this.isVisible.set(true);
-      this.animateTrailing();
-    }
+    if (typeof window === 'undefined') return;
+    this.enabled = window.matchMedia('(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)').matches;
   }
 
   @HostListener('window:mousemove', ['$event'])
   onMouseMove(e: MouseEvent) {
+    if (!this.enabled) return;
+    this.isVisible.set(true);
+    if (this.rafId === null) this.animateTrailing();
     this.mouseX.set(e.clientX);
     this.mouseY.set(e.clientY);
 
@@ -67,11 +63,12 @@ export class CustomCursorComponent implements OnInit, OnDestroy {
   @HostListener('window:mouseleave')
   onMouseLeave() {
     this.isVisible.set(false);
+    this.stopAnimation();
   }
 
   @HostListener('window:mouseenter')
   onMouseEnter() {
-    this.isVisible.set(true);
+    if (this.enabled) this.isVisible.set(true);
   }
 
   private animateTrailing() {
@@ -86,14 +83,26 @@ export class CustomCursorComponent implements OnInit, OnDestroy {
       this.trailingX.set(this.currentX);
       this.trailingY.set(this.currentY);
 
-      this.rafId = requestAnimationFrame(loop);
+      if (Math.abs(targetX - this.currentX) > 0.1 || Math.abs(targetY - this.currentY) > 0.1) {
+        this.rafId = requestAnimationFrame(loop);
+      } else {
+        this.rafId = null;
+      }
     };
     this.rafId = requestAnimationFrame(loop);
   }
 
+  private stopAnimation() {
+    if (this.rafId !== null) cancelAnimationFrame(this.rafId);
+    this.rafId = null;
+  }
+
+  @HostListener('document:visibilitychange')
+  public onVisibilityChange() {
+    if (document.hidden) this.onMouseLeave();
+  }
+
   ngOnDestroy() {
-    if (this.rafId) {
-      cancelAnimationFrame(this.rafId);
-    }
+    this.stopAnimation();
   }
 }

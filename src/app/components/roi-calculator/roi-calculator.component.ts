@@ -1,112 +1,70 @@
 import { Component, Output, EventEmitter, signal, computed, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import confetti from 'canvas-confetti';
 import { SoundService } from '../../services/sound.service';
 
 export interface CalculatorMetrics {
   monthlyRevenue: number;
   manualHours: number;
   monthlyAdSpend: number;
+  revenueChangePercent: number;
+  automationSharePercent: number;
   projectedExtraRevenue: number;
   hoursSavedMonthly: number;
-  projectedRoas: number;
-  annualValueUnlocked: number;
+  annualRevenueChange: number;
 }
+
+type PlannerInput = 'monthlyRevenue' | 'manualHours' | 'monthlyAdSpend' | 'revenueChangePercent' | 'automationSharePercent';
 
 @Component({
   selector: 'app-roi-calculator',
   standalone: true,
-  imports: [CommonModule],
   templateUrl: './roi-calculator.component.html'
 })
 export class RoiCalculatorComponent {
   public sound = inject(SoundService);
-
   @Output() claimBlueprint = new EventEmitter<CalculatorMetrics>();
 
-  // State Signals (in INR)
-  public monthlyRevenue = signal<number>(500000); // 5 Lakhs
-  public manualHours = signal<number>(20); // 20 hours/week
-  public monthlyAdSpend = signal<number>(50000); // 50k INR
+  // Example baselines. Scenario assumptions start at zero and are chosen by the visitor.
+  public monthlyRevenue = signal(100000);
+  public manualHours = signal(10);
+  public monthlyAdSpend = signal(10000);
+  public revenueChangePercent = signal(0);
+  public automationSharePercent = signal(0);
 
-  // Computed Values
-  public projectedExtraRevenue = computed(() => {
-    const rev = this.monthlyRevenue();
-    const adSpend = this.monthlyAdSpend();
-    // 25% lift from faster website & instant WhatsApp response + ad ROAS improvement
-    const organicLift = rev * 0.22;
-    const adLift = adSpend * 1.5;
-    return Math.round(organicLift + adLift);
-  });
+  public projectedExtraRevenue = computed(() => Math.round(this.monthlyRevenue() * this.revenueChangePercent() / 100) || 0);
+  public hoursSavedMonthly = computed(() => Math.round(this.manualHours() * 4 * this.automationSharePercent() / 100));
+  public annualRevenueChange = computed(() => this.projectedExtraRevenue() * 12);
+  public annualAdSpend = computed(() => this.monthlyAdSpend() * 12);
 
-  public hoursSavedMonthly = computed(() => {
-    // 70% of manual repetitive tasks saved via WhatsApp bot and workflow sync
-    return Math.round(this.manualHours() * 4 * 0.70);
-  });
-
-  public projectedRoas = computed(() => {
-    const spend = this.monthlyAdSpend();
-    if (spend < 30000) return 3.6;
-    if (spend < 100000) return 4.2;
-    if (spend < 300000) return 4.8;
-    return 5.2;
-  });
-
-  public annualValueUnlocked = computed(() => {
-    const monthlyExtra = this.projectedExtraRevenue();
-    // Realistic Indian labor hourly cost value ~₹350/hr
-    const hourlyValue = 350;
-    const savedLaborYearly = this.hoursSavedMonthly() * 12 * hourlyValue;
-    return (monthlyExtra * 12) + savedLaborYearly;
-  });
-
-  public onRevenueChange(e: Event) {
-    const val = Number((e.target as HTMLInputElement).value);
-    this.monthlyRevenue.set(val);
+  public updateInput(field: PlannerInput, event: Event) {
+    const value = Number((event.target as HTMLInputElement).value);
+    if (!Number.isFinite(value)) return;
+    const limits: Record<PlannerInput, [number, number]> = {
+      monthlyRevenue: [0, 5000000], manualHours: [0, 60], monthlyAdSpend: [0, 1000000],
+      revenueChangePercent: [-25, 50], automationSharePercent: [0, 100]
+    };
+    const [minimum, maximum] = limits[field];
+    this[field].set(Math.max(minimum, Math.min(maximum, value)));
     this.sound.playTick();
   }
 
-  public onHoursChange(e: Event) {
-    const val = Number((e.target as HTMLInputElement).value);
-    this.manualHours.set(val);
-    this.sound.playTick();
+  public formatCurrency(value: number): string {
+    return value.toLocaleString('en-IN');
   }
 
-  public onAdSpendChange(e: Event) {
-    const val = Number((e.target as HTMLInputElement).value);
-    this.monthlyAdSpend.set(val);
-    this.sound.playTick();
-  }
-
-  public formatCurrency(num: number): string {
-    return num.toLocaleString('en-IN');
+  public formatChange(value: number): string {
+    return `${value < 0 ? '-' : '+'}₹${Math.abs(value).toLocaleString('en-IN')}`;
   }
 
   public onClaimBlueprint() {
-    this.sound.playChime();
-
-    // Trigger celebration confetti - Cyber Sunset colors
-    try {
-      confetti({
-        particleCount: 90,
-        spread: 80,
-        origin: { y: 0.6 },
-        colors: ['#FF2E63', '#8B5CF6', '#00F0FF', '#FFFFFF']
-      });
-    } catch {
-      // fallback
-    }
-
-    const payload: CalculatorMetrics = {
+    this.claimBlueprint.emit({
       monthlyRevenue: this.monthlyRevenue(),
       manualHours: this.manualHours(),
       monthlyAdSpend: this.monthlyAdSpend(),
+      revenueChangePercent: this.revenueChangePercent(),
+      automationSharePercent: this.automationSharePercent(),
       projectedExtraRevenue: this.projectedExtraRevenue(),
       hoursSavedMonthly: this.hoursSavedMonthly(),
-      projectedRoas: this.projectedRoas(),
-      annualValueUnlocked: this.annualValueUnlocked()
-    };
-
-    this.claimBlueprint.emit(payload);
+      annualRevenueChange: this.annualRevenueChange()
+    });
   }
 }

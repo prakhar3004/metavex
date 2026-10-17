@@ -25,8 +25,8 @@ module.exports = {
           300: '#94A3B8'
         },
         sunset: {
-          rose: '#FF2E63',
-          crimson: '#FF0055',
+          rose: '#CE1B4E',
+          crimson: '#BE123C',
           coral: '#FF4D6D',
           glow: 'rgba(255, 46, 99, 0.25)'
         },
@@ -37,9 +37,9 @@ module.exports = {
           glow: 'rgba(124, 58, 237, 0.25)'
         },
         cyber: {
-          cyan: '#0284C7',
+          cyan: '#0369A1',
           teal: '#0D9488',
-          sky: '#0284C7',
+          sky: '#0369A1',
           glow: 'rgba(2, 132, 199, 0.25)'
         },
         hyper: {

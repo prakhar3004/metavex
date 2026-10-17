@@ -1,27 +1,10 @@
-<!-- Subtle Noise Overlay for Cyber-Luxury Texture -->
-<div class="noise-overlay pointer-events-none"></div>
-
-<!-- Custom Interactive Magnetic Cursor -->
+<a class="skip-link" href="#main-content">Skip to content</a>
 <app-custom-cursor></app-custom-cursor>
-
-<!-- Floating Glass Pill Navbar -->
 <app-navbar (openLeadModal)="openLeadModal()"></app-navbar>
-
-<!-- Main Routed Application View -->
-<main class="relative bg-[#FAFBFC] text-slate-900 overflow-hidden min-h-screen">
-  
-  <!-- Dynamic Page Router View -->
-  <router-outlet (activate)="onRouteActivate($event)"></router-outlet>
-
-  <!-- Global Footer -->
-  <app-footer></app-footer>
-
+<main id="main-content" tabindex="-1" class="relative min-h-screen min-w-0 bg-[#FAFBFC] text-slate-900">
+  <router-outlet (activate)="onRouteActivate($event)" (deactivate)="onRouteDeactivate()"></router-outlet>
 </main>
-
-<!-- Global Multi-Step Onboarding Lead Modal -->
+<app-footer></app-footer>
 @if (showLeadModal()) {
-  <app-onboarding-wizard 
-    [prefillMetrics]="prefilledMetrics()" 
-    (close)="closeLeadModal()">
-  </app-onboarding-wizard>
+  <app-onboarding-wizard [prefillMetrics]="prefilledMetrics()" (close)="closeLeadModal()"></app-onboarding-wizard>
 }

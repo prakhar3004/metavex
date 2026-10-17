@@ -1,17 +1,6 @@
 import { Component, ElementRef, ViewChild, AfterViewInit, OnDestroy, HostListener, NgZone, inject } from '@angular/core';
 import * as THREE from 'three';
 
-interface FloatingCard {
-  mesh: THREE.Mesh;
-  baseX: number;
-  baseY: number;
-  baseZ: number;
-  floatSpeed: number;
-  floatOffset: number;
-  rotX: number;
-  rotY: number;
-}
-
 interface OrbitingBadge {
   mesh: THREE.Mesh;
   orbitRadius: number;
@@ -34,7 +23,7 @@ interface ReactionBubble {
   standalone: true,
   template: `
     <div #canvasContainer class="w-full h-full relative overflow-hidden pointer-events-auto">
-      <canvas #webglCanvas class="w-full h-full block"></canvas>
+      <canvas aria-hidden="true" #webglCanvas class="w-full h-full block"></canvas>
     </div>
   `,
   styles: [`
@@ -55,10 +44,11 @@ export class HeroCanvasComponent implements AfterViewInit, OnDestroy {
   private camera!: THREE.PerspectiveCamera;
   private renderer!: THREE.WebGLRenderer;
   private animFrameId: number | null = null;
+  private viewportObserver: IntersectionObserver | null = null;
+  private inViewport = true;
 
   // Groups & Objects
   private ecosystemGroup!: THREE.Group;
-  private cards: FloatingCard[] = [];
   private orbitingBadges: OrbitingBadge[] = [];
   private reactionBubbles: ReactionBubble[] = [];
   private orbitalRing1!: THREE.LineLoop;
@@ -75,9 +65,22 @@ export class HeroCanvasComponent implements AfterViewInit, OnDestroy {
   ngAfterViewInit() {
     if (typeof window === 'undefined') return;
 
+    if (!window.matchMedia('(min-width: 1024px) and (prefers-reduced-motion: no-preference)').matches) return;
     this.ngZone.runOutsideAngular(() => {
-      this.initThree();
-      this.animate();
+      try {
+        this.initThree();
+        this.animate();
+        if (typeof IntersectionObserver !== 'undefined') {
+          this.viewportObserver = new IntersectionObserver(entries => {
+            this.inViewport = entries[0]?.isIntersecting ?? false;
+            this.syncAnimation();
+          });
+          this.viewportObserver.observe(this.containerRef.nativeElement);
+        }
+      } catch {
+        // Decorative graphics must never block the page on unsupported devices.
+        this.canvasRef.nativeElement.hidden = true;
+      }
     });
   }
 
@@ -107,7 +110,7 @@ export class HeroCanvasComponent implements AfterViewInit, OnDestroy {
     this.scene.add(this.ecosystemGroup);
 
     // 4. Create 3D Floating Social & Growth Cards (Positioned safely on outer wings)
-    this.createSocialCards();
+    // Keep background art free of marketing text so it cannot overlap the HTML headline.
 
     // 5. Create Central Orbiting Platform Badges (Camera-Facing)
     this.createCentralSocialOrbit();
@@ -152,229 +155,7 @@ export class HeroCanvasComponent implements AfterViewInit, OnDestroy {
     }
   }
 
-  /**
-   * Creates 4 High-Resolution 3D Floating Social & Growth Cards
-   * Positioned on the outer flanks (x: +/- 5.6) to guarantee ZERO collision with the central headline.
-   */
-  private createSocialCards() {
-    const cardDefs = [
-      {
-        badgeText: '● LIVE META AD',
-        badgeBg: '#FF2E63',
-        title: 'Meta & Instagram Ads',
-        metricText: '3.8x Stable ROAS',
-        subText: 'Audience Testing & CAPI Tracking',
-        footerIcons: '❤️ 2.4k  💬 180  ↗ Verified CAPI',
-        themeColor: '#FF2E63',
-        width: 2.8,
-        height: 1.4,
-        baseX: -5.6,
-        baseY: 1.35,
-        baseZ: -0.2,
-        rotY: 0.28,
-        rotX: -0.04
-      },
-      {
-        badgeText: '⚡ 24/7 AUTOMATION',
-        badgeBg: '#10B981',
-        title: 'WhatsApp Lead Engine',
-        metricText: 'Instant Reply in <30s',
-        subText: 'Zero Missed Leads • CRM Synced',
-        footerIcons: '✅ Auto-Delivery  💬 100% Verified +91',
-        themeColor: '#10B981',
-        width: 2.8,
-        height: 1.4,
-        baseX: 5.6,
-        baseY: 1.25,
-        baseZ: -0.3,
-        rotY: -0.28,
-        rotX: -0.04
-      },
-      {
-        badgeText: '📈 SCALING ENGINE',
-        badgeBg: '#7C3AED',
-        title: 'Revenue & Ad Scaling',
-        metricText: '2.8x - 4.2x Client ROAS',
-        subText: 'Grounded Performance Marketing',
-        footerIcons: '🎯 Server-Side Tracking  ⚡ Zero Waste',
-        themeColor: '#7C3AED',
-        width: 2.7,
-        height: 1.35,
-        baseX: -5.3,
-        baseY: -1.75,
-        baseZ: 0.1,
-        rotY: 0.24,
-        rotX: 0.06
-      },
-      {
-        badgeText: '🚀 LIGHTNING FAST',
-        badgeBg: '#0284C7',
-        title: 'High-Converting Web App',
-        metricText: '1.2s Mobile Load Time',
-        subText: 'Optimized for Indian 4G Networks',
-        footerIcons: '🇮🇳 1-Click UPI  📱 Zero Drop-offs',
-        themeColor: '#0284C7',
-        width: 2.7,
-        height: 1.35,
-        baseX: 5.3,
-        baseY: -1.65,
-        baseZ: 0.05,
-        rotY: -0.24,
-        rotX: 0.06
-      }
-    ];
-
-    cardDefs.forEach((def, index) => {
-      const texture = this.generateCardTexture(
-        def.badgeText,
-        def.badgeBg,
-        def.title,
-        def.metricText,
-        def.subText,
-        def.footerIcons,
-        def.themeColor
-      );
-
-      const geo = new THREE.PlaneGeometry(def.width, def.height);
-      const mat = new THREE.MeshBasicMaterial({
-        map: texture,
-        transparent: true,
-        side: THREE.DoubleSide,
-        depthWrite: false
-      });
-
-      const mesh = new THREE.Mesh(geo, mat);
-      mesh.position.set(def.baseX, def.baseY, def.baseZ);
-      mesh.rotation.set(def.rotX, def.rotY, 0);
-
-      this.ecosystemGroup.add(mesh);
-
-      this.cards.push({
-        mesh,
-        baseX: def.baseX,
-        baseY: def.baseY,
-        baseZ: def.baseZ,
-        floatSpeed: 1.1 + index * 0.2,
-        floatOffset: index * 1.4,
-        rotX: def.rotX,
-        rotY: def.rotY
-      });
-    });
-  }
-
-  /**
-   * Helper to draw high-res canvas texture for cards
-   */
-  private generateCardTexture(
-    badgeText: string,
-    badgeBg: string,
-    title: string,
-    metricText: string,
-    subText: string,
-    footerIcons: string,
-    themeColor: string
-  ): THREE.CanvasTexture {
-    const canvas = document.createElement('canvas');
-    canvas.width = 640;
-    canvas.height = 320;
-    const ctx = canvas.getContext('2d')!;
-
-    ctx.clearRect(0, 0, 640, 320);
-
-    const x = 16;
-    const y = 16;
-    const w = 608;
-    const h = 288;
-    const r = 32;
-
-    // Card Body Glass Fill
-    ctx.save();
-    this.drawRoundRect(ctx, x, y, w, h, r);
-    ctx.clip();
-
-    // Subtle gradient glass background
-    const bgGrad = ctx.createLinearGradient(x, y, x + w, y + h);
-    bgGrad.addColorStop(0, 'rgba(255, 255, 255, 0.95)');
-    bgGrad.addColorStop(1, 'rgba(244, 247, 251, 0.90)');
-    ctx.fillStyle = bgGrad;
-    ctx.fillRect(x, y, w, h);
-
-    // Soft colored ambient glow
-    const glowGrad = ctx.createRadialGradient(x + 60, y + 50, 5, x + 60, y + 50, 180);
-    glowGrad.addColorStop(0, themeColor + '26');
-    glowGrad.addColorStop(1, 'rgba(255, 255, 255, 0)');
-    ctx.fillStyle = glowGrad;
-    ctx.fillRect(x, y, w, h);
-    ctx.restore();
-
-    // Sleek border stroke
-    ctx.save();
-    this.drawRoundRect(ctx, x, y, w, h, r);
-    const borderGrad = ctx.createLinearGradient(x, y, x + w, y + h);
-    borderGrad.addColorStop(0, themeColor + 'cc');
-    borderGrad.addColorStop(0.5, 'rgba(255, 255, 255, 0.9)');
-    borderGrad.addColorStop(1, themeColor + '44');
-    ctx.strokeStyle = borderGrad;
-    ctx.lineWidth = 4;
-    ctx.stroke();
-    ctx.restore();
-
-    // 1. Badge Pill
-    ctx.save();
-    ctx.font = 'bold 16px system-ui, -apple-system, sans-serif';
-    const textMetrics = ctx.measureText(badgeText);
-    const pillW = Math.max(160, textMetrics.width + 36);
-
-    this.drawRoundRect(ctx, x + 30, y + 26, pillW, 36, 18);
-    ctx.fillStyle = badgeBg;
-    ctx.fill();
-
-    ctx.fillStyle = '#FFFFFF';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.fillText(badgeText, x + 30 + pillW / 2, y + 44);
-    ctx.restore();
-
-    // 2. Title
-    ctx.fillStyle = '#0F172A';
-    ctx.font = 'bold 26px system-ui, -apple-system, sans-serif';
-    ctx.textAlign = 'left';
-    ctx.fillText(title, x + 30, y + 106);
-
-    // 3. Highlight Metric
-    ctx.fillStyle = themeColor;
-    ctx.font = '900 32px system-ui, -apple-system, sans-serif';
-    ctx.fillText(metricText, x + 30, y + 158);
-
-    // 4. Subtext / Description
-    ctx.fillStyle = '#475569';
-    ctx.font = '500 18px system-ui, -apple-system, sans-serif';
-    ctx.fillText(subText, x + 30, y + 200);
-
-    // 5. Divider
-    ctx.strokeStyle = 'rgba(226, 232, 240, 0.9)';
-    ctx.lineWidth = 2;
-    ctx.beginPath();
-    ctx.moveTo(x + 30, y + 224);
-    ctx.lineTo(x + w - 30, y + 224);
-    ctx.stroke();
-
-    // 6. Footer Meta Information / Reactions
-    ctx.fillStyle = '#64748B';
-    ctx.font = '600 16px system-ui, -apple-system, sans-serif';
-    ctx.fillText(footerIcons, x + 30, y + 256);
-
-    const texture = new THREE.CanvasTexture(canvas);
-    texture.generateMipmaps = true;
-    texture.minFilter = THREE.LinearMipmapLinearFilter;
-    texture.magFilter = THREE.LinearFilter;
-    return texture;
-  }
-
-  /**
-   * Creates Central Orbiting Social Media Emblems (Instagram, Meta, WhatsApp, Google)
-   * Designed to orbit smoothly behind the text (z: -1.8) and always face the camera.
-   */
+  // Brand shapes are decorative; marketing copy stays in semantic HTML.
   private createCentralSocialOrbit() {
     // 1. Dual Holographic Orbital Rings (Soft Ambient Depth Behind Text)
     const ringRadius1 = 2.8;
@@ -419,10 +200,10 @@ export class HeroCanvasComponent implements AfterViewInit, OnDestroy {
 
     // 2. Four Orbiting Social Platform 3D Badges (Soft Ambient Opacity: 0.75)
     const badgeConfigs = [
-      { type: 'instagram' as const, label: '📸', sub: 'Instagram Reels', bg1: '#FCB045', bg2: '#FD1D1D', bg3: '#833AB4' },
-      { type: 'meta' as const, label: '∞', sub: 'Meta Ads', bg1: '#0081FB', bg2: '#0064E0', bg3: '#004DB3' },
-      { type: 'whatsapp' as const, label: '💬', sub: 'WhatsApp Bot', bg1: '#25D366', bg2: '#128C7E', bg3: '#075E54' },
-      { type: 'growth' as const, label: '🚀', sub: 'High ROAS', bg1: '#FF2E63', bg2: '#7C3AED', bg3: '#0284C7' }
+      { type: 'instagram' as const, label: '📸', sub: '', bg1: '#FCB045', bg2: '#FD1D1D', bg3: '#833AB4' },
+      { type: 'meta' as const, label: '∞', sub: '', bg1: '#0081FB', bg2: '#0064E0', bg3: '#004DB3' },
+      { type: 'whatsapp' as const, label: '💬', sub: '', bg1: '#25D366', bg2: '#128C7E', bg3: '#075E54' },
+      { type: 'growth' as const, label: '🚀', sub: '', bg1: '#FF2E63', bg2: '#7C3AED', bg3: '#0284C7' }
     ];
 
     const orbitRadius = 2.8;
@@ -680,26 +461,26 @@ export class HeroCanvasComponent implements AfterViewInit, OnDestroy {
 
   @HostListener('window:mousemove', ['$event'])
   onMouseMove(e: MouseEvent) {
+    if (!this.renderer) return;
     const width = window.innerWidth;
     const height = window.innerHeight;
     this.targetX = (e.clientX / width - 0.5) * 2;
     this.targetY = -(e.clientY / height - 0.5) * 2;
   }
 
-  @HostListener('window:resize')
-  onResize() {
-    if (!this.containerRef || !this.renderer || !this.camera) return;
-    const width = this.containerRef.nativeElement.clientWidth || window.innerWidth;
-    const height = this.containerRef.nativeElement.clientHeight || window.innerHeight;
-
-    this.camera.aspect = width / height;
-    this.updateCameraDistance(width, height);
-    this.camera.updateProjectionMatrix();
-    this.renderer.setSize(width, height);
+  @HostListener('document:visibilitychange')
+  public syncAnimation() {
+    if (!this.renderer) return;
+    if (document.hidden || !this.inViewport) {
+      if (this.animFrameId !== null) cancelAnimationFrame(this.animFrameId);
+      this.animFrameId = null;
+    } else if (this.animFrameId === null) {
+      this.ngZone.runOutsideAngular(() => this.animate());
+    }
   }
 
   private animate() {
-    let clock = new THREE.Clock();
+    const clock = new THREE.Clock();
 
     const renderLoop = () => {
       const elapsedTime = clock.getElapsedTime();
@@ -707,17 +488,6 @@ export class HeroCanvasComponent implements AfterViewInit, OnDestroy {
       // Smooth Lerp Mouse Reactivity
       this.mouseX += (this.targetX - this.mouseX) * 0.05;
       this.mouseY += (this.targetY - this.mouseY) * 0.05;
-
-      // 1. Floating Cards Physics (Flanking Left & Right Wings)
-      this.cards.forEach((card) => {
-        const floatY = Math.sin(elapsedTime * card.floatSpeed + card.floatOffset) * 0.12;
-        card.mesh.position.y = card.baseY + floatY + this.mouseY * 0.15;
-        card.mesh.position.x = card.baseX + this.mouseX * 0.20;
-
-        // Subtle 3D cockpit tilt
-        card.mesh.rotation.x = card.rotX + Math.sin(elapsedTime * 0.8 + card.floatOffset) * 0.03 + this.mouseY * 0.06;
-        card.mesh.rotation.y = card.rotY + Math.cos(elapsedTime * 0.8 + card.floatOffset) * 0.03 + this.mouseX * 0.08;
-      });
 
       // 2. Orbiting Social Badges (Billboarding to always face camera)
       this.orbitingBadges.forEach((badge) => {
@@ -799,7 +569,8 @@ export class HeroCanvasComponent implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.animFrameId) {
+    this.viewportObserver?.disconnect();
+    if (this.animFrameId !== null) {
       cancelAnimationFrame(this.animFrameId);
     }
 
@@ -833,9 +604,6 @@ export class HeroCanvasComponent implements AfterViewInit, OnDestroy {
     if (this.renderer) {
       this.renderer.dispose();
       this.renderer.forceContextLoss();
-      if (this.renderer.domElement && this.renderer.domElement.parentNode) {
-        this.renderer.domElement.parentNode.removeChild(this.renderer.domElement);
-      }
     }
   }
 }

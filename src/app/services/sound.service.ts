@@ -1,20 +1,25 @@
-import { Injectable, signal } from '@angular/core';
+import { afterNextRender, Injectable, signal } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SoundService {
   private audioCtx: AudioContext | null = null;
-  public isMuted = signal<boolean>(false);
+  public isMuted = signal<boolean>(true);
 
   constructor() {
-    // Check saved audio preference
+    // Restore after hydration so the initial server and browser markup agree.
+    afterNextRender(() => {
     if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('nexorbit_sound_muted');
-      if (saved !== null) {
-        this.isMuted.set(saved === 'true');
+      try {
+        const saved = window.localStorage.getItem('metavex_sound_muted')
+          ?? window.localStorage.getItem('nexorbit_sound_muted');
+        if (saved !== null) this.isMuted.set(saved === 'true');
+      } catch {
+        // Storage may be blocked; keep sounds opt-in for this visit.
       }
     }
+    });
   }
 
   private initContext() {
@@ -25,7 +30,7 @@ export class SoundService {
       }
     }
     if (this.audioCtx && this.audioCtx.state === 'suspended') {
-      this.audioCtx.resume();
+      void this.audioCtx.resume().catch(() => {});
     }
   }
 
@@ -33,7 +38,11 @@ export class SoundService {
     const next = !this.isMuted();
     this.isMuted.set(next);
     if (typeof window !== 'undefined') {
-      localStorage.setItem('nexorbit_sound_muted', String(next));
+      try {
+        window.localStorage.setItem('metavex_sound_muted', String(next));
+      } catch {
+        // A blocked preference store must not prevent navigation or interaction.
+      }
     }
     if (!next) {
       this.playChime();

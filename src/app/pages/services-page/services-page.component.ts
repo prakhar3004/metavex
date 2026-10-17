@@ -1,19 +1,17 @@
-import { Component, Output, EventEmitter, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ServicesBentoComponent } from '../../components/services-bento/services-bento.component';
-import { SoundService } from '../../services/sound.service';
 
 @Component({
   selector: 'app-services-page',
   standalone: true,
-  imports: [CommonModule, RouterLink, ServicesBentoComponent],
+  imports: [RouterLink, ServicesBentoComponent],
   template: `
     <div class="pt-6 sm:pt-14 pb-16">
-      
+
       <!-- Page Header -->
       <div class="max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8 mb-8 sm:mb-14 text-center">
-        
+
         <!-- Breadcrumb & Badge -->
         <div class="flex items-center justify-center gap-2 mb-3">
           <a routerLink="/" class="text-xs font-mono text-slate-500 hover:text-slate-900">Home</a>
@@ -23,33 +21,33 @@ import { SoundService } from '../../services/sound.service';
 
         <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sunset-rose/10 border border-sunset-rose/25 text-sunset-rose text-[11px] sm:text-xs font-mono font-bold uppercase tracking-wider mb-4">
           <span class="w-2 h-2 rounded-full bg-sunset-rose animate-ping"></span>
-          Full-Stack Capabilities
+          Choose What Your Business Needs
         </div>
 
         <h1 class="font-heading text-2xl xs:text-3xl sm:text-5xl md:text-6xl font-black text-slate-900 tracking-tight mb-3 sm:mb-4">
-          Engineered For Speed, Ads ROAS & <br class="hidden sm:inline" />
+          A Clearer Website. Better Follow-Ups. <br class="hidden sm:inline" />
           <span class="text-transparent bg-clip-text bg-gradient-to-r from-sunset-rose via-electric-violet to-cyber-cyan">
-            Zero-Leak Inquiries.
+            A More Connected Business.
           </span>
         </h1>
 
-        <p class="max-w-2xl mx-auto text-slate-600 text-xs sm:text-base leading-relaxed px-1 sm:px-0">
-          We don’t do generic social media posts or bloated templates. We build custom high-speed web apps, high-intent Meta campaigns, and automated WhatsApp systems that convert Indian consumers.
+        <p class="max-w-2xl mx-auto text-slate-600 text-sm sm:text-base leading-relaxed px-1 sm:px-0">
+          Whether you need a better website, a focused ad campaign, or less manual work, start with the problem holding you back. We help you choose a practical place to begin.
         </p>
 
         <!-- Quick Action CTAs -->
         <div class="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mt-6 sm:mt-8 px-2 sm:px-0">
-          <button 
+          <button
             type="button"
             (click)="onOpenAudit()"
             class="w-full sm:w-auto px-6 py-3 rounded-2xl bg-gradient-to-r from-sunset-rose via-electric-violet to-cyber-cyan text-white font-heading font-bold text-xs sm:text-sm shadow-md hover:shadow-lg hover:scale-105 transition-all">
-            Get Free 30-Min Service Audit
+            Discuss My Business
           </button>
-          
-          <a 
+
+          <a
             routerLink="/calculator"
             class="w-full sm:w-auto px-6 py-3 rounded-2xl bg-white border border-slate-200 text-slate-800 font-heading font-bold text-xs sm:text-sm hover:bg-slate-50 transition-all text-center">
-            Calculate Your ROI →
+            Explore a Growth Scenario →
           </a>
         </div>
 
@@ -61,27 +59,27 @@ import { SoundService } from '../../services/sound.service';
       <!-- Detailed Breakdown Table of Deliverables -->
       <section class="max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8 mt-12 sm:mt-20">
         <div class="rounded-2xl sm:rounded-3xl bg-white border border-slate-200 p-4 sm:p-8 md:p-10 shadow-sm">
-          
+
           <div class="max-w-2xl mb-8">
-            <span class="text-xs font-mono text-sunset-rose uppercase tracking-wider font-bold">Standard vs MetaVex Delivery</span>
-            <h3 class="font-heading text-2xl sm:text-3xl font-extrabold text-slate-900 mt-1">
-              What Is Included In Every Engagement
-            </h3>
-            <p class="text-xs sm:text-sm text-slate-600 mt-2">
-              Transparent deliverables with clear ownership. You own 100% of your code, ad accounts, and WhatsApp bots.
+            <span class="text-xs font-mono text-sunset-rose uppercase tracking-wider font-bold">Plan Your Scope</span>
+            <h2 class="font-heading text-2xl sm:text-3xl font-extrabold text-slate-900 mt-1">
+              What We Can Build Around Your Needs
+            </h2>
+            <p class="text-sm text-slate-600 mt-2">
+              Your proposal sets out the deliverables, timeline, costs, and access arrangements. Choose one service or combine the parts your business needs.
             </p>
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            
+
             <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200">
               <span class="text-2xl mb-3 block">⚡</span>
               <h4 class="font-heading font-bold text-base text-slate-900 mb-2">Web Engineering</h4>
               <ul class="space-y-2 text-xs font-mono text-slate-600">
-                <li class="flex items-center gap-2"><span class="text-emerald-600 font-bold">✓</span> Sub-1.2s Load Speed on Jio 4G</li>
-                <li class="flex items-center gap-2"><span class="text-emerald-600 font-bold">✓</span> 1-Click Razorpay & Cashfree UPI</li>
-                <li class="flex items-center gap-2"><span class="text-emerald-600 font-bold">✓</span> Zero WordPress / Wix Plugin Bloat</li>
-                <li class="flex items-center gap-2"><span class="text-emerald-600 font-bold">✓</span> Cloudflare Global Edge CDN</li>
+                <li class="flex items-center gap-2"><span class="text-emerald-600 font-bold">✓</span> Mobile layout and page speed improvements</li>
+                <li class="flex items-center gap-2"><span class="text-emerald-600 font-bold">✓</span> Payment integration where needed</li>
+                <li class="flex items-center gap-2"><span class="text-emerald-600 font-bold">✓</span> Clear service or product pages</li>
+                <li class="flex items-center gap-2"><span class="text-emerald-600 font-bold">✓</span> Hosting and launch setup</li>
               </ul>
             </div>
 
@@ -89,10 +87,10 @@ import { SoundService } from '../../services/sound.service';
               <span class="text-2xl mb-3 block">📈</span>
               <h4 class="font-heading font-bold text-base text-slate-900 mb-2">Meta & Instagram Ads</h4>
               <ul class="space-y-2 text-xs font-mono text-slate-600">
-                <li class="flex items-center gap-2"><span class="text-emerald-600 font-bold">✓</span> Server-Side Meta CAPI Tracking</li>
-                <li class="flex items-center gap-2"><span class="text-emerald-600 font-bold">✓</span> High-Intent Creative Hooks & Reels</li>
-                <li class="flex items-center gap-2"><span class="text-emerald-600 font-bold">✓</span> 2.8x - 4.2x Targeted ROAS</li>
-                <li class="flex items-center gap-2"><span class="text-emerald-600 font-bold">✓</span> Weekly Transparent Ad Reports</li>
+                <li class="flex items-center gap-2"><span class="text-emerald-600 font-bold">✓</span> Conversion tracking setup where suitable</li>
+                <li class="flex items-center gap-2"><span class="text-emerald-600 font-bold">✓</span> Audience, offer, and creative testing</li>
+                <li class="flex items-center gap-2"><span class="text-emerald-600 font-bold">✓</span> Goals based on your budget and margins</li>
+                <li class="flex items-center gap-2"><span class="text-emerald-600 font-bold">✓</span> Reporting schedule agreed in your plan</li>
               </ul>
             </div>
 
@@ -100,10 +98,10 @@ import { SoundService } from '../../services/sound.service';
               <span class="text-2xl mb-3 block">💬</span>
               <h4 class="font-heading font-bold text-base text-slate-900 mb-2">WhatsApp Automation</h4>
               <ul class="space-y-2 text-xs font-mono text-slate-600">
-                <li class="flex items-center gap-2"><span class="text-emerald-600 font-bold">✓</span> Instant &lt; 30s Lead Responder</li>
-                <li class="flex items-center gap-2"><span class="text-emerald-600 font-bold">✓</span> Automated PDF Catalog / RFQ Bot</li>
-                <li class="flex items-center gap-2"><span class="text-emerald-600 font-bold">✓</span> Real-Time Google Sheets / CRM Sync</li>
-                <li class="flex items-center gap-2"><span class="text-emerald-600 font-bold">✓</span> Official Meta Cloud API (Zero Bans)</li>
+                <li class="flex items-center gap-2"><span class="text-emerald-600 font-bold">✓</span> Automated replies to common questions</li>
+                <li class="flex items-center gap-2"><span class="text-emerald-600 font-bold">✓</span> Catalog sharing and inquiry collection</li>
+                <li class="flex items-center gap-2"><span class="text-emerald-600 font-bold">✓</span> Lead updates in your CRM or Sheets</li>
+                <li class="flex items-center gap-2"><span class="text-emerald-600 font-bold">✓</span> API setup subject to platform approval</li>
               </ul>
             </div>
 
@@ -113,13 +111,13 @@ import { SoundService } from '../../services/sound.service';
           <div class="mt-8 pt-6 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4">
             <div>
               <p class="font-heading font-bold text-sm text-slate-900">Need a custom combination of services?</p>
-              <p class="text-xs text-slate-500 font-mono">We audit your current tech stack for free and propose only what brings revenue.</p>
+              <p class="text-xs text-slate-500 font-mono">Tell us where things get stuck. We can discuss the priorities before you commit to a project.</p>
             </div>
-            <button 
-              type="button" 
+            <button
+              type="button"
               (click)="onOpenAudit()"
               class="px-5 py-2.5 rounded-xl bg-slate-900 text-white font-heading font-bold text-xs hover:bg-slate-950 transition-colors">
-              Request Free Strategy Audit
+              Talk Through My Requirements
             </button>
           </div>
 
@@ -130,11 +128,9 @@ import { SoundService } from '../../services/sound.service';
   `
 })
 export class ServicesPageComponent {
-  public sound = inject(SoundService);
   @Output() openLeadModal = new EventEmitter<void>();
 
   public onOpenAudit() {
-    this.sound.playChime();
     this.openLeadModal.emit();
   }
 }
