@@ -18,17 +18,17 @@ interface Testimonial {
   standalone: true,
   imports: [CommonModule],
   template: `
-    <section class="relative py-24 overflow-hidden">
+    <section class="relative py-10 sm:py-16 overflow-hidden">
       
       <!-- Infinite Brand Partner Marquee - Light Luxury -->
-      <div class="mb-20">
-        <p class="text-center text-xs font-mono uppercase tracking-widest text-slate-500 font-bold mb-8">
+      <div class="mb-10 sm:mb-12">
+        <p class="text-center text-xs font-mono uppercase tracking-widest text-slate-500 font-bold mb-4 sm:mb-5">
           Trusted By Growing Indian Brands, Manufacturers & Service Businesses 🇮🇳
         </p>
 
         <!-- Marquee Track Wrapper -->
         <div class="relative w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_15%,black_85%,transparent)]">
-          <div class="ticker-track flex items-center gap-12 py-3">
+          <div class="ticker-track flex items-center gap-12 py-2.5">
             @for (brand of brands(); track brand.name) {
               <div class="flex items-center gap-3 px-6 py-3 rounded-2xl bg-white/85 border border-slate-200 shadow-sm backdrop-blur-md shrink-0 hover:border-sunset-rose/40 hover:shadow-md transition-all">
                 <span class="text-lg font-mono font-bold text-sunset-rose">{{ brand.icon }}</span>
@@ -59,16 +59,16 @@ interface Testimonial {
       <!-- Testimonials Grid - Luxury Light -->
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <div class="text-center max-w-2xl mx-auto mb-16">
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sunset-rose/10 border border-sunset-rose/25 text-sunset-rose text-xs font-mono font-bold uppercase tracking-wider mb-3">
+        <div class="text-center max-w-2xl mx-auto mb-8 sm:mb-10">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sunset-rose/10 border border-sunset-rose/25 text-sunset-rose text-xs font-mono font-bold uppercase tracking-wider mb-2.5">
             Real Client Reviews
           </div>
-          <h3 class="font-heading text-3xl sm:text-4xl font-extrabold text-slate-900">
+          <h3 class="font-heading text-2xl sm:text-4xl font-extrabold text-slate-900">
             What Founders Say About Working With Us
           </h3>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6">
           @for (item of testimonials(); track item.name) {
             <div class="rounded-3xl bg-white/90 border border-slate-200/90 hover:border-sunset-rose/40 p-6 sm:p-8 backdrop-blur-xl shadow-[0_10px_30px_rgba(15,23,42,0.04)] hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
               

@@ -7,18 +7,18 @@ import { SoundService } from '../../services/sound.service';
   standalone: true,
   imports: [CommonModule],
   template: `
-    <section id="services" class="relative py-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <section id="services" class="relative py-10 sm:py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto scroll-mt-16">
       
       <!-- Ambient Glows - Light Cyber Sunset -->
       <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-sunset-rose/5 rounded-full blur-[140px] pointer-events-none"></div>
 
       <!-- Section Title Header -->
-      <div class="text-center max-w-3xl mx-auto mb-20">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sunset-rose/10 border border-sunset-rose/25 text-sunset-rose text-xs font-mono font-bold uppercase tracking-wider mb-4">
+      <div class="text-center max-w-3xl mx-auto mb-8 sm:mb-10">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sunset-rose/10 border border-sunset-rose/25 text-sunset-rose text-xs font-mono font-bold uppercase tracking-wider mb-3">
           <span class="w-1.5 h-1.5 rounded-full bg-sunset-rose"></span>
           How We Help Your Business
         </div>
-        <h2 class="font-heading text-3xl sm:text-5xl font-extrabold tracking-tight text-slate-900 mb-6">
+        <h2 class="font-heading text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 mb-3 sm:mb-4">
           5 Core Growth Services Built for <br class="hidden sm:inline" />
           <span class="text-transparent bg-clip-text bg-gradient-to-r from-sunset-rose via-electric-violet to-cyber-cyan">
             Real Profit, Speed & Scale

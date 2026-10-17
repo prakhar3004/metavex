@@ -12,7 +12,7 @@
   <!-- ========================================== -->
   <!-- 2. HERO SECTION: "The Digital Metamorphosis" -->
   <!-- ========================================== -->
-  <section id="hero" class="relative min-h-screen flex items-center justify-center pt-24 pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
+  <section id="hero" class="relative pt-8 sm:pt-12 pb-8 sm:pb-12 px-4 sm:px-6 lg:px-8 overflow-hidden">
     
     <!-- 3D WebGL Interactive Three.js Canvas (Absolute Background) -->
     <div class="absolute inset-0 z-0 opacity-90 pointer-events-auto">
@@ -27,7 +27,7 @@
     <div class="relative z-20 max-w-5xl mx-auto text-center flex flex-col items-center">
       
       <!-- Live Status Pill - Cyber Sunset Light -->
-      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/90 border border-sunset-rose/30 backdrop-blur-xl shadow-sm mb-8 animate-float-slow">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/95 border border-sunset-rose/30 backdrop-blur-xl shadow-xs mb-4 animate-float-slow">
         <span class="relative flex h-2 w-2">
           <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-sunset-rose opacity-75"></span>
           <span class="relative inline-flex rounded-full h-2 w-2 bg-sunset-rose"></span>
@@ -38,7 +38,7 @@
       </div>
 
       <!-- Main Headline (Honest, High Impact, Benefit-Focused) -->
-      <h1 class="font-heading text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight text-slate-900 leading-[1.08] mb-6">
+      <h1 class="font-heading text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight text-slate-900 leading-[1.1] mb-3 sm:mb-4">
         Grow Your Business Online With
         <span class="block mt-1 text-transparent bg-clip-text bg-gradient-to-r from-sunset-rose via-electric-violet to-cyber-cyan drop-shadow-[0_4px_25px_rgba(255,46,99,0.22)]">
           High-Converting Tech, Ads & Automation.
@@ -46,18 +46,18 @@
       </h1>
 
       <!-- High-Conversion Subtitle: Direct Fayda / Benefit -->
-      <p class="max-w-2xl text-slate-600 text-base sm:text-xl font-normal leading-relaxed mb-10 text-balance">
+      <p class="max-w-2xl text-slate-600 text-sm sm:text-lg font-normal leading-relaxed mb-6 sm:mb-7 text-balance">
         We help ambitious Indian brands and growing businesses stop wasting money on slow websites and blind ad spending. We build fast modern web platforms, high-ROAS Meta campaigns, and automated WhatsApp lead systems that convert inquiries into paying customers.
       </p>
 
       <!-- Dual Magnetic CTAs -->
-      <div class="flex flex-col sm:flex-row items-center gap-4 mb-16 w-full sm:w-auto">
+      <div class="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 mb-8 sm:mb-10 w-full sm:w-auto">
         
         <!-- Primary CTA Button - Cyber Sunset -->
         <button 
           type="button"
           (click)="openLeadModal()"
-          class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-sunset-rose via-electric-violet to-cyber-cyan text-white font-heading font-extrabold text-sm sm:text-base tracking-wide shadow-neon-rose hover:shadow-neon-cyan/50 hover:scale-105 active:scale-95 transition-all duration-200 flex items-center justify-center gap-3 group">
+          class="w-full sm:w-auto px-7 py-3.5 rounded-2xl bg-gradient-to-r from-sunset-rose via-electric-violet to-cyber-cyan text-white font-heading font-extrabold text-sm sm:text-base tracking-wide shadow-neon-rose hover:shadow-neon-cyan/50 hover:scale-105 active:scale-95 transition-all duration-200 flex items-center justify-center gap-3 group">
           <span>Get Free 30-Min Growth Audit</span>
           <svg class="w-4 h-4 text-white group-hover:translate-x-1 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
             <path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
@@ -68,7 +68,7 @@
         <a 
           href="#services" 
           (click)="onScrollToSection('#services', $event)"
-          class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-white/90 hover:bg-white border border-slate-200/90 hover:border-sunset-rose/40 text-slate-800 hover:text-slate-950 font-heading font-bold text-sm sm:text-base tracking-wide backdrop-blur-xl shadow-sm hover:shadow-md transition-all duration-200 flex items-center justify-center gap-2">
+          class="w-full sm:w-auto px-7 py-3.5 rounded-2xl bg-white/90 hover:bg-white border border-slate-200/90 hover:border-sunset-rose/40 text-slate-800 hover:text-slate-950 font-heading font-bold text-sm sm:text-base tracking-wide backdrop-blur-xl shadow-xs hover:shadow-md transition-all duration-200 flex items-center justify-center gap-2">
           <span>See How We Help You</span>
           <span class="text-xs font-mono text-sunset-rose">↓</span>
         </a>
@@ -76,40 +76,32 @@
       </div>
 
       <!-- Kinetic Metrics Ticker / Stat Bar - Grounded in Real Benefits -->
-      <div class="w-full max-w-4xl p-1 rounded-2xl gradient-border-wrapper shadow-xl">
-        <div class="gradient-border-inner p-4 sm:p-6 grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 text-center">
+      <div class="w-full max-w-4xl p-1 rounded-2xl gradient-border-wrapper shadow-lg">
+        <div class="gradient-border-inner p-3.5 sm:p-5 grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 text-center">
           
           <div>
-            <p class="font-heading font-extrabold text-2xl sm:text-3xl text-slate-900">&lt; 1.2s</p>
-            <p class="text-[11px] font-mono text-slate-500 uppercase mt-0.5">Ultra-Fast Load Speed</p>
+            <p class="font-heading font-extrabold text-xl sm:text-2xl text-slate-900">&lt; 1.2s</p>
+            <p class="text-[10px] sm:text-[11px] font-mono text-slate-500 uppercase mt-0.5">Ultra-Fast Load Speed</p>
           </div>
 
           <div>
-            <p class="font-heading font-extrabold text-2xl sm:text-3xl text-sunset-rose">3.8x - 5.2x</p>
-            <p class="text-[11px] font-mono text-slate-500 uppercase mt-0.5">Average Meta Ads ROAS</p>
+            <p class="font-heading font-extrabold text-xl sm:text-2xl text-sunset-rose">3.8x - 5.2x</p>
+            <p class="text-[10px] sm:text-[11px] font-mono text-slate-500 uppercase mt-0.5">Average Meta Ads ROAS</p>
           </div>
 
           <div>
-            <p class="font-heading font-extrabold text-2xl sm:text-3xl text-cyber-cyan">25+ hrs</p>
-            <p class="text-[11px] font-mono text-slate-500 uppercase mt-0.5">Saved / Week via Workflows</p>
+            <p class="font-heading font-extrabold text-xl sm:text-2xl text-cyber-cyan">25+ hrs</p>
+            <p class="text-[10px] sm:text-[11px] font-mono text-slate-500 uppercase mt-0.5">Saved / Week via Workflows</p>
           </div>
 
           <div>
-            <p class="font-heading font-extrabold text-2xl sm:text-3xl text-electric-violet">100%</p>
-            <p class="text-[11px] font-mono text-slate-500 uppercase mt-0.5">Instant WhatsApp Capture</p>
+            <p class="font-heading font-extrabold text-xl sm:text-2xl text-electric-violet">100%</p>
+            <p class="text-[10px] sm:text-[11px] font-mono text-slate-500 uppercase mt-0.5">Instant WhatsApp Capture</p>
           </div>
 
         </div>
       </div>
 
-    </div>
-
-    <!-- Scroll Down Hint Indicator -->
-    <div class="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2 pointer-events-none opacity-70">
-      <span class="text-[10px] font-mono uppercase tracking-widest text-slate-500 font-semibold">Scroll to Explore</span>
-      <div class="w-4 h-7 rounded-full border border-slate-400 flex justify-center pt-1">
-        <span class="w-1 h-2 rounded-full bg-sunset-rose animate-bounce"></span>
-      </div>
     </div>
 
   </section>

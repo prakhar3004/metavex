@@ -7,15 +7,15 @@ import { SoundService } from '../../services/sound.service';
   standalone: true,
   imports: [CommonModule],
   template: `
-    <section id="gap" class="relative py-20 sm:py-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto overflow-hidden scroll-mt-20">
+    <section id="gap" class="relative py-10 sm:py-14 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto overflow-hidden scroll-mt-16">
       
       <!-- Ambient Glow Highlights -->
       <div class="absolute top-1/3 left-1/4 w-96 h-96 bg-sunset-rose/5 rounded-full blur-[140px] pointer-events-none"></div>
       <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-cyber-cyan/5 rounded-full blur-[140px] pointer-events-none"></div>
 
       <!-- Section Header -->
-      <div class="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sunset-rose/10 border border-sunset-rose/25 text-sunset-rose text-xs font-mono font-bold uppercase tracking-wider mb-4">
+      <div class="text-center max-w-3xl mx-auto mb-6 sm:mb-8">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sunset-rose/10 border border-sunset-rose/25 text-sunset-rose text-xs font-mono font-bold uppercase tracking-wider mb-3">
           <span class="w-1.5 h-1.5 rounded-full bg-sunset-rose animate-ping"></span>
           Before vs After Comparison
         </div>
@@ -31,7 +31,7 @@ import { SoundService } from '../../services/sound.service';
       </div>
 
       <!-- Interactive View Mode Controller -->
-      <div class="flex justify-center mb-8 sm:mb-12">
+      <div class="flex justify-center mb-5 sm:mb-6">
         <div class="inline-flex p-1.5 rounded-2xl bg-slate-100 border border-slate-200/90 shadow-inner max-w-md w-full sm:w-auto">
           
           <button 
@@ -269,7 +269,7 @@ import { SoundService } from '../../services/sound.service';
       <!-- ============================================== -->
       <!-- DIRECT VALUE COMPARISON METRICS TICKER         -->
       <!-- ============================================== -->
-      <div class="mt-12 sm:mt-16 grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6">
+      <div class="mt-6 sm:mt-8 grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-5">
         
         <div class="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200 shadow-xs text-center">
           <p class="text-[10px] sm:text-xs font-mono uppercase text-slate-500 font-bold mb-1">Speed to Response</p>
@@ -310,7 +310,7 @@ import { SoundService } from '../../services/sound.service';
       </div>
 
       <!-- Quick Summary Footnote -->
-      <div class="mt-8 flex flex-wrap items-center justify-center gap-4 sm:gap-8 text-xs font-mono text-slate-600 font-medium">
+      <div class="mt-4 sm:mt-6 flex flex-wrap items-center justify-center gap-4 sm:gap-8 text-xs font-mono text-slate-600 font-medium">
         <span class="flex items-center gap-2">
           <span class="w-2 h-2 rounded-full bg-sunset-rose"></span>
           Avg. 312% Growth in Pipeline Velocity

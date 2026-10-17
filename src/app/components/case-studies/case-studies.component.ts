@@ -23,29 +23,29 @@ export interface CaseStudy {
   standalone: true,
   imports: [CommonModule],
   template: `
-    <section id="case-studies" class="relative py-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <section id="case-studies" class="relative py-10 sm:py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto scroll-mt-16">
       
       <!-- Section Header -->
-      <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-10 gap-4 sm:gap-6">
         <div>
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sunset-rose/10 border border-sunset-rose/25 text-sunset-rose text-xs font-mono font-bold uppercase tracking-wider mb-4">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sunset-rose/10 border border-sunset-rose/25 text-sunset-rose text-xs font-mono font-bold uppercase tracking-wider mb-3">
             <span class="w-1.5 h-1.5 rounded-full bg-sunset-rose"></span>
             Battle-Tested Case Studies
           </div>
-          <h2 class="font-heading text-3xl sm:text-5xl font-extrabold tracking-tight text-slate-900">
+          <h2 class="font-heading text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900">
             Proven Proof Over <br class="hidden sm:inline" />
             <span class="text-transparent bg-clip-text bg-gradient-to-r from-sunset-rose via-electric-violet to-cyber-cyan">
               Marketing Promises
             </span>
           </h2>
         </div>
-        <p class="text-slate-600 text-sm sm:text-base max-w-md">
+        <p class="text-slate-600 text-xs sm:text-sm max-w-md">
           Explore real-world case studies detailing how we converted bottlenecked companies into automated, high-margin market leaders.
         </p>
       </div>
 
       <!-- Case Studies Cards Grid - Luxury Light -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
         @for (item of caseStudies(); track item.id) {
           <div 
             class="group rounded-3xl bg-white/85 border border-slate-200/90 hover:border-sunset-rose/40 p-6 sm:p-8 backdrop-blur-xl shadow-[0_10px_30px_rgba(15,23,42,0.04)] hover:shadow-xl transition-all duration-300 flex flex-col justify-between relative overflow-hidden cursor-pointer"

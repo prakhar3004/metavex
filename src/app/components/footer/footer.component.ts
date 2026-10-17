@@ -7,7 +7,7 @@ import { SoundService } from '../../services/sound.service';
   standalone: true,
   imports: [CommonModule],
   template: `
-    <footer class="relative bg-slate-100/90 border-t border-slate-200/80 pt-24 pb-12 overflow-hidden">
+    <footer class="relative bg-slate-100/90 border-t border-slate-200/80 pt-10 sm:pt-14 pb-10 overflow-hidden">
       
       <!-- Top Subtle Glow Line - Cyber Sunset -->
       <div class="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-sunset-rose/40 to-transparent"></div>
@@ -16,28 +16,28 @@ import { SoundService } from '../../services/sound.service';
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         <!-- Massive Typographic Display -->
-        <div class="text-center mb-16">
-          <p class="text-xs font-mono uppercase tracking-widest text-sunset-rose mb-3 font-bold">
+        <div class="text-center mb-8 sm:mb-10">
+          <p class="text-xs font-mono uppercase tracking-widest text-sunset-rose mb-2 font-bold">
             Ready To Grow Your Business?
           </p>
-          <h2 class="font-heading text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-b from-slate-900 via-slate-800 to-slate-500 select-none">
+          <h2 class="font-heading text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-b from-slate-900 via-slate-800 to-slate-500 select-none">
             LET'S BUILD YOUR GROWTH ENGINE
           </h2>
-          <p class="text-slate-600 text-sm sm:text-base max-w-xl mx-auto mt-4 mb-8">
+          <p class="text-slate-600 text-xs sm:text-sm max-w-xl mx-auto mt-2.5 mb-6">
             Stop losing potential customers to slow loading times, missed messages, and blind ad spend. Get a clean, high-performing digital system that generates real revenue.
           </p>
 
           <a 
             href="#hero" 
             (click)="onScrollTop($event)"
-            class="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-gradient-to-r from-sunset-rose via-electric-violet to-cyber-cyan text-white font-heading font-black text-sm uppercase tracking-wider shadow-neon-rose hover:scale-105 active:scale-95 transition-all duration-200">
+            class="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-gradient-to-r from-sunset-rose via-electric-violet to-cyber-cyan text-white font-heading font-black text-xs sm:text-sm uppercase tracking-wider shadow-neon-rose hover:scale-105 active:scale-95 transition-all duration-200">
             <span>Get Free Growth Audit & Strategy</span>
             <span>→</span>
           </a>
         </div>
 
         <!-- 4 Core Client Commitments (Replaces fake clocks) -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 p-5 rounded-3xl bg-white/80 border border-slate-200/90 backdrop-blur-xl mb-16 shadow-sm">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 p-4 sm:p-5 rounded-3xl bg-white/80 border border-slate-200/90 backdrop-blur-xl mb-8 sm:mb-12 shadow-xs">
           <div class="p-4 rounded-2xl bg-white/95 border border-slate-200/70 shadow-xs text-center sm:text-left">
             <span class="text-xl mb-1 block">🔒</span>
             <p class="font-heading font-bold text-xs text-slate-900">100% Asset Ownership</p>
@@ -64,7 +64,7 @@ import { SoundService } from '../../services/sound.service';
         </div>
 
         <!-- Links & Info Columns -->
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-10 pb-16 border-b border-slate-200">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 pb-10 sm:pb-12 border-b border-slate-200">
           
           <div class="md:col-span-1">
             <div class="flex items-center gap-3 mb-3">

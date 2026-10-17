@@ -18,27 +18,27 @@ interface BlueprintStep {
   standalone: true,
   imports: [CommonModule],
   template: `
-    <section id="blueprint" class="relative py-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <section id="blueprint" class="relative py-10 sm:py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto scroll-mt-16">
       
       <!-- Section Header -->
-      <div class="text-center max-w-3xl mx-auto mb-20">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sunset-rose/10 border border-sunset-rose/25 text-sunset-rose text-xs font-mono font-bold uppercase tracking-wider mb-4">
+      <div class="text-center max-w-3xl mx-auto mb-8 sm:mb-10">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sunset-rose/10 border border-sunset-rose/25 text-sunset-rose text-xs font-mono font-bold uppercase tracking-wider mb-3">
           <span class="w-1.5 h-1.5 rounded-full bg-sunset-rose"></span>
           The Proprietary Methodology
         </div>
-        <h2 class="font-heading text-3xl sm:text-5xl font-extrabold tracking-tight text-slate-900 mb-6">
+        <h2 class="font-heading text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 mb-3 sm:mb-4">
           The 30-Day <br class="hidden sm:inline" />
           <span class="text-transparent bg-clip-text bg-gradient-to-r from-sunset-rose via-electric-violet to-cyber-cyan">
             MetaVex Transformation Pipeline
           </span>
         </h2>
-        <p class="text-slate-600 text-base sm:text-lg leading-relaxed">
+        <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
           How we systematically extract your company from chaotic manual operations into an autonomous digital empire without missing a single day of business.
         </p>
       </div>
 
       <!-- Steps Selector Timeline - Luxury Light -->
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-10">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6 sm:mb-8">
         @for (step of steps(); track step.stepNumber; let idx = $index) {
           <button 
             type="button"
