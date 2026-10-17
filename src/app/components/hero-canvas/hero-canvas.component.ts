@@ -783,6 +783,21 @@ export class HeroCanvasComponent implements AfterViewInit, OnDestroy {
     renderLoop();
   }
 
+  @HostListener('window:resize')
+  @HostListener('window:orientationchange')
+  public onWindowResize() {
+    if (!this.renderer || !this.camera || !this.containerRef) return;
+    const width = this.containerRef.nativeElement.clientWidth || window.innerWidth;
+    const height = this.containerRef.nativeElement.clientHeight || window.innerHeight;
+
+    this.camera.aspect = width / height;
+    this.updateCameraDistance(width, height);
+    this.camera.updateProjectionMatrix();
+
+    this.renderer.setSize(width, height);
+    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  }
+
   ngOnDestroy() {
     if (this.animFrameId) {
       cancelAnimationFrame(this.animFrameId);

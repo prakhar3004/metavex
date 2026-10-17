@@ -17,40 +17,40 @@ import { SoundService } from '../../services/sound.service';
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
         <!-- Top CTA Card - High Conversion Banner -->
-        <div class="mb-10 p-6 sm:p-10 rounded-3xl bg-white border border-slate-200/90 shadow-[0_15px_40px_rgba(15,23,42,0.04)] relative overflow-hidden">
+        <div class="mb-8 sm:mb-10 p-4 sm:p-8 md:p-10 rounded-2xl sm:rounded-3xl bg-white border border-slate-200/90 shadow-[0_15px_40px_rgba(15,23,42,0.04)] relative overflow-hidden">
           <div class="absolute -top-20 -right-20 w-64 h-64 bg-sunset-rose/10 rounded-full blur-3xl pointer-events-none"></div>
           <div class="absolute -bottom-20 -left-20 w-64 h-64 bg-cyber-cyan/10 rounded-full blur-3xl pointer-events-none"></div>
 
-          <div class="relative z-10 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 sm:gap-8">
+          <div class="relative z-10 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5 sm:gap-8">
             <div class="max-w-2xl">
-              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sunset-rose/10 border border-sunset-rose/25 text-sunset-rose text-xs font-mono font-bold uppercase tracking-wider mb-3">
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sunset-rose/10 border border-sunset-rose/25 text-sunset-rose text-xs font-mono font-bold uppercase tracking-wider mb-2.5 sm:mb-3">
                 <span class="w-1.5 h-1.5 rounded-full bg-sunset-rose animate-ping"></span>
                 Scale Your Business Online
               </div>
-              <h2 class="font-heading text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 leading-[1.15]">
+              <h2 class="font-heading text-xl sm:text-3xl lg:text-4xl font-black tracking-tight text-slate-900 leading-[1.2]">
                 Ready to Build Your Automated <br class="hidden sm:inline" />
                 <span class="text-transparent bg-clip-text bg-gradient-to-r from-sunset-rose via-electric-violet to-cyber-cyan">
                   Digital Growth Engine?
                 </span>
               </h2>
-              <p class="text-slate-600 text-xs sm:text-sm mt-3 leading-relaxed">
+              <p class="text-slate-600 text-xs sm:text-sm mt-2.5 leading-relaxed">
                 Stop losing potential buyers to slow websites and delayed replies. Get a fast, high-converting digital setup that generates real revenue.
               </p>
             </div>
 
-            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0">
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3 shrink-0">
               <a 
                 href="https://wa.me/919026231315?text=Hi%20MetaVex%20Team%2C%20I%20want%20to%20grow%20my%20business%20online.%20Can%20we%20connect%3F" 
                 target="_blank"
                 rel="noopener noreferrer"
-                class="px-6 py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-heading font-bold text-xs sm:text-sm tracking-wide shadow-md hover:shadow-lg hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2 group">
+                class="px-5 sm:px-6 py-3 sm:py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-heading font-bold text-xs sm:text-sm tracking-wide shadow-md hover:shadow-lg hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2 group">
                 <span class="text-base">💬</span>
                 <span>Chat on WhatsApp</span>
               </a>
 
               <a 
                 routerLink="/contact"
-                class="px-6 py-3.5 rounded-2xl bg-slate-900 hover:bg-slate-950 text-white font-heading font-bold text-xs sm:text-sm tracking-wide shadow-md hover:shadow-lg hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2 group">
+                class="px-5 sm:px-6 py-3 sm:py-3.5 rounded-2xl bg-slate-900 hover:bg-slate-950 text-white font-heading font-bold text-xs sm:text-sm tracking-wide shadow-md hover:shadow-lg hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2 group">
                 <span>Free Growth Audit</span>
                 <span class="text-sunset-rose group-hover:translate-x-0.5 transition-transform">→</span>
               </a>

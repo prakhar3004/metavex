@@ -31,26 +31,28 @@ import { SoundService } from '../../services/sound.service';
       </div>
 
       <!-- Interactive View Mode Controller -->
-      <div class="flex justify-center mb-5 sm:mb-6">
-        <div class="inline-flex p-1.5 rounded-2xl bg-slate-100 border border-slate-200/90 shadow-inner max-w-md w-full sm:w-auto">
+      <div class="flex justify-center mb-5 sm:mb-6 px-1">
+        <div class="inline-flex p-1 sm:p-1.5 rounded-2xl bg-slate-100 border border-slate-200/90 shadow-inner max-w-md w-full sm:w-auto">
           
           <button 
             type="button" 
             (click)="setView('compare')"
-            class="flex-1 sm:flex-initial py-2.5 px-4 rounded-xl text-xs font-heading font-bold transition-all flex items-center justify-center gap-2"
+            class="flex-1 sm:flex-initial py-2 sm:py-2.5 px-2 sm:px-4 rounded-xl text-[11px] sm:text-xs font-heading font-bold transition-all flex items-center justify-center gap-1.5 whitespace-nowrap"
             [class.bg-white]="currentView() === 'compare'"
             [class.text-slate-900]="currentView() === 'compare'"
             [class.shadow-md]="currentView() === 'compare'"
             [class.border]="currentView() === 'compare'"
             [class.border-slate-200]="currentView() === 'compare'"
             [class.text-slate-500]="currentView() !== 'compare'">
-            <span>⚖️ Compare Both</span>
+            <span>⚖️</span>
+            <span class="hidden xs:inline">Compare Both</span>
+            <span class="xs:hidden">Both</span>
           </button>
 
           <button 
             type="button" 
             (click)="setView('metavex')"
-            class="flex-1 sm:flex-initial py-2.5 px-4 rounded-xl text-xs font-heading font-bold transition-all flex items-center justify-center gap-2"
+            class="flex-1 sm:flex-initial py-2 sm:py-2.5 px-2 sm:px-4 rounded-xl text-[11px] sm:text-xs font-heading font-bold transition-all flex items-center justify-center gap-1.5 whitespace-nowrap"
             [class.bg-white]="currentView() === 'metavex'"
             [class.text-emerald-700]="currentView() === 'metavex'"
             [class.shadow-md]="currentView() === 'metavex'"
@@ -58,13 +60,14 @@ import { SoundService } from '../../services/sound.service';
             [class.border-slate-200]="currentView() === 'metavex'"
             [class.text-slate-500]="currentView() !== 'metavex'">
             <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-            <span>With MetaVex</span>
+            <span class="hidden xs:inline">With MetaVex</span>
+            <span class="xs:hidden">MetaVex</span>
           </button>
 
           <button 
             type="button" 
             (click)="setView('traditional')"
-            class="flex-1 sm:flex-initial py-2.5 px-4 rounded-xl text-xs font-heading font-bold transition-all flex items-center justify-center gap-2"
+            class="flex-1 sm:flex-initial py-2 sm:py-2.5 px-2 sm:px-4 rounded-xl text-[11px] sm:text-xs font-heading font-bold transition-all flex items-center justify-center gap-1.5 whitespace-nowrap"
             [class.bg-white]="currentView() === 'traditional'"
             [class.text-red-700]="currentView() === 'traditional'"
             [class.shadow-md]="currentView() === 'traditional'"
@@ -72,7 +75,8 @@ import { SoundService } from '../../services/sound.service';
             [class.border-slate-200]="currentView() === 'traditional'"
             [class.text-slate-500]="currentView() !== 'traditional'">
             <span class="w-2 h-2 rounded-full bg-red-500"></span>
-            <span>Traditional Setup</span>
+            <span class="hidden xs:inline">Traditional</span>
+            <span class="xs:hidden">Old Way</span>
           </button>
 
         </div>

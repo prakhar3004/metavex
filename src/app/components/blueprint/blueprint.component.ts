@@ -122,7 +122,7 @@ interface BlueprintStep {
       <!-- ACTIVE STEP COCKPIT CONTAINER (Modern Glass Card)        -->
       <!-- ======================================================== -->
       @if (currentStep()) {
-        <div class="rounded-3xl bg-white/95 border border-slate-200/90 p-6 sm:p-10 lg:p-12 backdrop-blur-2xl shadow-[0_20px_50px_rgba(15,23,42,0.06)] relative overflow-hidden transition-all duration-300">
+        <div class="rounded-2xl sm:rounded-3xl bg-white/95 border border-slate-200/90 p-4 sm:p-8 md:p-10 lg:p-12 backdrop-blur-2xl shadow-[0_20px_50px_rgba(15,23,42,0.06)] relative overflow-hidden transition-all duration-300">
           
           <!-- Subtle Accent Corner Glow -->
           <div 

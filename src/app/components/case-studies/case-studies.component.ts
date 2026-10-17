@@ -65,10 +65,10 @@ export interface CaseStudy {
       </div>
 
       <!-- Case Studies Cards Grid - Luxury Light -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
         @for (item of caseStudies(); track item.id) {
           <div 
-            class="group rounded-3xl bg-white/90 border border-slate-200 hover:border-sunset-rose/40 p-6 sm:p-8 backdrop-blur-xl shadow-[0_10px_30px_rgba(15,23,42,0.04)] hover:shadow-xl transition-all duration-300 flex flex-col justify-between relative overflow-hidden cursor-pointer"
+            class="group rounded-2xl sm:rounded-3xl bg-white/90 border border-slate-200 hover:border-sunset-rose/40 p-4 sm:p-8 backdrop-blur-xl shadow-[0_10px_30px_rgba(15,23,42,0.04)] hover:shadow-xl transition-all duration-300 flex flex-col justify-between relative overflow-hidden cursor-pointer"
             (click)="openModal(item)">
             
             <!-- Radiant Background Glow on Hover -->
@@ -78,44 +78,44 @@ export interface CaseStudy {
 
             <div>
               <!-- Top Location, Industry & Timeline -->
-              <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
-                <span class="text-xs font-mono text-slate-500 uppercase tracking-wider font-semibold flex items-center gap-1.5">
+              <div class="flex flex-wrap items-center justify-between gap-2 mb-3.5 sm:mb-4">
+                <span class="text-[11px] sm:text-xs font-mono text-slate-500 uppercase tracking-wider font-semibold flex items-center gap-1.5">
                   <span>📍 {{ item.location }}</span>
                   <span>•</span>
                   <span>{{ item.timeline }}</span>
                 </span>
-                <span class="px-2.5 py-1 rounded-full bg-slate-100 border border-slate-200 text-xs font-mono text-slate-700 font-semibold">
+                <span class="px-2.5 py-0.5 sm:py-1 rounded-full bg-slate-100 border border-slate-200 text-[10px] sm:text-xs font-mono text-slate-700 font-semibold">
                   {{ item.clientCategory }}
                 </span>
               </div>
 
               <!-- Real Metric Highlight (Grounded & Honest) -->
-              <div class="mb-4">
-                <p class="text-3xl sm:text-4xl font-heading font-black text-slate-900">
+              <div class="mb-3.5 sm:mb-4">
+                <p class="text-2xl sm:text-4xl font-heading font-black text-slate-900">
                   {{ item.metricHighlight }}
                 </p>
-                <p class="text-xs font-mono text-sunset-rose mt-1 font-bold">
+                <p class="text-[11px] sm:text-xs font-mono text-sunset-rose mt-1 font-bold">
                   {{ item.metricLabel }}
                 </p>
               </div>
 
               <!-- Title & Desc -->
-              <h3 class="font-heading text-lg sm:text-xl font-bold text-slate-900 mb-2.5 group-hover:text-sunset-rose transition-colors">
+              <h3 class="font-heading text-base sm:text-xl font-bold text-slate-900 mb-2 group-hover:text-sunset-rose transition-colors">
                 {{ item.title }}
               </h3>
-              <p class="text-slate-600 text-xs sm:text-sm leading-relaxed mb-5">
+              <p class="text-slate-600 text-xs sm:text-sm leading-relaxed mb-4 sm:mb-5">
                 {{ item.desc }}
               </p>
 
               <!-- Honest Before vs After Mini-Comparison Bar -->
-              <div class="grid grid-cols-2 gap-2.5 p-3 rounded-2xl bg-slate-50 border border-slate-200/80 mb-5 text-[11px] font-mono">
-                <div class="border-r border-slate-200/80 pr-2">
-                  <span class="text-red-700 font-bold block mb-1">✕ BEFORE METAVEX:</span>
+              <div class="grid grid-cols-2 gap-2 p-2.5 sm:p-3 rounded-xl sm:rounded-2xl bg-slate-50 border border-slate-200/80 mb-4 sm:mb-5 text-[10px] sm:text-[11px] font-mono">
+                <div class="border-r border-slate-200/80 pr-1.5 sm:pr-2">
+                  <span class="text-red-700 font-bold block mb-1">✕ BEFORE:</span>
                   <p class="text-slate-600 truncate">• {{ item.beforeBaseline.speedOrResponse }}</p>
                   <p class="text-slate-600 truncate">• {{ item.beforeBaseline.roasOrQuality }}</p>
                 </div>
-                <div class="pl-1">
-                  <span class="text-emerald-700 font-bold block mb-1">✓ WITH METAVEX:</span>
+                <div class="pl-1 sm:pl-1.5">
+                  <span class="text-emerald-700 font-bold block mb-1">✓ METAVEX:</span>
                   <p class="text-slate-900 font-bold truncate">• {{ item.afterResult.speedOrResponse }}</p>
                   <p class="text-slate-900 font-bold truncate">• {{ item.afterResult.roasOrQuality }}</p>
                 </div>
@@ -124,17 +124,17 @@ export interface CaseStudy {
 
             <!-- Tags & Modal Trigger -->
             <div>
-              <div class="flex flex-wrap gap-1.5 mb-5">
+              <div class="flex flex-wrap gap-1 sm:gap-1.5 mb-4 sm:mb-5">
                 @for (tag of item.tags; track tag) {
-                  <span class="px-2.5 py-1 rounded-lg bg-slate-100 border border-slate-200 text-[11px] font-mono text-slate-600 font-medium">
+                  <span class="px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-lg bg-slate-100 border border-slate-200 text-[10px] sm:text-[11px] font-mono text-slate-600 font-medium">
                     {{ tag }}
                   </span>
                 }
               </div>
 
-              <div class="flex items-center justify-between pt-4 border-t border-slate-200 text-xs font-mono text-slate-600 group-hover:text-slate-950 font-semibold transition-colors">
-                <span>View Full Architecture & Audit Breakdown</span>
-                <span class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center group-hover:bg-sunset-rose group-hover:text-white transition-all duration-200">
+              <div class="flex items-center justify-between pt-3 sm:pt-4 border-t border-slate-200 text-[11px] sm:text-xs font-mono text-slate-600 group-hover:text-slate-950 font-semibold transition-colors">
+                <span class="truncate mr-2">View Architecture Breakdown</span>
+                <span class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-slate-100 flex items-center justify-center group-hover:bg-sunset-rose group-hover:text-white transition-all duration-200 shrink-0">
                   →
                 </span>
               </div>
@@ -146,24 +146,24 @@ export interface CaseStudy {
 
       <!-- Case Study Modal / Drawer - Light Theme -->
       @if (activeModal()) {
-        <div class="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 bg-slate-900/40 backdrop-blur-md animate-in fade-in duration-200">
+        <div class="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-6 bg-slate-900/40 backdrop-blur-md animate-in fade-in duration-200">
           <div 
-            class="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-3xl bg-white border border-slate-200 p-6 sm:p-10 shadow-2xl text-slate-800">
+            class="relative w-full max-w-3xl max-h-[92dvh] overflow-y-auto rounded-2xl sm:rounded-3xl bg-white border border-slate-200 p-4 sm:p-8 md:p-10 shadow-2xl text-slate-800">
             
             <!-- Close Button -->
             <button 
               type="button"
               (click)="closeModal()"
-              class="absolute top-6 right-6 w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 hover:text-slate-950 flex items-center justify-center transition-colors">
+              class="absolute top-4 right-4 sm:top-6 sm:right-6 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 hover:text-slate-950 flex items-center justify-center transition-colors">
               ✕
             </button>
 
             <!-- Modal Content Header -->
-            <div class="mb-6">
-              <span class="text-xs font-mono text-sunset-rose font-bold uppercase tracking-wider">
-                Audit & Implementation Breakdown • {{ activeModal()?.clientCategory }} ({{ activeModal()?.location }})
+            <div class="mb-5 sm:mb-6 pr-8">
+              <span class="text-[10px] sm:text-xs font-mono text-sunset-rose font-bold uppercase tracking-wider block">
+                Audit & Implementation • {{ activeModal()?.clientCategory }} ({{ activeModal()?.location }})
               </span>
-              <h3 class="font-heading text-xl sm:text-2xl font-extrabold text-slate-900 mt-1">
+              <h3 class="font-heading text-lg sm:text-2xl font-extrabold text-slate-900 mt-1">
                 {{ activeModal()?.title }}
               </h3>
             </div>

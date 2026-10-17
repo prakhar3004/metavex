@@ -9,20 +9,20 @@ import { SoundService } from '../../services/sound.service';
   imports: [CommonModule, RouterLink, RouterLinkActive],
   template: `
     <header class="sticky top-0 inset-x-0 z-50 w-full bg-white/92 backdrop-blur-2xl border-b border-slate-200/80 shadow-[0_4px_25px_rgba(15,23,42,0.03)] transition-all duration-300">
-      <nav class="w-full max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-6 lg:px-8 py-3">
+      <nav class="w-full max-w-7xl mx-auto flex items-center justify-between px-3 sm:px-6 lg:px-8 py-2.5 sm:py-3">
         
         <!-- Logo -->
-        <a routerLink="/" (click)="onLogoClick()" class="flex items-center gap-3 group focus:outline-none shrink-0">
-          <div class="relative w-9 h-9 rounded-xl overflow-hidden shadow-sm group-hover:shadow-md transition-all duration-300 ring-1 ring-slate-200">
+        <a routerLink="/" (click)="onLogoClick()" class="flex items-center gap-2 sm:gap-3 group focus:outline-none shrink-0">
+          <div class="relative w-8 h-8 sm:w-9 sm:h-9 rounded-xl overflow-hidden shadow-xs group-hover:shadow-md transition-all duration-300 ring-1 ring-slate-200">
             <img src="logo.png" alt="MetaVex Digital Logo" class="w-full h-full object-cover">
           </div>
 
           <div class="flex flex-col">
-            <div class="flex items-center gap-1.5">
-              <span class="font-heading font-black text-base tracking-wider text-slate-900">METAVEX</span>
-              <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-sunset-rose/10 text-sunset-rose border border-sunset-rose/25 tracking-widest font-bold uppercase">DIGITAL</span>
+            <div class="flex items-center gap-1 sm:gap-1.5">
+              <span class="font-heading font-black text-sm sm:text-base tracking-wider text-slate-900">METAVEX</span>
+              <span class="text-[9px] sm:text-[10px] font-mono px-1 sm:px-1.5 py-0.5 rounded bg-sunset-rose/10 text-sunset-rose border border-sunset-rose/25 tracking-widest font-bold uppercase">DIGITAL</span>
             </div>
-            <span class="text-[9px] font-mono tracking-widest text-slate-500 uppercase -mt-0.5 font-semibold hidden sm:inline">Growth & Automation Partner</span>
+            <span class="text-[9px] font-mono tracking-widest text-slate-500 uppercase -mt-0.5 font-semibold hidden md:inline">Growth & Automation Partner</span>
           </div>
         </a>
 
@@ -90,9 +90,9 @@ import { SoundService } from '../../services/sound.service';
         </div>
 
         <!-- Right Side: Availability Badge & CTAs -->
-        <div class="flex items-center gap-2.5 sm:gap-3 shrink-0">
+        <div class="flex items-center gap-1.5 sm:gap-3 shrink-0">
           
-          <!-- Live Capacity Badge -->
+          <!-- Live Capacity Badge (Large Desktop Only) -->
           <div class="hidden 2xl:flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-200/80 text-[11px] font-mono text-emerald-800 font-semibold shadow-xs whitespace-nowrap">
             <span class="relative flex h-2 w-2">
               <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75"></span>
@@ -129,9 +129,10 @@ import { SoundService } from '../../services/sound.service';
             (click)="onOpenLeadModal()"
             class="relative group p-[1px] rounded-full overflow-hidden shadow-neon-rose hover:shadow-lg hover:scale-105 active:scale-95 transition-all duration-300 shrink-0">
             <span class="absolute inset-0 bg-gradient-to-r from-sunset-rose via-electric-violet to-cyber-cyan animate-shimmer bg-[length:200%_auto]"></span>
-            <span class="relative px-3.5 sm:px-5 py-2 rounded-full bg-slate-900 group-hover:bg-slate-950 flex items-center gap-2 text-xs font-bold text-white transition-colors duration-200 whitespace-nowrap">
-              <span>Free Growth Audit</span>
-              <svg class="w-3.5 h-3.5 text-sunset-rose group-hover:translate-x-0.5 transition-transform duration-200" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <span class="relative px-3 sm:px-4 md:px-5 py-1.5 sm:py-2 rounded-full bg-slate-900 group-hover:bg-slate-950 flex items-center gap-1.5 sm:gap-2 text-[11px] sm:text-xs font-bold text-white transition-colors duration-200 whitespace-nowrap">
+              <span class="hidden sm:inline">Free Growth Audit</span>
+              <span class="sm:hidden">Free Audit</span>
+              <svg class="w-3 h-3 sm:w-3.5 sm:h-3.5 text-sunset-rose group-hover:translate-x-0.5 transition-transform duration-200" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                 <path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </span>
@@ -141,7 +142,7 @@ import { SoundService } from '../../services/sound.service';
           <button 
             type="button"
             (click)="toggleMobileMenu()"
-            class="lg:hidden p-2 rounded-lg bg-slate-100 border border-slate-200 text-slate-700 hover:text-slate-950 focus:outline-none"
+            class="lg:hidden p-2 rounded-xl bg-slate-100 border border-slate-200 text-slate-700 hover:text-slate-950 focus:outline-none shrink-0"
             aria-label="Toggle Mobile Menu">
             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
               @if (!mobileMenuOpen()) {
@@ -155,48 +156,92 @@ import { SoundService } from '../../services/sound.service';
         </div>
       </nav>
 
+      <!-- Mobile Backdrop Overlay (Click to close) -->
+      @if (mobileMenuOpen()) {
+        <div 
+          (click)="closeMobileMenu()" 
+          class="lg:hidden fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-40 transition-opacity duration-300">
+        </div>
+      }
+
       <!-- Mobile Navigation Drawer -->
       @if (mobileMenuOpen()) {
-        <div class="lg:hidden fixed inset-x-4 top-20 p-5 rounded-2xl bg-white/95 backdrop-blur-3xl border border-slate-200 shadow-2xl flex flex-col gap-2 animate-in fade-in slide-in-from-top-4 duration-300 z-50">
-          <a routerLink="/" (click)="closeMobileMenu()" class="px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-800 hover:bg-slate-100 flex items-center justify-between">
-            <span>Home</span>
+        <div class="lg:hidden fixed inset-x-3 sm:inset-x-6 top-16 sm:top-20 p-4 sm:p-5 rounded-2xl bg-white/98 backdrop-blur-3xl border border-slate-200 shadow-2xl flex flex-col gap-1.5 animate-in fade-in slide-in-from-top-4 duration-300 z-50 max-h-[calc(100dvh-5rem)] overflow-y-auto">
+          
+          <a 
+            routerLink="/" 
+            [routerLinkActiveOptions]="{ exact: true }"
+            routerLinkActive="bg-slate-100 font-extrabold text-slate-950"
+            (click)="closeMobileMenu()" 
+            class="px-3.5 py-3 rounded-xl text-sm font-semibold text-slate-800 hover:bg-slate-100 flex items-center justify-between transition-colors">
+            <span>🏠 Home</span>
             <span class="text-xs font-mono text-slate-400">00</span>
           </a>
-          <a routerLink="/services" (click)="closeMobileMenu()" class="px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-800 hover:bg-slate-100 flex items-center justify-between">
-            <span>5 Core Growth Services</span>
+
+          <a 
+            routerLink="/services" 
+            routerLinkActive="bg-rose-50 text-sunset-rose font-extrabold"
+            (click)="closeMobileMenu()" 
+            class="px-3.5 py-3 rounded-xl text-sm font-semibold text-slate-800 hover:bg-slate-100 flex items-center justify-between transition-colors">
+            <span>⚡ 5 Core Growth Services</span>
             <span class="text-xs font-mono text-sunset-rose font-bold">01</span>
           </a>
-          <a routerLink="/comparison" (click)="closeMobileMenu()" class="px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-800 hover:bg-slate-100 flex items-center justify-between">
-            <span>Before vs After: Reality Check</span>
+
+          <a 
+            routerLink="/comparison" 
+            routerLinkActive="bg-sky-50 text-cyber-cyan font-extrabold"
+            (click)="closeMobileMenu()" 
+            class="px-3.5 py-3 rounded-xl text-sm font-semibold text-slate-800 hover:bg-slate-100 flex items-center justify-between transition-colors">
+            <span>⚖️ Before vs After: Reality Check</span>
             <span class="text-xs font-mono text-cyber-cyan font-bold">02</span>
           </a>
-          <a routerLink="/calculator" (click)="closeMobileMenu()" class="px-4 py-2.5 rounded-xl text-sm font-bold text-sunset-rose hover:bg-sunset-rose/10 flex items-center justify-between">
-            <span>Calculate ROI & Hours Saved</span>
+
+          <a 
+            routerLink="/calculator" 
+            routerLinkActive="bg-rose-50 text-sunset-rose font-extrabold"
+            (click)="closeMobileMenu()" 
+            class="px-3.5 py-3 rounded-xl text-sm font-bold text-sunset-rose hover:bg-sunset-rose/10 flex items-center justify-between transition-colors">
+            <span>📊 Calculate ROI & Hours Saved</span>
             <span class="text-xs font-mono text-sunset-rose">03</span>
           </a>
-          <a routerLink="/case-studies" (click)="closeMobileMenu()" class="px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-800 hover:bg-slate-100 flex items-center justify-between">
-            <span>Real Indian Client Case Studies</span>
+
+          <a 
+            routerLink="/case-studies" 
+            routerLinkActive="bg-slate-100 text-slate-950 font-extrabold"
+            (click)="closeMobileMenu()" 
+            class="px-3.5 py-3 rounded-xl text-sm font-semibold text-slate-800 hover:bg-slate-100 flex items-center justify-between transition-colors">
+            <span>📁 Real Indian Client Case Studies</span>
             <span class="text-xs font-mono text-slate-500 font-bold">04</span>
           </a>
-          <a routerLink="/process" (click)="closeMobileMenu()" class="px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-800 hover:bg-slate-100 flex items-center justify-between">
-            <span>Our 30-Day Working Process</span>
+
+          <a 
+            routerLink="/process" 
+            routerLinkActive="bg-emerald-50 text-emerald-800 font-extrabold"
+            (click)="closeMobileMenu()" 
+            class="px-3.5 py-3 rounded-xl text-sm font-semibold text-slate-800 hover:bg-slate-100 flex items-center justify-between transition-colors">
+            <span>🛣️ Our 30-Day Working Process</span>
             <span class="text-xs font-mono text-emerald-600 font-bold">05</span>
           </a>
-          <a routerLink="/contact" (click)="closeMobileMenu()" class="px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-800 hover:bg-slate-100 flex items-center justify-between">
-            <span>Contact & Direct WhatsApp</span>
+
+          <a 
+            routerLink="/contact" 
+            routerLinkActive="bg-purple-50 text-electric-violet font-extrabold"
+            (click)="closeMobileMenu()" 
+            class="px-3.5 py-3 rounded-xl text-sm font-semibold text-slate-800 hover:bg-slate-100 flex items-center justify-between transition-colors">
+            <span>📞 Contact & Direct WhatsApp</span>
             <span class="text-xs font-mono text-electric-violet font-bold">06</span>
           </a>
 
-          <div class="pt-3 border-t border-slate-200 flex items-center justify-between">
+          <div class="pt-3.5 mt-1 border-t border-slate-200 flex items-center justify-between gap-3">
             <span class="text-xs font-mono text-emerald-700 flex items-center gap-1.5 font-bold">
-              <span class="w-2 h-2 rounded-full bg-emerald-500 inline-block"></span>
+              <span class="w-2 h-2 rounded-full bg-emerald-500 inline-block animate-pulse"></span>
               3 Slots Available
             </span>
             <button 
               type="button" 
               (click)="onOpenLeadModal()"
-              class="px-4 py-2 rounded-xl bg-gradient-to-r from-sunset-rose via-electric-violet to-cyber-cyan text-xs font-bold text-white shadow-md">
-              Get Free Audit
+              class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-sunset-rose via-electric-violet to-cyber-cyan text-xs font-bold text-white shadow-md active:scale-95 transition-all">
+              Get Free Audit →
             </button>
           </div>
         </div>

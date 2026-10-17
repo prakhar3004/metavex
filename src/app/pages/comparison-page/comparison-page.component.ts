@@ -9,10 +9,10 @@ import { SoundService } from '../../services/sound.service';
   standalone: true,
   imports: [CommonModule, RouterLink, BeforeAfterComponent],
   template: `
-    <div class="pt-8 sm:pt-14 pb-16">
+    <div class="pt-6 sm:pt-14 pb-16">
       
       <!-- Page Header -->
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 sm:mb-12 text-center">
+      <div class="max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8 mb-8 sm:mb-12 text-center">
         
         <!-- Breadcrumb -->
         <div class="flex items-center justify-center gap-2 mb-3">
@@ -21,33 +21,33 @@ import { SoundService } from '../../services/sound.service';
           <span class="text-xs font-mono text-sunset-rose font-bold uppercase">Comparison</span>
         </div>
 
-        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sunset-rose/10 border border-sunset-rose/25 text-sunset-rose text-xs font-mono font-bold uppercase tracking-wider mb-4">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sunset-rose/10 border border-sunset-rose/25 text-sunset-rose text-[11px] sm:text-xs font-mono font-bold uppercase tracking-wider mb-4">
           <span class="w-2 h-2 rounded-full bg-sunset-rose animate-ping"></span>
           Operational Reality Check
         </div>
 
-        <h1 class="font-heading text-3xl sm:text-5xl md:text-6xl font-black text-slate-900 tracking-tight mb-4">
+        <h1 class="font-heading text-2xl xs:text-3xl sm:text-5xl md:text-6xl font-black text-slate-900 tracking-tight mb-3 sm:mb-4">
           The Cost of Manual Chaos vs <br class="hidden sm:inline" />
           <span class="text-transparent bg-clip-text bg-gradient-to-r from-sunset-rose via-electric-violet to-cyber-cyan">
             Autonomous Digital Scaling.
           </span>
         </h1>
 
-        <p class="max-w-2xl mx-auto text-slate-600 text-sm sm:text-base leading-relaxed">
+        <p class="max-w-2xl mx-auto text-slate-600 text-xs sm:text-base leading-relaxed px-1 sm:px-0">
           See the transparent, side-by-side operational differences between running a business on slow templates and manual phone calls versus MetaVex high-converting automation.
         </p>
 
         <!-- Quick CTAs -->
-        <div class="flex flex-wrap items-center justify-center gap-3 mt-6">
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-3 mt-6 px-2 sm:px-0">
           <button 
             type="button"
             (click)="onOpenAudit()"
-            class="px-6 py-3 rounded-2xl bg-gradient-to-r from-sunset-rose via-electric-violet to-cyber-cyan text-white font-heading font-bold text-xs sm:text-sm shadow-md hover:scale-105 transition-all">
+            class="w-full sm:w-auto px-6 py-3 rounded-2xl bg-gradient-to-r from-sunset-rose via-electric-violet to-cyber-cyan text-white font-heading font-bold text-xs sm:text-sm shadow-md hover:scale-105 transition-all">
             Get Free Funnel Leak Audit
           </button>
           <a 
             routerLink="/case-studies"
-            class="px-6 py-3 rounded-2xl bg-white border border-slate-200 text-slate-800 font-heading font-bold text-xs sm:text-sm hover:bg-slate-50 transition-all">
+            class="w-full sm:w-auto px-6 py-3 rounded-2xl bg-white border border-slate-200 text-slate-800 font-heading font-bold text-xs sm:text-sm hover:bg-slate-50 transition-all text-center">
             See Real Client Proof →
           </a>
         </div>
@@ -58,8 +58,8 @@ import { SoundService } from '../../services/sound.service';
       <app-before-after></app-before-after>
 
       <!-- 4 Common Indian Business Traps We Solve -->
-      <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-14 sm:mt-20">
-        <div class="rounded-3xl bg-white border border-slate-200 p-6 sm:p-10 shadow-sm">
+      <section class="max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8 mt-12 sm:mt-20">
+        <div class="rounded-2xl sm:rounded-3xl bg-white border border-slate-200 p-4 sm:p-8 md:p-10 shadow-sm">
           
           <div class="max-w-2xl mb-8">
             <span class="text-xs font-mono text-sunset-rose uppercase tracking-wider font-bold">Root Cause Analysis</span>

@@ -59,11 +59,11 @@ interface Testimonial {
       <!-- Testimonials Grid - Luxury Light -->
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <div class="text-center max-w-2xl mx-auto mb-8 sm:mb-10">
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sunset-rose/10 border border-sunset-rose/25 text-sunset-rose text-xs font-mono font-bold uppercase tracking-wider mb-2.5">
+        <div class="text-center max-w-2xl mx-auto mb-6 sm:mb-10">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sunset-rose/10 border border-sunset-rose/25 text-sunset-rose text-xs font-mono font-bold uppercase tracking-wider mb-2">
             Authentic Client Feedback
           </div>
-          <h3 class="font-heading text-2xl sm:text-4xl font-extrabold text-slate-900">
+          <h3 class="font-heading text-xl sm:text-3xl md:text-4xl font-extrabold text-slate-900">
             What Founders & Business Owners Say
           </h3>
           <p class="text-xs sm:text-sm text-slate-600 mt-2 font-mono">
@@ -71,13 +71,13 @@ interface Testimonial {
           </p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
           @for (item of testimonials(); track item.name) {
-            <div class="rounded-3xl bg-white/90 border border-slate-200 hover:border-sunset-rose/40 p-6 sm:p-8 backdrop-blur-xl shadow-[0_10px_30px_rgba(15,23,42,0.04)] hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
+            <div class="rounded-2xl sm:rounded-3xl bg-white/90 border border-slate-200 hover:border-sunset-rose/40 p-4 sm:p-6 md:p-8 backdrop-blur-xl shadow-[0_10px_30px_rgba(15,23,42,0.04)] hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
               
               <div>
                 <!-- Metric Badge & Verified Tag -->
-                <div class="flex items-center justify-between mb-5">
+                <div class="flex items-center justify-between mb-4 sm:mb-5">
                   <span class="px-3 py-1 rounded-xl bg-sunset-rose/10 border border-sunset-rose/25 text-sunset-rose text-xs font-mono font-bold">
                     {{ item.metric }}
                   </span>
