@@ -1,17 +1,18 @@
 import { Component, Output, EventEmitter, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import { SoundService } from '../../services/sound.service';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink, RouterLinkActive],
   template: `
     <header class="sticky top-0 inset-x-0 z-50 w-full bg-white/92 backdrop-blur-2xl border-b border-slate-200/80 shadow-[0_4px_25px_rgba(15,23,42,0.03)] transition-all duration-300">
       <nav class="w-full max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-6 lg:px-8 py-3">
         
         <!-- Logo -->
-        <a href="#" (click)="onNavClick('#hero', $event)" class="flex items-center gap-3 group focus:outline-none shrink-0">
+        <a routerLink="/" (click)="onLogoClick()" class="flex items-center gap-3 group focus:outline-none shrink-0">
           <div class="relative w-9 h-9 rounded-xl overflow-hidden shadow-sm group-hover:shadow-md transition-all duration-300 ring-1 ring-slate-200">
             <img src="logo.png" alt="MetaVex Digital Logo" class="w-full h-full object-cover">
           </div>
@@ -25,28 +26,71 @@ import { SoundService } from '../../services/sound.service';
           </div>
         </a>
 
-        <!-- Desktop Navigation Links - Single Clean Row (Zero Wrapping, Zero Double Box) -->
+        <!-- Desktop Navigation Links - Real Pages (Multi-Page Routing) -->
         <div class="hidden lg:flex items-center gap-1 xl:gap-2">
-          <a href="#services" (click)="onNavClick('#services', $event)" class="px-3.5 py-2 rounded-xl text-xs font-bold text-slate-600 hover:text-slate-950 hover:bg-slate-100 transition-all whitespace-nowrap">
+          
+          <a 
+            routerLink="/" 
+            [routerLinkActiveOptions]="{ exact: true }"
+            routerLinkActive="bg-slate-100 text-slate-950 font-extrabold shadow-2xs"
+            (click)="sound.playClick()"
+            class="px-3 py-1.5 rounded-xl text-xs font-bold text-slate-600 hover:text-slate-950 hover:bg-slate-100/80 transition-all whitespace-nowrap">
+            Home
+          </a>
+
+          <a 
+            routerLink="/services" 
+            routerLinkActive="bg-slate-100 text-slate-950 font-extrabold shadow-2xs"
+            (click)="sound.playClick()"
+            class="px-3 py-1.5 rounded-xl text-xs font-bold text-slate-600 hover:text-slate-950 hover:bg-slate-100/80 transition-all whitespace-nowrap">
             Services
           </a>
-          <a href="#gap" (click)="onNavClick('#gap', $event)" class="px-3.5 py-2 rounded-xl text-xs font-bold text-slate-600 hover:text-slate-950 hover:bg-slate-100 transition-all whitespace-nowrap">
+
+          <a 
+            routerLink="/comparison" 
+            routerLinkActive="bg-slate-100 text-slate-950 font-extrabold shadow-2xs"
+            (click)="sound.playClick()"
+            class="px-3 py-1.5 rounded-xl text-xs font-bold text-slate-600 hover:text-slate-950 hover:bg-slate-100/80 transition-all whitespace-nowrap">
             Comparison
           </a>
-          <a href="#calculator" (click)="onNavClick('#calculator', $event)" class="px-3.5 py-2 rounded-xl text-xs font-bold text-sunset-rose hover:bg-sunset-rose/10 transition-all flex items-center gap-1.5 whitespace-nowrap">
+
+          <a 
+            routerLink="/calculator" 
+            routerLinkActive="bg-sunset-rose/15 text-sunset-rose font-extrabold shadow-2xs"
+            (click)="sound.playClick()"
+            class="px-3 py-1.5 rounded-xl text-xs font-bold text-sunset-rose hover:bg-sunset-rose/10 transition-all flex items-center gap-1.5 whitespace-nowrap">
             <span class="w-1.5 h-1.5 rounded-full bg-sunset-rose animate-pulse"></span>
             ROI Calculator
           </a>
-          <a href="#case-studies" (click)="onNavClick('#case-studies', $event)" class="px-3.5 py-2 rounded-xl text-xs font-bold text-slate-600 hover:text-slate-950 hover:bg-slate-100 transition-all whitespace-nowrap">
+
+          <a 
+            routerLink="/case-studies" 
+            routerLinkActive="bg-slate-100 text-slate-950 font-extrabold shadow-2xs"
+            (click)="sound.playClick()"
+            class="px-3 py-1.5 rounded-xl text-xs font-bold text-slate-600 hover:text-slate-950 hover:bg-slate-100/80 transition-all whitespace-nowrap">
             Case Studies
           </a>
-          <a href="#blueprint" (click)="onNavClick('#blueprint', $event)" class="px-3.5 py-2 rounded-xl text-xs font-bold text-slate-600 hover:text-slate-950 hover:bg-slate-100 transition-all whitespace-nowrap">
+
+          <a 
+            routerLink="/process" 
+            routerLinkActive="bg-slate-100 text-slate-950 font-extrabold shadow-2xs"
+            (click)="sound.playClick()"
+            class="px-3 py-1.5 rounded-xl text-xs font-bold text-slate-600 hover:text-slate-950 hover:bg-slate-100/80 transition-all whitespace-nowrap">
             Process
           </a>
+
+          <a 
+            routerLink="/contact" 
+            routerLinkActive="bg-slate-100 text-slate-950 font-extrabold shadow-2xs"
+            (click)="sound.playClick()"
+            class="px-3 py-1.5 rounded-xl text-xs font-bold text-slate-600 hover:text-slate-950 hover:bg-slate-100/80 transition-all whitespace-nowrap">
+            Contact
+          </a>
+
         </div>
 
         <!-- Right Side: Availability Badge & CTAs -->
-        <div class="flex items-center gap-3 shrink-0">
+        <div class="flex items-center gap-2.5 sm:gap-3 shrink-0">
           
           <!-- Live Capacity Badge -->
           <div class="hidden 2xl:flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-200/80 text-[11px] font-mono text-emerald-800 font-semibold shadow-xs whitespace-nowrap">
@@ -85,7 +129,7 @@ import { SoundService } from '../../services/sound.service';
             (click)="onOpenLeadModal()"
             class="relative group p-[1px] rounded-full overflow-hidden shadow-neon-rose hover:shadow-lg hover:scale-105 active:scale-95 transition-all duration-300 shrink-0">
             <span class="absolute inset-0 bg-gradient-to-r from-sunset-rose via-electric-violet to-cyber-cyan animate-shimmer bg-[length:200%_auto]"></span>
-            <span class="relative px-4 sm:px-5 py-2 rounded-full bg-slate-900 group-hover:bg-slate-950 flex items-center gap-2 text-xs font-bold text-white transition-colors duration-200 whitespace-nowrap">
+            <span class="relative px-3.5 sm:px-5 py-2 rounded-full bg-slate-900 group-hover:bg-slate-950 flex items-center gap-2 text-xs font-bold text-white transition-colors duration-200 whitespace-nowrap">
               <span>Free Growth Audit</span>
               <svg class="w-3.5 h-3.5 text-sunset-rose group-hover:translate-x-0.5 transition-transform duration-200" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                 <path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
@@ -113,26 +157,34 @@ import { SoundService } from '../../services/sound.service';
 
       <!-- Mobile Navigation Drawer -->
       @if (mobileMenuOpen()) {
-        <div class="lg:hidden fixed inset-x-4 top-20 p-5 rounded-2xl bg-white/95 backdrop-blur-3xl border border-slate-200 shadow-2xl flex flex-col gap-3 animate-in fade-in slide-in-from-top-4 duration-300 z-50">
-          <a href="#services" (click)="onNavClick('#services', $event)" class="px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-800 hover:bg-slate-100 flex items-center justify-between">
-            <span>5 Core Growth Services & Benefits</span>
+        <div class="lg:hidden fixed inset-x-4 top-20 p-5 rounded-2xl bg-white/95 backdrop-blur-3xl border border-slate-200 shadow-2xl flex flex-col gap-2 animate-in fade-in slide-in-from-top-4 duration-300 z-50">
+          <a routerLink="/" (click)="closeMobileMenu()" class="px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-800 hover:bg-slate-100 flex items-center justify-between">
+            <span>Home</span>
+            <span class="text-xs font-mono text-slate-400">00</span>
+          </a>
+          <a routerLink="/services" (click)="closeMobileMenu()" class="px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-800 hover:bg-slate-100 flex items-center justify-between">
+            <span>5 Core Growth Services</span>
             <span class="text-xs font-mono text-sunset-rose font-bold">01</span>
           </a>
-          <a href="#gap" (click)="onNavClick('#gap', $event)" class="px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-800 hover:bg-slate-100 flex items-center justify-between">
-            <span>Before vs After: What Changes</span>
+          <a routerLink="/comparison" (click)="closeMobileMenu()" class="px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-800 hover:bg-slate-100 flex items-center justify-between">
+            <span>Before vs After: Reality Check</span>
             <span class="text-xs font-mono text-cyber-cyan font-bold">02</span>
           </a>
-          <a href="#calculator" (click)="onNavClick('#calculator', $event)" class="px-4 py-2.5 rounded-xl text-sm font-bold text-sunset-rose hover:bg-sunset-rose/10 flex items-center justify-between">
+          <a routerLink="/calculator" (click)="closeMobileMenu()" class="px-4 py-2.5 rounded-xl text-sm font-bold text-sunset-rose hover:bg-sunset-rose/10 flex items-center justify-between">
             <span>Calculate ROI & Hours Saved</span>
             <span class="text-xs font-mono text-sunset-rose">03</span>
           </a>
-          <a href="#case-studies" (click)="onNavClick('#case-studies', $event)" class="px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-800 hover:bg-slate-100 flex items-center justify-between">
+          <a routerLink="/case-studies" (click)="closeMobileMenu()" class="px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-800 hover:bg-slate-100 flex items-center justify-between">
             <span>Real Indian Client Case Studies</span>
             <span class="text-xs font-mono text-slate-500 font-bold">04</span>
           </a>
-          <a href="#blueprint" (click)="onNavClick('#blueprint', $event)" class="px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-800 hover:bg-slate-100 flex items-center justify-between">
-            <span>Our 4-Step Working Process</span>
+          <a routerLink="/process" (click)="closeMobileMenu()" class="px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-800 hover:bg-slate-100 flex items-center justify-between">
+            <span>Our 30-Day Working Process</span>
             <span class="text-xs font-mono text-emerald-600 font-bold">05</span>
+          </a>
+          <a routerLink="/contact" (click)="closeMobileMenu()" class="px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-800 hover:bg-slate-100 flex items-center justify-between">
+            <span>Contact & Direct WhatsApp</span>
+            <span class="text-xs font-mono text-electric-violet font-bold">06</span>
           </a>
 
           <div class="pt-3 border-t border-slate-200 flex items-center justify-between">
@@ -141,7 +193,7 @@ import { SoundService } from '../../services/sound.service';
               3 Slots Available
             </span>
             <button 
-              type="button"
+              type="button" 
               (click)="onOpenLeadModal()"
               class="px-4 py-2 rounded-xl bg-gradient-to-r from-sunset-rose via-electric-violet to-cyber-cyan text-xs font-bold text-white shadow-md">
               Get Free Audit
@@ -167,17 +219,14 @@ export class NavbarComponent {
     this.mobileMenuOpen.set(!this.mobileMenuOpen());
   }
 
-  public onNavClick(target: string, event: Event) {
-    event.preventDefault();
+  public closeMobileMenu() {
     this.sound.playClick();
     this.mobileMenuOpen.set(false);
+  }
 
-    if (typeof document !== 'undefined') {
-      const el = document.querySelector(target);
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
+  public onLogoClick() {
+    this.sound.playClick();
+    this.closeMobileMenu();
   }
 
   public onOpenLeadModal() {

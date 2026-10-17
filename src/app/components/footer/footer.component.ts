@@ -1,11 +1,12 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 import { SoundService } from '../../services/sound.service';
 
 @Component({
   selector: 'app-footer',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   template: `
     <footer class="relative bg-gradient-to-b from-[#FAFBFC] via-slate-50 to-slate-100 border-t border-slate-200/90 pt-10 sm:pt-14 pb-8 sm:pb-10 overflow-hidden">
       
@@ -48,8 +49,7 @@ import { SoundService } from '../../services/sound.service';
               </a>
 
               <a 
-                href="#hero" 
-                (click)="onScrollTop($event)"
+                routerLink="/contact"
                 class="px-6 py-3.5 rounded-2xl bg-slate-900 hover:bg-slate-950 text-white font-heading font-bold text-xs sm:text-sm tracking-wide shadow-md hover:shadow-lg hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2 group">
                 <span>Free Growth Audit</span>
                 <span class="text-sunset-rose group-hover:translate-x-0.5 transition-transform">→</span>
@@ -90,7 +90,7 @@ import { SoundService } from '../../services/sound.service';
           
           <!-- Brand & Mission (Span 4) -->
           <div class="lg:col-span-4">
-            <div class="flex items-center gap-3 mb-3">
+            <a routerLink="/" class="flex items-center gap-3 mb-3 group inline-flex">
               <div class="w-9 h-9 rounded-xl overflow-hidden shadow-xs ring-1 ring-slate-200 shrink-0">
                 <img src="logo.png" alt="MetaVex Digital Logo" class="w-full h-full object-cover">
               </div>
@@ -98,7 +98,7 @@ import { SoundService } from '../../services/sound.service';
                 <span class="font-heading font-black text-xl text-slate-900 tracking-wider">METAVEX</span>
                 <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-sunset-rose/10 text-sunset-rose border border-sunset-rose/30 uppercase font-bold">DIGITAL</span>
               </div>
-            </div>
+            </a>
 
             <p class="text-xs text-slate-600 leading-relaxed mb-4 max-w-sm">
               Digital growth and business automation partner for ambitious Indian brands, manufacturers, and growing businesses.
@@ -114,22 +114,25 @@ import { SoundService } from '../../services/sound.service';
           <div class="lg:col-span-3">
             <h5 class="text-xs font-mono uppercase tracking-widest text-slate-900 mb-4 font-bold">Services & Benefits</h5>
             <ul class="space-y-2.5 text-xs text-slate-600 font-medium">
-              <li><a href="#services" class="hover:text-sunset-rose transition-colors flex items-center gap-1.5"><span>›</span> Fast Mobile Websites & Stores</a></li>
-              <li><a href="#services" class="hover:text-sunset-rose transition-colors flex items-center gap-1.5"><span>›</span> High-ROAS Meta Ads (FB & Insta)</a></li>
-              <li><a href="#services" class="hover:text-sunset-rose transition-colors flex items-center gap-1.5"><span>›</span> WhatsApp & Lead Automation</a></li>
-              <li><a href="#services" class="hover:text-sunset-rose transition-colors flex items-center gap-1.5"><span>›</span> Brand Reels & Social Content</a></li>
-              <li><a href="#services" class="hover:text-sunset-rose transition-colors flex items-center gap-1.5"><span>›</span> Cloud Systems & Operations</a></li>
+              <li><a routerLink="/services" class="hover:text-sunset-rose transition-colors flex items-center gap-1.5"><span>›</span> Fast Mobile Websites & Stores</a></li>
+              <li><a routerLink="/services" class="hover:text-sunset-rose transition-colors flex items-center gap-1.5"><span>›</span> High-ROAS Meta Ads (FB & Insta)</a></li>
+              <li><a routerLink="/services" class="hover:text-sunset-rose transition-colors flex items-center gap-1.5"><span>›</span> WhatsApp & Lead Automation</a></li>
+              <li><a routerLink="/services" class="hover:text-sunset-rose transition-colors flex items-center gap-1.5"><span>›</span> Brand Reels & Social Content</a></li>
+              <li><a routerLink="/services" class="hover:text-sunset-rose transition-colors flex items-center gap-1.5"><span>›</span> Cloud Systems & Operations</a></li>
             </ul>
           </div>
 
-          <!-- Quick Navigation (Span 2) -->
+          <!-- Dedicated Pages Navigation (Span 2) -->
           <div class="lg:col-span-2">
-            <h5 class="text-xs font-mono uppercase tracking-widest text-slate-900 mb-4 font-bold">Quick Links</h5>
+            <h5 class="text-xs font-mono uppercase tracking-widest text-slate-900 mb-4 font-bold">Dedicated Pages</h5>
             <ul class="space-y-2.5 text-xs text-slate-600 font-medium">
-              <li><a href="#calculator" class="hover:text-sunset-rose transition-colors">ROI Calculator</a></li>
-              <li><a href="#gap" class="hover:text-sunset-rose transition-colors">Before vs After</a></li>
-              <li><a href="#case-studies" class="hover:text-sunset-rose transition-colors">Case Studies</a></li>
-              <li><a href="#blueprint" class="hover:text-sunset-rose transition-colors">4-Step Process</a></li>
+              <li><a routerLink="/" class="hover:text-sunset-rose transition-colors">Home</a></li>
+              <li><a routerLink="/services" class="hover:text-sunset-rose transition-colors">Services</a></li>
+              <li><a routerLink="/comparison" class="hover:text-sunset-rose transition-colors">Before vs After</a></li>
+              <li><a routerLink="/calculator" class="hover:text-sunset-rose transition-colors">ROI Calculator</a></li>
+              <li><a routerLink="/case-studies" class="hover:text-sunset-rose transition-colors">Case Studies</a></li>
+              <li><a routerLink="/process" class="hover:text-sunset-rose transition-colors">30-Day Process</a></li>
+              <li><a routerLink="/contact" class="hover:text-sunset-rose transition-colors">Contact & Audit</a></li>
             </ul>
           </div>
 

@@ -1,20 +1,15 @@
 import { Component, OnInit, OnDestroy, signal, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterOutlet } from '@angular/router';
 import Lenis from 'lenis';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { HeroCanvasComponent } from './components/hero-canvas/hero-canvas.component';
-import { BeforeAfterComponent } from './components/before-after/before-after.component';
-import { ServicesBentoComponent } from './components/services-bento/services-bento.component';
-import { RoiCalculatorComponent, CalculatorMetrics } from './components/roi-calculator/roi-calculator.component';
-import { CaseStudiesComponent } from './components/case-studies/case-studies.component';
-import { BlueprintComponent } from './components/blueprint/blueprint.component';
-import { SocialProofComponent } from './components/social-proof/social-proof.component';
-import { OnboardingWizardComponent } from './components/onboarding-wizard/onboarding-wizard.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { OnboardingWizardComponent } from './components/onboarding-wizard/onboarding-wizard.component';
 import { CustomCursorComponent } from './components/custom-cursor/custom-cursor.component';
+import { CalculatorMetrics } from './components/roi-calculator/roi-calculator.component';
 import { SoundService } from './services/sound.service';
 
 @Component({
@@ -23,16 +18,10 @@ import { SoundService } from './services/sound.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     CommonModule,
+    RouterOutlet,
     NavbarComponent,
-    HeroCanvasComponent,
-    BeforeAfterComponent,
-    ServicesBentoComponent,
-    RoiCalculatorComponent,
-    CaseStudiesComponent,
-    BlueprintComponent,
-    SocialProofComponent,
-    OnboardingWizardComponent,
     FooterComponent,
+    OnboardingWizardComponent,
     CustomCursorComponent
   ],
   templateUrl: './app.html',
@@ -51,7 +40,7 @@ export class App implements OnInit, OnDestroy {
     if (typeof window !== 'undefined') {
       gsap.registerPlugin(ScrollTrigger);
 
-      // Initialize Lenis buttery smooth inertia scroll
+      // Initialize Lenis smooth scroll
       try {
         this.lenis = new Lenis({
           duration: 1.2,
@@ -59,7 +48,6 @@ export class App implements OnInit, OnDestroy {
           smoothWheel: true
         });
 
-        // Sync Lenis with GSAP ScrollTrigger
         this.lenis.on('scroll', ScrollTrigger.update);
 
         gsap.ticker.add((time) => {
@@ -86,14 +74,17 @@ export class App implements OnInit, OnDestroy {
     this.showLeadModal.set(false);
   }
 
-  public onScrollToSection(selector: string, e: Event) {
-    e.preventDefault();
-    this.sound.playClick();
-    if (typeof document !== 'undefined') {
-      const el = document.querySelector(selector);
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth' });
-      }
+  public onRouteActivate(componentInstance: any) {
+    // Connect child page modal emitters dynamically if present
+    if (componentInstance && componentInstance.openLeadModal) {
+      componentInstance.openLeadModal.subscribe((metrics?: CalculatorMetrics) => {
+        this.openLeadModal(metrics);
+      });
+    }
+    if (componentInstance && componentInstance.claimBlueprint) {
+      componentInstance.claimBlueprint.subscribe((metrics: CalculatorMetrics) => {
+        this.openLeadModal(metrics);
+      });
     }
   }
 
