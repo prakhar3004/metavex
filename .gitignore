@@ -46,3 +46,4 @@ Thumbs.db
 # Vercel & Angular
 .vercel/
 .angular/
+.vercel

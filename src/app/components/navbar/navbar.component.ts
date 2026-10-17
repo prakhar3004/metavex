@@ -11,16 +11,9 @@ import { SoundService } from '../../services/sound.service';
       <nav class="w-full max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-6 lg:px-8 py-3">
         
         <!-- Logo -->
-        <a href="#" (click)="onNavClick('#hero', $event)" class="flex items-center gap-3 group focus:outline-none">
-          <div class="relative w-9 h-9 flex items-center justify-center rounded-xl bg-gradient-to-br from-sunset-rose via-electric-violet to-cyber-cyan p-[1.5px] shadow-sm group-hover:shadow-neon-rose transition-all duration-300">
-            <div class="w-full h-full bg-white rounded-[10px] flex items-center justify-center overflow-hidden">
-              <!-- Animated SVG Topology Icon -->
-              <svg class="w-5 h-5 text-sunset-rose group-hover:scale-110 transition-transform duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="3.5" class="stroke-sunset-rose fill-sunset-rose/15"/>
-                <path d="M12 2v3m0 14v3M2 12h3m14 0h3" stroke-linecap="round"/>
-                <path d="M4.93 4.93l2.12 2.12m9.9 9.9l2.12 2.12M4.93 19.07l2.12-2.12m9.9-9.9l2.12-2.12" stroke-linecap="round" stroke-dasharray="2 2" class="opacity-70 animate-radar origin-center stroke-electric-violet"/>
-              </svg>
-            </div>
+        <a href="#" (click)="onNavClick('#hero', $event)" class="flex items-center gap-3 group focus:outline-none shrink-0">
+          <div class="relative w-9 h-9 rounded-xl overflow-hidden shadow-sm group-hover:shadow-md transition-all duration-300 ring-1 ring-slate-200">
+            <img src="logo.png" alt="MetaVex Digital Logo" class="w-full h-full object-cover">
           </div>
 
           <div class="flex flex-col">
@@ -28,40 +21,40 @@ import { SoundService } from '../../services/sound.service';
               <span class="font-heading font-black text-base tracking-wider text-slate-900">METAVEX</span>
               <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-sunset-rose/10 text-sunset-rose border border-sunset-rose/25 tracking-widest font-bold uppercase">DIGITAL</span>
             </div>
-            <span class="text-[9px] font-mono tracking-widest text-slate-500 uppercase -mt-0.5 font-semibold">Digital Growth & Automation Partner</span>
+            <span class="text-[9px] font-mono tracking-widest text-slate-500 uppercase -mt-0.5 font-semibold hidden sm:inline">Growth & Automation Partner</span>
           </div>
         </a>
 
-        <!-- Desktop Navigation Links - Light Luxury -->
-        <div class="hidden lg:flex items-center gap-1 bg-slate-100/80 p-1 rounded-full border border-slate-200/70">
-          <a href="#services" (click)="onNavClick('#services', $event)" class="px-4 py-1.5 rounded-full text-xs font-semibold text-slate-600 hover:text-slate-950 hover:bg-white transition-all duration-200">
-            Services & Benefits
+        <!-- Desktop Navigation Links - Single Clean Row (Zero Wrapping, Zero Double Box) -->
+        <div class="hidden lg:flex items-center gap-1 xl:gap-2">
+          <a href="#services" (click)="onNavClick('#services', $event)" class="px-3.5 py-2 rounded-xl text-xs font-bold text-slate-600 hover:text-slate-950 hover:bg-slate-100 transition-all whitespace-nowrap">
+            Services
           </a>
-          <a href="#gap" (click)="onNavClick('#gap', $event)" class="px-4 py-1.5 rounded-full text-xs font-semibold text-slate-600 hover:text-slate-950 hover:bg-white transition-all duration-200">
-            Before vs After
+          <a href="#gap" (click)="onNavClick('#gap', $event)" class="px-3.5 py-2 rounded-xl text-xs font-bold text-slate-600 hover:text-slate-950 hover:bg-slate-100 transition-all whitespace-nowrap">
+            Comparison
           </a>
-          <a href="#calculator" (click)="onNavClick('#calculator', $event)" class="px-4 py-1.5 rounded-full text-xs font-bold text-sunset-rose hover:bg-sunset-rose/10 transition-all duration-200 flex items-center gap-1.5">
+          <a href="#calculator" (click)="onNavClick('#calculator', $event)" class="px-3.5 py-2 rounded-xl text-xs font-bold text-sunset-rose hover:bg-sunset-rose/10 transition-all flex items-center gap-1.5 whitespace-nowrap">
             <span class="w-1.5 h-1.5 rounded-full bg-sunset-rose animate-pulse"></span>
             ROI Calculator
           </a>
-          <a href="#case-studies" (click)="onNavClick('#case-studies', $event)" class="px-4 py-1.5 rounded-full text-xs font-semibold text-slate-600 hover:text-slate-950 hover:bg-white transition-all duration-200">
-            Real Results
+          <a href="#case-studies" (click)="onNavClick('#case-studies', $event)" class="px-3.5 py-2 rounded-xl text-xs font-bold text-slate-600 hover:text-slate-950 hover:bg-slate-100 transition-all whitespace-nowrap">
+            Case Studies
           </a>
-          <a href="#blueprint" (click)="onNavClick('#blueprint', $event)" class="px-4 py-1.5 rounded-full text-xs font-semibold text-slate-600 hover:text-slate-950 hover:bg-white transition-all duration-200">
-            Our 4-Step Process
+          <a href="#blueprint" (click)="onNavClick('#blueprint', $event)" class="px-3.5 py-2 rounded-xl text-xs font-bold text-slate-600 hover:text-slate-950 hover:bg-slate-100 transition-all whitespace-nowrap">
+            Process
           </a>
         </div>
 
         <!-- Right Side: Availability Badge & CTAs -->
-        <div class="flex items-center gap-3">
+        <div class="flex items-center gap-3 shrink-0">
           
           <!-- Live Capacity Badge -->
-          <div class="hidden xl:flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-200/80 text-[11px] font-mono text-emerald-800 font-semibold shadow-sm">
+          <div class="hidden 2xl:flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-200/80 text-[11px] font-mono text-emerald-800 font-semibold shadow-xs whitespace-nowrap">
             <span class="relative flex h-2 w-2">
               <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75"></span>
               <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
             </span>
-            <span>Accepting 3 New Clients</span>
+            <span>Accepting 3 Clients</span>
           </div>
 
           <!-- Sound Effects Synthesizer Toggle -->
@@ -69,17 +62,15 @@ import { SoundService } from '../../services/sound.service';
             type="button"
             (click)="toggleSound()"
             [title]="sound.isMuted() ? 'Enable UI sound' : 'Mute UI sound'"
-            class="w-8 h-8 rounded-full flex items-center justify-center bg-white border border-slate-200 text-slate-500 hover:text-sunset-rose hover:border-sunset-rose/40 shadow-sm transition-all duration-200 focus:outline-none"
+            class="w-8 h-8 rounded-full flex items-center justify-center bg-white border border-slate-200 text-slate-500 hover:text-sunset-rose hover:border-sunset-rose/40 shadow-xs transition-all duration-200 focus:outline-none shrink-0"
             aria-label="Toggle Sound Effects">
             @if (sound.isMuted()) {
-              <!-- Muted icon -->
               <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M11 5L6 9H2v6h4l5 4V5z"/>
                 <line x1="23" y1="9" x2="17" y2="15"/>
                 <line x1="17" y1="9" x2="23" y2="15"/>
               </svg>
             } @else {
-              <!-- Active sound waves -->
               <div class="flex items-center gap-0.5 h-3">
                 <span class="w-0.5 bg-sunset-rose rounded-full animate-[pulse_0.8s_ease-in-out_infinite] h-2"></span>
                 <span class="w-0.5 bg-electric-violet rounded-full animate-[pulse_1.2s_ease-in-out_infinite] h-3"></span>
@@ -92,9 +83,9 @@ import { SoundService } from '../../services/sound.service';
           <button 
             type="button"
             (click)="onOpenLeadModal()"
-            class="relative group p-[1px] rounded-full overflow-hidden shadow-neon-rose hover:shadow-lg hover:scale-105 active:scale-95 transition-all duration-300">
+            class="relative group p-[1px] rounded-full overflow-hidden shadow-neon-rose hover:shadow-lg hover:scale-105 active:scale-95 transition-all duration-300 shrink-0">
             <span class="absolute inset-0 bg-gradient-to-r from-sunset-rose via-electric-violet to-cyber-cyan animate-shimmer bg-[length:200%_auto]"></span>
-            <span class="relative px-4 sm:px-5 py-2 rounded-full bg-slate-900 group-hover:bg-slate-950 flex items-center gap-2 text-xs font-bold text-white transition-colors duration-200">
+            <span class="relative px-4 sm:px-5 py-2 rounded-full bg-slate-900 group-hover:bg-slate-950 flex items-center gap-2 text-xs font-bold text-white transition-colors duration-200 whitespace-nowrap">
               <span>Free Growth Audit</span>
               <svg class="w-3.5 h-3.5 text-sunset-rose group-hover:translate-x-0.5 transition-transform duration-200" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                 <path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>

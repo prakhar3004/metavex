@@ -67,9 +67,14 @@ import { SoundService } from '../../services/sound.service';
         <div class="grid grid-cols-1 md:grid-cols-4 gap-10 pb-16 border-b border-slate-200">
           
           <div class="md:col-span-1">
-            <div class="flex items-center gap-2 mb-3">
-              <span class="font-heading font-extrabold text-lg text-slate-900">METAVEX</span>
-              <span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-sunset-rose/10 text-sunset-rose border border-sunset-rose/30 uppercase font-bold">DIGITAL</span>
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-8 h-8 rounded-lg overflow-hidden shadow-xs ring-1 ring-slate-200 shrink-0">
+                <img src="logo.png" alt="MetaVex Digital Logo" class="w-full h-full object-cover">
+              </div>
+              <div class="flex items-center gap-1.5">
+                <span class="font-heading font-extrabold text-lg text-slate-900">METAVEX</span>
+                <span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-sunset-rose/10 text-sunset-rose border border-sunset-rose/30 uppercase font-bold">DIGITAL</span>
+              </div>
             </div>
             <p class="text-xs text-slate-600 leading-relaxed mb-4">
               Digital growth and business automation partner for ambitious Indian brands, manufacturers, and growing businesses.
