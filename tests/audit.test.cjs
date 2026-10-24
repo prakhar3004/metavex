@@ -263,7 +263,8 @@ test('page metadata updates descriptions and resets noindex after leaving an unk
   };
   const { PageTitleStrategy } = load('src/app/services/page-title.strategy.ts', {
     modules: { '@angular/router': { TitleStrategy }, '@angular/platform-browser': { Meta, Title },
-      '../site.config': load('src/app/site.config.ts'), '../components/faq/faq.data': load('src/app/components/faq/faq.data.ts') },
+      '../site.config': load('src/app/site.config.ts'), '../components/faq/faq.data': load('src/app/components/faq/faq.data.ts'),
+      '../pages/service-detail/service-pages.data': load('src/app/pages/service-detail/service-pages.data.ts') },
     inject: token => token === documentToken ? document : token === Title ? { setTitle(value) { title = value; } } : meta
   });
   const strategy = new PageTitleStrategy();
@@ -282,6 +283,13 @@ test('page metadata updates descriptions and resets noindex after leaving an unk
   assert.equal(tags.get('og:image'), 'https://metavex.digital/og-image.png');
   assert.equal(tags.get('twitter:card'), 'summary_large_image');
   assert.ok(!graph.some(node => node['@type'] === 'FAQPage'), 'no FAQ schema on a page without visible FAQs');
+  const offers = graph.find(node => node['@type'] === 'OfferCatalog').itemListElement;
+  assert.ok(offers.every(offer => offer.itemOffered.url.startsWith('https://metavex.digital/services/')), 'each offer links to its own service page');
+  strategy.updateTitle({ url: '/services/meta-ads', title: 'Meta Ads', root: { firstChild: { data: { description: 'Ads', service: 'meta-ads' } } } });
+  const serviceGraph = JSON.parse(elements.find(element => element.id === 'site-structured-data').textContent)['@graph'];
+  assert.equal(serviceGraph.find(node => node['@type'] === 'Service').url, 'https://metavex.digital/services/meta-ads');
+  assert.deepEqual(serviceGraph.find(node => node['@type'] === 'BreadcrumbList').itemListElement.map(crumb => crumb.name), ['Home', 'Services', 'Meta Ads']);
+  assert.ok(serviceGraph.find(node => node['@type'] === 'FAQPage').mainEntity.length >= 3, 'service FAQs appear in schema');
   strategy.updateTitle({ url: '/missing', title: 'Not Found', root: { data: { robots: 'noindex,follow' } } });
   assert.equal(elements.length, 0, 'unknown URLs must not retain canonical or schema from the previous page');
 });

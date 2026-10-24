@@ -2,7 +2,7 @@
 
 Production is live at **https://metavex.digital** as of 17 October 2026. Live checks confirmed the seven canonical pages, robots and sitemap, permanent www redirect and custom HTTP 404 behavior. Search Console ownership and indexing have not been confirmed.
 
-The production build generates complete HTML for the seven public pages. Each has its own title, description, canonical URL, social preview metadata, H1 and structured data. Internal navigation uses real links. The sitemap excludes missing pages and the lead API. Unknown server URLs should return the custom HTTP 404 page; unknown client-side routes show the app's missing-page view with `noindex`.
+The production build generates complete HTML for the twelve public pages: seven core pages plus five service pages (website development, Meta ads, WhatsApp automation, social media content, business automation), each targeting its own search intent with Service, breadcrumb and FAQ schema. Each has its own title, description, canonical URL, social preview metadata, H1 and structured data. Internal navigation uses real links. The sitemap excludes missing pages and the lead API. Unknown server URLs should return the custom HTTP 404 page; unknown client-side routes show the app's missing-page view with `noindex`.
 
 Organization and contact markup uses only the published name, logo, email and owner-confirmed phone **+91 9026231351**. There is no invented address, rating, customer count, certification, testimonial, award, or client result. The use-case page explicitly describes examples. The growth planner uses visitor-controlled assumptions with neutral defaults.
 
@@ -11,7 +11,7 @@ FAQs on Home and Contact share the same data as their FAQPage markup. This suppo
 ## After publishing
 
 1. Connect `metavex.digital` to the intended Vercel project and confirm HTTPS works. If `www.metavex.digital` is connected too, confirm the configured permanent redirect reaches the apex domain without a loop.
-2. Confirm all seven canonical URLs return HTTP 200 with their own content. Confirm an invented URL returns HTTP 404, and `/api/leads` reaches the function rather than HTML. Preview deployments should remain excluded from indexing; check Vercel's preview `X-Robots-Tag` response before sharing them widely.
+2. Confirm all twelve canonical URLs return HTTP 200 with their own content. Confirm an invented URL returns HTTP 404, and `/api/leads` reaches the function rather than HTML. Preview deployments should remain excluded from indexing; check Vercel's preview `X-Robots-Tag` response before sharing them widely.
 3. Open [Google Search Console](https://search.google.com/search-console) as the site owner, add the **Domain property** `metavex.digital`, and add Google's exact verification TXT record through the domain's DNS provider. No ownership verification token has been fabricated or submitted by this code.
 4. Submit `https://metavex.digital/sitemap.xml`. Use URL Inspection on the homepage and important service/contact pages. Check the rendered HTML and request indexing where appropriate.
 5. Review Page Indexing, Crawl Stats, Core Web Vitals and search performance as real data becomes available. Correct reported problems and keep content current. A sitemap submission is not an indexing confirmation.

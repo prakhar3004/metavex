@@ -4,7 +4,8 @@ import path from 'node:path';
 
 const output = path.resolve('dist/metavex/browser');
 const base = 'https://metavex.digital';
-const routes = ['', 'services', 'comparison', 'calculator', 'case-studies', 'process', 'contact'];
+const servicePages = ['website-development', 'meta-ads', 'whatsapp-automation', 'social-media-content', 'business-automation'].map(slug => 'services/' + slug);
+const routes = ['', 'services', ...servicePages, 'comparison', 'calculator', 'case-studies', 'process', 'contact'];
 const titles = new Set();
 const descriptions = new Set();
 const strip = value => value.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
@@ -17,6 +18,7 @@ for (const route of routes) {
   const title = html.match(/<title>([^<]+)<\/title>/)?.[1];
   const description = html.match(/<meta name="description" content="([^"]+)"/i)?.[1];
   assert.ok(title && description, `${route}: missing metadata`);
+  assert.ok(title.replace(/&amp;/g, '&').length <= 60 && description.replace(/&amp;/g, '&').length <= 160, `${route}: title or description will be truncated in results`);
   assert.ok(!titles.has(title) && !descriptions.has(description), `${route}: duplicate metadata`);
   titles.add(title); descriptions.add(description);
   assert.equal((html.match(/<h1(?:\s|>)/g) ?? []).length, 1, `${route}: expected one main heading`);
@@ -40,7 +42,11 @@ for (const route of routes) {
   assert.equal(graph.find(node => ['WebPage', 'CollectionPage', 'ContactPage'].includes(node['@type'])).url, url);
   assert.ok(!JSON.stringify(schema).includes('aggregateRating'), 'unverified ratings must not appear in schema');
   const faq = graph.find(node => node['@type'] === 'FAQPage');
-  assert.equal(!!faq, route === '' || route === 'contact', `${route}: FAQ schema must match visible content`);
+  assert.equal(!!faq, route === '' || route === 'contact' || servicePages.includes(route), `${route}: FAQ schema must match visible content`);
+  if (servicePages.includes(route)) {
+    assert.equal(graph.find(node => node['@type'] === 'Service')?.url, url, `${route}: missing Service schema`);
+    assert.equal(graph.find(node => node['@type'] === 'BreadcrumbList').itemListElement.length, 3, `${route}: breadcrumb must include Services`);
+  }
   if (faq) for (const question of faq.mainEntity) {
     const escape = value => value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
     assert.ok(main.includes(escape(question.name)), `${route}: FAQ question not rendered`);

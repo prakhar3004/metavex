@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-services-bento',
   standalone: true,
-  imports: [],
+  imports: [RouterLink],
   template: `
     <section id="services" class="relative py-10 sm:py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto scroll-mt-16">
 
@@ -42,7 +43,7 @@ import { Component } from '@angular/core';
               </div>
               <div>
                 <span class="text-[10px] sm:text-[11px] font-mono text-sunset-rose uppercase tracking-wider font-bold">Service 01</span>
-                <h3 class="font-heading text-lg sm:text-xl font-bold text-slate-900">Websites That Explain Your Offer</h3>
+                <h3 class="font-heading text-lg sm:text-xl font-bold text-slate-900"><a routerLink="/services/website-development" class="hover:text-sunset-rose transition-colors">Websites That Explain Your Offer</a></h3>
               </div>
             </div>
             <span class="px-2.5 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-[10px] sm:text-[11px] font-mono font-bold text-emerald-800">
@@ -108,7 +109,7 @@ import { Component } from '@angular/core';
                 </div>
                 <div>
                   <span class="text-[10px] sm:text-[11px] font-mono text-sunset-rose uppercase tracking-wider font-bold">Service 02</span>
-                  <h3 class="font-heading text-lg sm:text-xl font-bold text-slate-900">Meta Ads (FB & Instagram)</h3>
+                  <h3 class="font-heading text-lg sm:text-xl font-bold text-slate-900"><a routerLink="/services/meta-ads" class="hover:text-sunset-rose transition-colors">Meta Ads (FB & Instagram)</a></h3>
                 </div>
               </div>
             </div>
@@ -174,7 +175,7 @@ import { Component } from '@angular/core';
               </div>
               <div>
                 <span class="text-[10px] sm:text-[11px] font-mono text-sky-600 uppercase tracking-wider font-bold">Service 03</span>
-                <h3 class="font-heading text-lg sm:text-xl font-bold text-slate-900">WhatsApp Replies & Follow-Ups</h3>
+                <h3 class="font-heading text-lg sm:text-xl font-bold text-slate-900"><a routerLink="/services/whatsapp-automation" class="hover:text-sunset-rose transition-colors">WhatsApp Replies & Follow-Ups</a></h3>
               </div>
             </div>
             <span class="px-2.5 py-0.5 rounded-full bg-sky-50 border border-sky-200 text-[10px] sm:text-[11px] font-mono text-sky-800 font-bold">
@@ -255,7 +256,7 @@ import { Component } from '@angular/core';
                 </div>
                 <div>
                   <span class="text-[10px] sm:text-[11px] font-mono text-electric-violet uppercase tracking-wider font-bold">Service 04</span>
-                  <h3 class="font-heading text-lg sm:text-xl font-bold text-slate-900">Brand Social Media & Reels</h3>
+                  <h3 class="font-heading text-lg sm:text-xl font-bold text-slate-900"><a routerLink="/services/social-media-content" class="hover:text-sunset-rose transition-colors">Brand Social Media & Reels</a></h3>
                 </div>
               </div>
             </div>
@@ -297,7 +298,7 @@ import { Component } from '@angular/core';
                 <span class="text-slate-500 text-xs font-mono font-semibold">Simpler Daily Operations</span>
               </div>
               <h4 class="font-heading text-lg sm:text-2xl font-bold text-slate-900 mb-2">
-                Keep Leads, Orders & Follow-Ups Together
+                <a routerLink="/services/business-automation" class="hover:text-sunset-rose transition-colors">Keep Leads, Orders & Follow-Ups Together</a>
               </h4>
               <p class="text-slate-600 text-sm leading-relaxed mb-3">
                 <strong class="text-slate-800">How We Help:</strong> When customer details are scattered across chats and spreadsheets, follow-ups get harder. We can connect your tools and organise lead, order, or payment information in one shared view.

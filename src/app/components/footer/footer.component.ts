@@ -112,11 +112,11 @@ import { RouterLink } from '@angular/router';
           <div class="lg:col-span-3">
             <h5 class="text-xs font-mono uppercase tracking-widest text-slate-900 mb-4 font-bold">Services & Benefits</h5>
             <ul class="space-y-2.5 text-xs text-slate-600 font-medium">
-              <li><a routerLink="/services" class="hover:text-sunset-rose transition-colors flex items-center gap-1.5"><span>›</span> Fast Mobile Websites & Stores</a></li>
-              <li><a routerLink="/services" class="hover:text-sunset-rose transition-colors flex items-center gap-1.5"><span>›</span> Facebook & Instagram Ads</a></li>
-              <li><a routerLink="/services" class="hover:text-sunset-rose transition-colors flex items-center gap-1.5"><span>›</span> WhatsApp & Lead Automation</a></li>
-              <li><a routerLink="/services" class="hover:text-sunset-rose transition-colors flex items-center gap-1.5"><span>›</span> Brand Reels & Social Content</a></li>
-              <li><a routerLink="/services" class="hover:text-sunset-rose transition-colors flex items-center gap-1.5"><span>›</span> Cloud Systems & Operations</a></li>
+              <li><a routerLink="/services/website-development" class="hover:text-sunset-rose transition-colors flex items-center gap-1.5"><span>›</span> Website Development</a></li>
+              <li><a routerLink="/services/meta-ads" class="hover:text-sunset-rose transition-colors flex items-center gap-1.5"><span>›</span> Facebook & Instagram Ads</a></li>
+              <li><a routerLink="/services/whatsapp-automation" class="hover:text-sunset-rose transition-colors flex items-center gap-1.5"><span>›</span> WhatsApp Automation</a></li>
+              <li><a routerLink="/services/social-media-content" class="hover:text-sunset-rose transition-colors flex items-center gap-1.5"><span>›</span> Social Media Content & Reels</a></li>
+              <li><a routerLink="/services/business-automation" class="hover:text-sunset-rose transition-colors flex items-center gap-1.5"><span>›</span> Business Workflow Automation</a></li>
             </ul>
           </div>
 

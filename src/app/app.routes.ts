@@ -14,6 +14,36 @@ export const routes: Routes = [
     data: { description: "Explore website development, Facebook and Instagram ads, WhatsApp follow-ups, social content, and business automation for your needs." }
   },
   {
+    path: 'services/website-development',
+    loadComponent: () => import('./pages/service-detail/service-detail-page.component').then(module => module.ServiceDetailPageComponent),
+    title: 'Website Development Services in India | MetaVex Digital',
+    data: { service: 'website-development', description: "Mobile-first website development for Indian businesses: clear service pages, WhatsApp and call inquiries, payments, and fast, search-ready builds." }
+  },
+  {
+    path: 'services/meta-ads',
+    loadComponent: () => import('./pages/service-detail/service-detail-page.component').then(module => module.ServiceDetailPageComponent),
+    title: 'Facebook & Instagram Ads Agency (Meta Ads) | MetaVex',
+    data: { service: 'meta-ads', description: "Facebook and Instagram ads management for Indian businesses: campaign planning, pixel tracking, creative testing, and clear reports on inquiries." }
+  },
+  {
+    path: 'services/whatsapp-automation',
+    loadComponent: () => import('./pages/service-detail/service-detail-page.component').then(module => module.ServiceDetailPageComponent),
+    title: 'WhatsApp Business Automation & API Setup | MetaVex',
+    data: { service: 'whatsapp-automation', description: "Automate WhatsApp replies, catalog sharing, lead collection, and follow-ups, with WhatsApp Business API setup for Indian businesses." }
+  },
+  {
+    path: 'services/social-media-content',
+    loadComponent: () => import('./pages/service-detail/service-detail-page.component').then(module => module.ServiceDetailPageComponent),
+    title: 'Social Media Content & Instagram Reels | MetaVex',
+    data: { service: 'social-media-content', description: "Instagram Reels, posts, and carousels planned around your customers: social media content that explains your products and invites inquiries." }
+  },
+  {
+    path: 'services/business-automation',
+    loadComponent: () => import('./pages/service-detail/service-detail-page.component').then(module => module.ServiceDetailPageComponent),
+    title: 'Business Workflow Automation & Lead Tracking | MetaVex',
+    data: { service: 'business-automation', description: "Connect website forms, WhatsApp, Google Sheets, and CRMs so leads, orders, and follow-ups stay organised. Business automation for Indian teams." }
+  },
+  {
     path: 'comparison',
     loadComponent: () => import('./pages/comparison-page/comparison-page.component').then(module => module.ComparisonPageComponent),
     title: 'Customer Journey Gaps | Website, Ads & Follow-Ups | MetaVex',

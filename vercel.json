@@ -1,74 +1,94 @@
 {
-    "$schema":  "https://openapi.vercel.sh/vercel.json",
-    "buildCommand":  "npm run build",
-    "outputDirectory":  "dist/metavex/browser",
-    "routes":  [
-                   {
-                       "continue":  true,
-                       "headers":  {
-                                       "Permissions-Policy":  "camera=(), microphone=(), geolocation=()",
-                                       "X-Frame-Options":  "DENY",
-                                       "X-Content-Type-Options":  "nosniff",
-                                       "Referrer-Policy":  "strict-origin-when-cross-origin"
-                                   },
-                       "src":  "/(.*)"
-                   },
-                   {
-                       "has":  [
-                                   {
-                                       "value":  "www.metavex.digital",
-                                       "type":  "host"
-                                   }
-                               ],
-                       "status":  308,
-                       "headers":  {
-                                       "Location":  "https://metavex.digital/$1"
-                                   },
-                       "src":  "/(.*)"
-                   },
-                   {
-                       "status":  308,
-                       "headers":  {
-                                       "Location":  "/$1"
-                                   },
-                       "src":  "/(services|comparison|calculator|case-studies|process|contact)/"
-                   },
-                   {
-                       "src":  "/services",
-                       "dest":  "/services/index.html"
-                   },
-                   {
-                       "src":  "/comparison",
-                       "dest":  "/comparison/index.html"
-                   },
-                   {
-                       "src":  "/calculator",
-                       "dest":  "/calculator/index.html"
-                   },
-                   {
-                       "src":  "/case-studies",
-                       "dest":  "/case-studies/index.html"
-                   },
-                   {
-                       "src":  "/process",
-                       "dest":  "/process/index.html"
-                   },
-                   {
-                       "src":  "/contact",
-                       "dest":  "/contact/index.html"
-                   },
-                   {
-                       "handle":  "filesystem"
-                   },
-                   {
-                       "dest":  "/404.html",
-                       "status":  404,
-                       "src":  "/(.*)"
-                   }
-               ],
-    "functions":  {
-                      "api/leads.mjs":  {
-                                            "maxDuration":  30
-                                        }
-                  }
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist/metavex/browser",
+  "routes": [
+    {
+      "continue": true,
+      "headers": {
+        "Permissions-Policy": "camera=(), microphone=(), geolocation=()",
+        "X-Frame-Options": "DENY",
+        "X-Content-Type-Options": "nosniff",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+      },
+      "src": "/(.*)"
+    },
+    {
+      "has": [
+        {
+          "value": "www.metavex.digital",
+          "type": "host"
+        }
+      ],
+      "status": 308,
+      "headers": {
+        "Location": "https://metavex.digital/$1"
+      },
+      "src": "/(.*)"
+    },
+    {
+      "status": 308,
+      "headers": {
+        "Location": "/$1"
+      },
+      "src": "/(services|services/website-development|services/meta-ads|services/whatsapp-automation|services/social-media-content|services/business-automation|comparison|calculator|case-studies|process|contact)/"
+    },
+    {
+      "src": "/services",
+      "dest": "/services/index.html"
+    },
+    {
+      "src": "/services/website-development",
+      "dest": "/services/website-development/index.html"
+    },
+    {
+      "src": "/services/meta-ads",
+      "dest": "/services/meta-ads/index.html"
+    },
+    {
+      "src": "/services/whatsapp-automation",
+      "dest": "/services/whatsapp-automation/index.html"
+    },
+    {
+      "src": "/services/social-media-content",
+      "dest": "/services/social-media-content/index.html"
+    },
+    {
+      "src": "/services/business-automation",
+      "dest": "/services/business-automation/index.html"
+    },
+    {
+      "src": "/comparison",
+      "dest": "/comparison/index.html"
+    },
+    {
+      "src": "/calculator",
+      "dest": "/calculator/index.html"
+    },
+    {
+      "src": "/case-studies",
+      "dest": "/case-studies/index.html"
+    },
+    {
+      "src": "/process",
+      "dest": "/process/index.html"
+    },
+    {
+      "src": "/contact",
+      "dest": "/contact/index.html"
+    },
+    {
+      "handle": "filesystem"
+    },
+    {
+      "dest": "/404.html",
+      "status": 404,
+      "src": "/(.*)"
+    }
+  ],
+  "functions": {
+    "api/leads.mjs": {
+      "maxDuration": 30
+    }
+  }
 }

@@ -12,11 +12,4 @@ export const SITE = {
   sameAs: [] as string[]
 } as const;
 
-// Only services described in the public website. Do not add unverified credentials or results.
-export const SERVICE_NAMES = [
-  'Website development',
-  'Facebook and Instagram advertising',
-  'WhatsApp replies and follow-up workflows',
-  'Social media content and reels',
-  'Business workflow automation'
-] as const;
+// Service names, pages and FAQs live in src/app/pages/service-detail/service-pages.data.ts.
