@@ -57,7 +57,7 @@ module.exports = {
         }
       },
       fontFamily: {
-        heading: ['"Space Grotesk"', '"Syne"', 'sans-serif'],
+        heading: ['"Space Grotesk"', 'sans-serif'],
         body: ['"Plus Jakarta Sans"', 'Inter', 'sans-serif'],
         mono: ['"JetBrains Mono"', 'monospace'],
       },
