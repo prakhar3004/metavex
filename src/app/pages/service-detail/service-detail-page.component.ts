@@ -2,6 +2,7 @@ import { Component, EventEmitter, Output, inject } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { SITE } from '../../site.config';
 import { SERVICE_PAGES } from './service-pages.data';
+import { GUIDES } from '../guides/guides.data';
 
 @Component({
   selector: 'app-service-detail-page',
@@ -47,6 +48,22 @@ import { SERVICE_PAGES } from './service-pages.data';
           </a>
         </div>
       </div>
+
+      <!-- At a glance: short, quotable facts for visitors and answer engines -->
+      <section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mb-10 sm:mb-14" aria-labelledby="glance-heading">
+        <div class="rounded-2xl sm:rounded-3xl bg-white border-2 border-sunset-rose/20 p-5 sm:p-7 shadow-sm">
+          <h2 id="glance-heading" class="font-heading text-lg sm:text-xl font-extrabold text-slate-900 mb-3">{{ page.label }} at a Glance</h2>
+          <dl class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 text-sm leading-relaxed">
+            <div><dt class="font-semibold text-slate-900">Provider</dt><dd class="text-slate-700"><a routerLink="/about" class="hover:text-sunset-rose">MetaVex Digital</a>, an Indian digital services startup</dd></div>
+            <div><dt class="font-semibold text-slate-900">Service area</dt><dd class="text-slate-700">Businesses across India</dd></div>
+            <div><dt class="font-semibold text-slate-900">Pricing</dt><dd class="text-slate-700">Written quote based on scope, shared before work starts</dd></div>
+            <div><dt class="font-semibold text-slate-900">How to start</dt><dd class="text-slate-700">Call or WhatsApp +91 9026231351, or send a brief on the <a routerLink="/contact" class="text-electric-violet underline underline-offset-4">contact page</a></dd></div>
+          </dl>
+          @for (guide of guides; track guide.slug) {
+            <p class="mt-4 pt-4 border-t border-slate-100 text-sm text-slate-600">Related guide: <a [routerLink]="'/guides/' + guide.slug" class="font-semibold text-electric-violet underline underline-offset-4">{{ guide.title }}</a></p>
+          }
+        </div>
+      </section>
 
       <!-- Who it helps -->
       <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12 sm:mb-16" aria-labelledby="fit-heading">
@@ -163,6 +180,7 @@ export class ServiceDetailPageComponent {
   private readonly slug = inject(ActivatedRoute).snapshot.data['service'] as string;
   public readonly page = SERVICE_PAGES.find(item => item.slug === this.slug) ?? SERVICE_PAGES[0];
   public readonly others = SERVICE_PAGES.filter(item => item !== this.page);
+  public readonly guides = GUIDES.filter(guide => guide.relatedService === this.page.slug);
   public readonly whatsappUrl = `https://wa.me/${SITE.phone.replace('+', '')}?text=${encodeURIComponent(this.page.whatsapp)}`;
 
   public onOpenAudit() {

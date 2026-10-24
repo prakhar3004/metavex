@@ -37,7 +37,18 @@ Ready-to-paste profile text and categories are in [BRAND-PROFILE-KIT.md](BRAND-P
 
 Clear questions, direct answers, descriptive service text, readable HTML and consistent business details help people and crawlers understand what the business offers. Keep future case studies evidence-based, identify their dates and scope, and publish results only with permission and supporting records. Add real team information, location and service details only after the owner confirms them.
 
-Google says its existing SEO practices apply to AI Overviews and AI Mode, with no special additional technical requirements or AI schema. No `llms.txt` ranking claim, hidden keyword pages, fabricated reviews or guaranteed citations are included. Indexing, rankings, AI citations and rich results remain decisions made by each search service.
+Google says its existing SEO practices apply to AI Overviews and AI Mode, with no special additional technical requirements or AI schema. Indexing, rankings, AI citations and rich results remain decisions made by each search service.
+
+What the site does for answer engines (checked 24 October 2026):
+
+- **Crawler access:** GPTBot, OAI-SearchBot, ClaudeBot, PerplexityBot, Googlebot, Google-Extended, Bingbot and CCBot all receive HTTP 200 and full prerendered HTML. No JavaScript is needed to read content. Keep `robots.txt` open unless the owner decides to opt out of a specific AI crawler.
+- **Entity clarity:** an About page with an at-a-glance fact list, `AboutPage` schema, `Organization` schema with `alternateName` and `sameAs` (the official Facebook page), and a footer link back to that profile.
+- **Quotable answers:** every guide opens with a "Short answer" and key takeaways; every service page has an "at a glance" facts box and visible FAQs mirrored in `FAQPage` schema.
+- **Freshness and sources:** guides carry `Article` schema with `datePublished`, `dateModified`, `citation` links to official sources, and `article:modified_time`. The sitemap has `lastmod` dates; the build fails if a guide's sitemap date and `dateModified` disagree. When a guide changes, update `updated` in `guides.data.ts` and its sitemap `lastmod` together.
+- **`llms.txt`:** a plain Markdown summary of the business and its pages for AI tools that read it. Google does not use it for ranking, and support among other services varies; it is a convenience, not a ranking lever. The build fails if a public page is missing from it.
+- **IndexNow:** `npm run indexnow` after each deploy notifies Bing (which feeds Copilot and ChatGPT search) and other IndexNow engines.
+
+What moves AI citations most is outside the site: consistent mentions of MetaVex Digital on other sites (Google Business Profile, directories, LinkedIn, Facebook, YouTube, industry articles), genuine reviews, and new guides that answer questions customers actually ask. Add a guide only when it is accurate, sourced and useful; thin pages written for keywords can hurt more than help.
 
 ## Repeatable local verification
 

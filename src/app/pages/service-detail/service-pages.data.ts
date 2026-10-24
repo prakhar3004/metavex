@@ -132,7 +132,7 @@ export const SERVICE_PAGES: readonly ServicePage[] = [
     costFactors: [
       'Whether you use the free WhatsApp Business app or the WhatsApp Business API',
       'Number of flows, questions, and integrations',
-      'Platform and Meta conversation charges, which are billed separately',
+      'Meta per-message charges and any provider fees, which are billed separately',
       'Changes and support needed after launch'
     ],
     faqs: [

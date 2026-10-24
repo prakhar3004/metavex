@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://metavex.digital/</loc></url>
-  <url><loc>https://metavex.digital/services</loc></url>
-  <url><loc>https://metavex.digital/services/website-development</loc></url>
-  <url><loc>https://metavex.digital/services/meta-ads</loc></url>
-  <url><loc>https://metavex.digital/services/whatsapp-automation</loc></url>
-  <url><loc>https://metavex.digital/services/social-media-content</loc></url>
-  <url><loc>https://metavex.digital/services/business-automation</loc></url>
-  <url><loc>https://metavex.digital/comparison</loc></url>
-  <url><loc>https://metavex.digital/calculator</loc></url>
-  <url><loc>https://metavex.digital/case-studies</loc></url>
-  <url><loc>https://metavex.digital/process</loc></url>
-  <url><loc>https://metavex.digital/contact</loc></url>
+  <url><loc>https://metavex.digital/</loc><lastmod>2026-10-24</lastmod></url>
+  <url><loc>https://metavex.digital/services</loc><lastmod>2026-10-24</lastmod></url>
+  <url><loc>https://metavex.digital/services/website-development</loc><lastmod>2026-10-24</lastmod></url>
+  <url><loc>https://metavex.digital/services/meta-ads</loc><lastmod>2026-10-24</lastmod></url>
+  <url><loc>https://metavex.digital/services/whatsapp-automation</loc><lastmod>2026-10-24</lastmod></url>
+  <url><loc>https://metavex.digital/services/social-media-content</loc><lastmod>2026-10-24</lastmod></url>
+  <url><loc>https://metavex.digital/services/business-automation</loc><lastmod>2026-10-24</lastmod></url>
+  <url><loc>https://metavex.digital/about</loc><lastmod>2026-10-24</lastmod></url>
+  <url><loc>https://metavex.digital/guides</loc><lastmod>2026-10-24</lastmod></url>
+  <url><loc>https://metavex.digital/guides/whatsapp-business-app-vs-api</loc><lastmod>2026-10-24</lastmod></url>
+  <url><loc>https://metavex.digital/guides/meta-ads-for-small-business-india</loc><lastmod>2026-10-24</lastmod></url>
+  <url><loc>https://metavex.digital/guides/business-website-checklist</loc><lastmod>2026-10-24</lastmod></url>
+  <url><loc>https://metavex.digital/comparison</loc><lastmod>2026-10-24</lastmod></url>
+  <url><loc>https://metavex.digital/calculator</loc><lastmod>2026-10-24</lastmod></url>
+  <url><loc>https://metavex.digital/case-studies</loc><lastmod>2026-10-24</lastmod></url>
+  <url><loc>https://metavex.digital/process</loc><lastmod>2026-10-24</lastmod></url>
+  <url><loc>https://metavex.digital/contact</loc><lastmod>2026-10-24</lastmod></url>
 </urlset>

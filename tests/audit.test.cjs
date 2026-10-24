@@ -240,7 +240,7 @@ test('native modal lifecycle preserves nested scroll locks and restores original
 test('navigation exposes valid destinations without a Home menu item', () => {
   const { NavbarComponent } = load('src/app/components/navbar/navbar.component.ts', { globals: { window: { innerWidth: 1280 } } });
   const nav = new NavbarComponent();
-  assert.equal(nav.links.length, 6);
+  assert.equal(nav.links.length, 7);
   assert.ok(nav.links.every(link => link.path !== '/' && link.label !== 'Home'));
   nav.toggleMobileMenu();
   assert.equal(nav.mobileMenuOpen(), true);
@@ -251,7 +251,7 @@ test('navigation exposes valid destinations without a Home menu item', () => {
 test('page metadata updates descriptions and resets noindex after leaving an unknown URL', () => {
   class TitleStrategy { buildTitle(snapshot) { return snapshot.title; } }
   const tags = new Map();
-  const meta = { updateTag(tag) { tags.set(tag.name ?? tag.property, tag.content); } };
+  const meta = { updateTag(tag) { tags.set(tag.name ?? tag.property, tag.content); }, removeTag(selector) { tags.delete(selector.match(/"([^"]+)"/)[1]); } };
   let title;
   class Meta {}
   class Title {}
@@ -264,7 +264,8 @@ test('page metadata updates descriptions and resets noindex after leaving an unk
   const { PageTitleStrategy } = load('src/app/services/page-title.strategy.ts', {
     modules: { '@angular/router': { TitleStrategy }, '@angular/platform-browser': { Meta, Title },
       '../site.config': load('src/app/site.config.ts'), '../components/faq/faq.data': load('src/app/components/faq/faq.data.ts'),
-      '../pages/service-detail/service-pages.data': load('src/app/pages/service-detail/service-pages.data.ts') },
+      '../pages/service-detail/service-pages.data': load('src/app/pages/service-detail/service-pages.data.ts'),
+      '../pages/guides/guides.data': load('src/app/pages/guides/guides.data.ts') },
     inject: token => token === documentToken ? document : token === Title ? { setTitle(value) { title = value; } } : meta
   });
   const strategy = new PageTitleStrategy();
@@ -279,7 +280,7 @@ test('page metadata updates descriptions and resets noindex after leaving an unk
   const graph = JSON.parse(elements.find(element => element.id === 'site-structured-data').textContent)['@graph'];
   assert.equal(graph.find(node => node['@type'] === 'Organization').telephone, '+919026231351');
   assert.ok(graph.find(node => node['@type'] === 'WebSite').alternateName.includes('MetaVex'), 'site name schema must list the short brand name');
-  assert.ok(!('sameAs' in graph.find(node => node['@type'] === 'Organization')), 'no empty or invented profile links');
+  assert.ok(graph.find(node => node['@type'] === 'Organization').sameAs.every(link => link.startsWith('https://')), 'profile links are absolute');
   assert.equal(tags.get('og:image'), 'https://metavex.digital/og-image.png');
   assert.equal(tags.get('twitter:card'), 'summary_large_image');
   assert.ok(!graph.some(node => node['@type'] === 'FAQPage'), 'no FAQ schema on a page without visible FAQs');
@@ -290,6 +291,17 @@ test('page metadata updates descriptions and resets noindex after leaving an unk
   assert.equal(serviceGraph.find(node => node['@type'] === 'Service').url, 'https://metavex.digital/services/meta-ads');
   assert.deepEqual(serviceGraph.find(node => node['@type'] === 'BreadcrumbList').itemListElement.map(crumb => crumb.name), ['Home', 'Services', 'Meta Ads']);
   assert.ok(serviceGraph.find(node => node['@type'] === 'FAQPage').mainEntity.length >= 3, 'service FAQs appear in schema');
+  assert.equal(tags.get('og:type'), 'website');
+  strategy.updateTitle({ url: '/guides/business-website-checklist', title: 'Checklist', root: { firstChild: { data: { description: 'Guide', guide: 'business-website-checklist' } } } });
+  const guideGraph = JSON.parse(elements.find(element => element.id === 'site-structured-data').textContent)['@graph'];
+  const article = guideGraph.find(node => node['@type'] === 'Article');
+  assert.ok(article.datePublished && article.dateModified && article.citation.length, 'guides carry dates and cited sources');
+  assert.deepEqual(guideGraph.find(node => node['@type'] === 'BreadcrumbList').itemListElement.map(crumb => crumb.name).slice(0, 2), ['Home', 'Guides']);
+  assert.equal(tags.get('og:type'), 'article');
+  assert.equal(tags.get('article:modified_time'), article.dateModified);
+  strategy.updateTitle({ url: '/about', title: 'About', root: { firstChild: { data: { description: 'About us' } } } });
+  assert.equal(tags.get('article:modified_time'), undefined, 'article dates do not leak onto other pages');
+  assert.equal(JSON.parse(elements.find(element => element.id === 'site-structured-data').textContent)['@graph'].find(node => node['@id']?.endsWith('#webpage'))['@type'], 'AboutPage');
   strategy.updateTitle({ url: '/missing', title: 'Not Found', root: { data: { robots: 'noindex,follow' } } });
   assert.equal(elements.length, 0, 'unknown URLs must not retain canonical or schema from the previous page');
 });

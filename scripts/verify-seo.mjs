@@ -5,12 +5,15 @@ import path from 'node:path';
 const output = path.resolve('dist/metavex/browser');
 const base = 'https://metavex.digital';
 const servicePages = ['website-development', 'meta-ads', 'whatsapp-automation', 'social-media-content', 'business-automation'].map(slug => 'services/' + slug);
-const routes = ['', 'services', ...servicePages, 'comparison', 'calculator', 'case-studies', 'process', 'contact'];
+const guidePages = ['whatsapp-business-app-vs-api', 'meta-ads-for-small-business-india', 'business-website-checklist'].map(slug => 'guides/' + slug);
+const routes = ['', 'services', ...servicePages, 'about', 'guides', ...guidePages, 'comparison', 'calculator', 'case-studies', 'process', 'contact'];
 const titles = new Set();
 const descriptions = new Set();
 const strip = value => value.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
 const sitemap = fs.readFileSync(path.join(output, 'sitemap.xml'), 'utf8');
 const locations = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(match => match[1]);
+const lastmods = new Map([...sitemap.matchAll(/<loc>([^<]+)<\/loc><lastmod>(\d{4}-\d{2}-\d{2})<\/lastmod>/g)].map(match => [match[1], match[2]]));
+const llms = fs.readFileSync(path.join(output, 'llms.txt'), 'utf8');
 
 for (const route of routes) {
   const url = base + '/' + route;
@@ -39,13 +42,22 @@ for (const route of routes) {
   assert.ok(!strip(html).includes('METAVEXDIGITAL'), `${route}: brand words run together in page text`);
   const image = html.match(/property="og:image" content="([^"]+)"/)?.[1] ?? '';
   assert.ok(image.startsWith(base + '/') && fs.existsSync(path.join(output, image.slice(base.length + 1))), `${route}: missing social image`);
-  assert.equal(graph.find(node => ['WebPage', 'CollectionPage', 'ContactPage'].includes(node['@type'])).url, url);
+  assert.equal(graph.find(node => ['WebPage', 'CollectionPage', 'ContactPage', 'AboutPage'].includes(node['@type'])).url, url);
+  assert.ok(lastmods.has(url), `${route}: sitemap entry needs a lastmod date`);
+  assert.ok(llms.includes(url), `${route}: missing from llms.txt`);
   assert.ok(!JSON.stringify(schema).includes('aggregateRating'), 'unverified ratings must not appear in schema');
   const faq = graph.find(node => node['@type'] === 'FAQPage');
-  assert.equal(!!faq, route === '' || route === 'contact' || servicePages.includes(route), `${route}: FAQ schema must match visible content`);
+  assert.equal(!!faq, route === '' || route === 'contact' || servicePages.includes(route) || guidePages.includes(route), `${route}: FAQ schema must match visible content`);
   if (servicePages.includes(route)) {
     assert.equal(graph.find(node => node['@type'] === 'Service')?.url, url, `${route}: missing Service schema`);
     assert.equal(graph.find(node => node['@type'] === 'BreadcrumbList').itemListElement.length, 3, `${route}: breadcrumb must include Services`);
+  }
+  if (guidePages.includes(route)) {
+    const article = graph.find(node => node['@type'] === 'Article');
+    assert.ok(article?.datePublished && article.citation?.length, `${route}: guides need Article dates and sources`);
+    assert.equal(lastmods.get(url), article.dateModified, `${route}: sitemap lastmod must match the guide's dateModified`);
+    assert.match(html, new RegExp(`property="article:modified_time" content="${article.dateModified}"`), `${route}: missing article modified time`);
+    assert.equal(graph.find(node => node['@type'] === 'BreadcrumbList').itemListElement.length, 3, `${route}: breadcrumb must include Guides`);
   }
   if (faq) for (const question of faq.mainEntity) {
     const escape = value => value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');

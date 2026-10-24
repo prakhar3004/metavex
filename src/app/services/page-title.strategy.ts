@@ -5,6 +5,7 @@ import { RouterStateSnapshot, TitleStrategy } from '@angular/router';
 import { SITE } from '../site.config';
 import { FAQS } from '../components/faq/faq.data';
 import { SERVICE_PAGES, ServicePage } from '../pages/service-detail/service-pages.data';
+import { GUIDES, Guide } from '../pages/guides/guides.data';
 
 @Injectable()
 export class PageTitleStrategy extends TitleStrategy {
@@ -22,13 +23,18 @@ export class PageTitleStrategy extends TitleStrategy {
     const url = SITE.url + (path === '/' ? '/' : path);
     const noindex = !!page.data['robots'];
     const service = SERVICE_PAGES.find(item => item.slug === page.data['service']);
+    const guide = GUIDES.find(item => item.slug === page.data['guide']);
     for (const name of ['description', 'twitter:description']) this.meta.updateTag({ name, content: description });
     for (const [property, content] of Object.entries({
       'og:description': description, 'og:title': title, 'og:url': url,
-      'og:type': 'website', 'og:site_name': SITE.name, 'og:locale': 'en_IN',
+      'og:type': guide ? 'article' : 'website', 'og:site_name': SITE.name, 'og:locale': 'en_IN',
       'og:image': SITE.url + SITE.socialImage.path, 'og:image:alt': SITE.socialImage.alt,
       'og:image:width': String(SITE.socialImage.width), 'og:image:height': String(SITE.socialImage.height)
     })) this.meta.updateTag({ property, content });
+    for (const [property, date] of [['article:published_time', guide?.published], ['article:modified_time', guide?.updated]] as const) {
+      if (date) this.meta.updateTag({ property, content: date });
+      else this.meta.removeTag(`property="${property}"`);
+    }
     this.meta.updateTag({ name: 'twitter:title', content: title });
     this.meta.updateTag({ name: 'twitter:card', content: 'summary_large_image' });
     this.meta.updateTag({ name: 'twitter:image', content: SITE.url + SITE.socialImage.path });
@@ -45,10 +51,10 @@ export class PageTitleStrategy extends TitleStrategy {
       }
       canonical.href = url;
     }
-    this.updateStructuredData(title, description, path, url, noindex, service);
+    this.updateStructuredData(title, description, path, url, noindex, service, guide);
   }
 
-  private updateStructuredData(title: string, description: string, path: string, url: string, noindex: boolean, service?: ServicePage): void {
+  private updateStructuredData(title: string, description: string, path: string, url: string, noindex: boolean, service?: ServicePage, guide?: Guide): void {
     let script = this.document.getElementById('site-structured-data');
     if (noindex) { script?.remove(); return; }
     const organization = SITE.url + '/#organization';
@@ -69,18 +75,20 @@ export class PageTitleStrategy extends TitleStrategy {
         description: SITE.description, publisher: { '@id': organization }, inLanguage: SITE.language
       },
       {
-        '@type': path === '/contact' ? 'ContactPage' : path === '/case-studies' ? 'CollectionPage' : 'WebPage',
+        '@type': ({ '/contact': 'ContactPage', '/about': 'AboutPage', '/case-studies': 'CollectionPage', '/guides': 'CollectionPage' } as Record<string, string>)[path] ?? 'WebPage',
         '@id': url + '#webpage', url, name: title, description, inLanguage: SITE.language,
         isPartOf: { '@id': website }, about: { '@id': organization },
+        ...(path === '/about' ? { mainEntity: { '@id': organization } } : {}),
         ...(path === '/' ? {} : { breadcrumb: { '@id': url + '#breadcrumb' } })
       }
     ];
     if (path !== '/') {
-      const names: Record<string, string> = { '/services': 'Services', '/comparison': 'Customer Journey', '/calculator': 'Growth Planner', '/case-studies': 'Illustrative Use Cases', '/process': 'Our Process', '/contact': 'Contact' };
+      const names: Record<string, string> = { '/services': 'Services', '/about': 'About', '/guides': 'Guides', '/comparison': 'Customer Journey', '/calculator': 'Growth Planner', '/case-studies': 'Illustrative Use Cases', '/process': 'Our Process', '/contact': 'Contact' };
       const trail = [
         { name: 'Home', item: SITE.url + '/' },
         ...(service ? [{ name: 'Services', item: SITE.url + '/services' }] : []),
-        { name: service?.label ?? names[path] ?? title, item: url }
+        ...(guide ? [{ name: 'Guides', item: SITE.url + '/guides' }] : []),
+        { name: service?.label ?? guide?.title ?? names[path] ?? title, item: url }
       ];
       graph.push({ '@type': 'BreadcrumbList', '@id': url + '#breadcrumb', itemListElement: trail.map((crumb, index) => ({ '@type': 'ListItem', position: index + 1, ...crumb })) });
     }
@@ -92,8 +100,18 @@ export class PageTitleStrategy extends TitleStrategy {
       '@type': 'OfferCatalog', '@id': url + '#services', name: 'MetaVex Digital services',
       itemListElement: SERVICE_PAGES.map(item => ({ '@type': 'Offer', itemOffered: { '@type': 'Service', name: item.name, provider: { '@id': organization }, url: SITE.url + '/services/' + item.slug } }))
     });
-    // These answers are rendered by FaqComponent on Home and Contact, and by each service detail page.
-    const faqs = service?.faqs ?? (path === '/' || path === '/contact' ? FAQS : null);
+    if (guide) graph.push({
+      '@type': 'Article', '@id': url + '#article', headline: guide.title, description, url,
+      datePublished: guide.published, dateModified: guide.updated, inLanguage: SITE.language,
+      author: { '@id': organization }, publisher: { '@id': organization }, mainEntityOfPage: { '@id': url + '#webpage' },
+      image: SITE.url + SITE.socialImage.path, citation: guide.sources.map(source => source.url)
+    });
+    if (path === '/guides') graph.push({
+      '@type': 'ItemList', '@id': url + '#guides', name: 'MetaVex Digital guides',
+      itemListElement: GUIDES.map((item, index) => ({ '@type': 'ListItem', position: index + 1, name: item.title, url: SITE.url + '/guides/' + item.slug }))
+    });
+    // These answers are rendered by FaqComponent on Home and Contact, and by each service and guide page.
+    const faqs = service?.faqs ?? guide?.faqs ?? (path === '/' || path === '/contact' ? FAQS : null);
     if (faqs) graph.push({
       '@type': 'FAQPage', '@id': url + '#faq', isPartOf: { '@id': url + '#webpage' },
       mainEntity: faqs.map(faq => ({ '@type': 'Question', name: faq.question, acceptedAnswer: { '@type': 'Answer', text: faq.answer } }))

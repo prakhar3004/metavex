@@ -44,6 +44,36 @@ export const routes: Routes = [
     data: { service: 'business-automation', description: "Connect website forms, WhatsApp, Google Sheets, and CRMs so leads, orders, and follow-ups stay organised. Business automation for Indian teams." }
   },
   {
+    path: 'about',
+    loadComponent: () => import('./pages/about-page/about-page.component').then(module => module.AboutPageComponent),
+    title: 'About MetaVex Digital | Websites, Ads & Automation in India',
+    data: { description: "MetaVex Digital is an Indian digital services startup building websites, Meta ads, WhatsApp automation and workflows for growing businesses." }
+  },
+  {
+    path: 'guides',
+    loadComponent: () => import('./pages/guides/guides-index-page.component').then(module => module.GuidesIndexPageComponent),
+    title: 'Guides: Websites, Meta Ads & WhatsApp for Business | MetaVex',
+    data: { description: "Practical, sourced guides for Indian businesses on websites, Facebook and Instagram ads, and WhatsApp Business, from the MetaVex Digital team." }
+  },
+  {
+    path: 'guides/whatsapp-business-app-vs-api',
+    loadComponent: () => import('./pages/guides/guide-page.component').then(module => module.GuidePageComponent),
+    title: 'WhatsApp Business App vs API (2026): Which Do You Need?',
+    data: { guide: 'whatsapp-business-app-vs-api', description: "Compare the WhatsApp Business app and API: features, costs, Meta per-message pricing from October 2026, and signs your business should switch." }
+  },
+  {
+    path: 'guides/meta-ads-for-small-business-india',
+    loadComponent: () => import('./pages/guides/guide-page.component').then(module => module.GuidePageComponent),
+    title: 'Facebook & Instagram Ads Guide for Indian Small Businesses',
+    data: { guide: 'meta-ads-for-small-business-india', description: "How to run Facebook and Instagram ads in India: choosing objectives, Pixel tracking, Click to WhatsApp ads, budgets, creative and common mistakes." }
+  },
+  {
+    path: 'guides/business-website-checklist',
+    loadComponent: () => import('./pages/guides/guide-page.component').then(module => module.GuidePageComponent),
+    title: 'Business Website Checklist for Indian Businesses (2026)',
+    data: { guide: 'business-website-checklist', description: "Pre-launch website checklist for Indian businesses: mobile speed, Core Web Vitals, contact options, trust, SEO basics, DPDP privacy and payments." }
+  },
+  {
     path: 'comparison',
     loadComponent: () => import('./pages/comparison-page/comparison-page.component').then(module => module.ComparisonPageComponent),
     title: 'Customer Journey Gaps | Website, Ads & Follow-Ups | MetaVex',

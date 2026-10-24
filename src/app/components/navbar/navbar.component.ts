@@ -78,6 +78,7 @@ export class NavbarComponent {
     { path: '/calculator', label: 'Growth Planner', description: 'Explore a scenario using your own assumptions.' },
     { path: '/case-studies', label: 'Use Cases', description: 'Picture practical solutions for different businesses.' },
     { path: '/process', label: 'Process', description: 'Understand how we plan, build, and launch.' },
+    { path: '/guides', label: 'Guides', description: 'Practical answers about websites, ads, and WhatsApp.' },
     { path: '/contact', label: 'Contact', description: 'Share your requirements and start a conversation.' }
   ];
   public toggleMobileMenu() {

@@ -130,6 +130,8 @@ import { RouterLink } from '@angular/router';
               <li><a routerLink="/calculator" class="hover:text-sunset-rose transition-colors">Growth Planner</a></li>
               <li><a routerLink="/case-studies" class="hover:text-sunset-rose transition-colors">Use Cases</a></li>
               <li><a routerLink="/process" class="hover:text-sunset-rose transition-colors">Our Process</a></li>
+              <li><a routerLink="/guides" class="hover:text-sunset-rose transition-colors">Guides</a></li>
+              <li><a routerLink="/about" class="hover:text-sunset-rose transition-colors">About MetaVex</a></li>
               <li><a routerLink="/contact" class="hover:text-sunset-rose transition-colors">Contact Us</a></li>
             </ul>
           </div>
@@ -178,6 +180,16 @@ import { RouterLink } from '@angular/router';
                   class="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-emerald-700 hover:text-emerald-800 transition-colors">
                   <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                   <span>Available on WhatsApp ➔</span>
+                </a>
+              </div>
+
+              <div>
+                <a
+                  href="https://www.facebook.com/profile.php?id=61595820420995"
+                  target="_blank"
+                  rel="me noopener noreferrer"
+                  class="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-slate-600 hover:text-slate-900 transition-colors">
+                  <span>MetaVex Digital on Facebook ↗</span>
                 </a>
               </div>
 

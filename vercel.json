@@ -31,7 +31,7 @@
       "headers": {
         "Location": "/$1"
       },
-      "src": "/(services|services/website-development|services/meta-ads|services/whatsapp-automation|services/social-media-content|services/business-automation|comparison|calculator|case-studies|process|contact)/"
+      "src": "/(services|services/website-development|services/meta-ads|services/whatsapp-automation|services/social-media-content|services/business-automation|about|guides|guides/whatsapp-business-app-vs-api|guides/meta-ads-for-small-business-india|guides/business-website-checklist|comparison|calculator|case-studies|process|contact)/"
     },
     {
       "src": "/services",
@@ -56,6 +56,26 @@
     {
       "src": "/services/business-automation",
       "dest": "/services/business-automation/index.html"
+    },
+    {
+      "src": "/about",
+      "dest": "/about/index.html"
+    },
+    {
+      "src": "/guides",
+      "dest": "/guides/index.html"
+    },
+    {
+      "src": "/guides/whatsapp-business-app-vs-api",
+      "dest": "/guides/whatsapp-business-app-vs-api/index.html"
+    },
+    {
+      "src": "/guides/meta-ads-for-small-business-india",
+      "dest": "/guides/meta-ads-for-small-business-india/index.html"
+    },
+    {
+      "src": "/guides/business-website-checklist",
+      "dest": "/guides/business-website-checklist/index.html"
     },
     {
       "src": "/comparison",
