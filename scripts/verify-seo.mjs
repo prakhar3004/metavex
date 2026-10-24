@@ -37,6 +37,9 @@ for (const route of routes) {
   assert.equal(schema?.['@context'], 'https://schema.org');
   const graph = schema['@graph'];
   assert.equal(graph.find(node => node['@type'] === 'Organization').telephone, '+919026231351');
+  for (const profile of graph.find(node => node['@type'] === 'Organization').sameAs ?? []) {
+    assert.ok(html.includes(`href="${profile}"`), `${route}: sameAs profile ${profile} must also be a visible link`);
+  }
   const site = graph.find(node => node['@type'] === 'WebSite');
   assert.ok(site.name === 'MetaVex Digital' && site.alternateName.includes('MetaVex'), `${route}: brand site name schema missing`);
   assert.ok(!strip(html).includes('METAVEXDIGITAL'), `${route}: brand words run together in page text`);

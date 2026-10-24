@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { PROFILES } from '../../site.config';
 
 @Component({
   selector: 'app-footer',
@@ -185,14 +186,16 @@ import { RouterLink } from '@angular/router';
                 </a>
               </div>
 
-              <div>
-                <a
-                  href="https://www.facebook.com/profile.php?id=61595820420995"
-                  target="_blank"
-                  rel="me noopener noreferrer"
-                  class="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-slate-600 hover:text-slate-900 transition-colors">
-                  <span>MetaVex Digital on Facebook ↗</span>
-                </a>
+              <div class="flex flex-wrap gap-x-4 gap-y-2">
+                @for (profile of profiles; track profile.url) {
+                  <a
+                    [href]="profile.url"
+                    target="_blank"
+                    rel="me noopener noreferrer"
+                    class="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-slate-600 hover:text-slate-900 transition-colors">
+                    <span>MetaVex Digital on {{ profile.name }} ↗</span>
+                  </a>
+                }
               </div>
 
             </div>
@@ -219,5 +222,6 @@ import { RouterLink } from '@angular/router';
 })
 export class FooterComponent {
   public readonly currentYear = new Date().getFullYear();
+  public readonly profiles = PROFILES;
 
 }

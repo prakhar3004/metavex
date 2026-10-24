@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { SITE } from '../../site.config';
+import { PROFILES, SITE } from '../../site.config';
 import { SERVICE_PAGES } from '../service-detail/service-pages.data';
 
 @Component({
@@ -50,6 +50,14 @@ import { SERVICE_PAGES } from '../service-detail/service-pages.data';
               <dd class="sm:col-span-2 text-slate-700">
                 <a href="tel:+919026231351" class="font-semibold text-electric-violet underline underline-offset-4">+91 9026231351</a> (call or WhatsApp) ·
                 <a href="mailto:metavexdigital@gmail.com" class="font-semibold text-electric-violet underline underline-offset-4 break-all">metavexdigital&#64;gmail.com</a>
+              </dd>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-1 sm:gap-4 py-3">
+              <dt class="font-semibold text-slate-900">Official profiles</dt>
+              <dd class="sm:col-span-2 text-slate-700 flex flex-wrap gap-x-4 gap-y-1">
+                @for (profile of profiles; track profile.url) {
+                  <a [href]="profile.url" target="_blank" rel="me noopener noreferrer" class="font-semibold text-electric-violet underline underline-offset-4">{{ profile.name }}</a>
+                }
               </dd>
             </div>
           </dl>
@@ -107,6 +115,7 @@ import { SERVICE_PAGES } from '../service-detail/service-pages.data';
 export class AboutPageComponent {
   @Output() openLeadModal = new EventEmitter<void>();
   public readonly description = SITE.description;
+  public readonly profiles = PROFILES;
   public readonly services = SERVICE_PAGES;
   public readonly principles = [
     { title: 'Understand the Problem First', description: 'We start with how your business works and where customers get stuck, then suggest a useful starting point.' },
