@@ -274,9 +274,13 @@ test('page metadata updates descriptions and resets noindex after leaving an unk
   assert.equal(tags.get('description'), 'Useful services');
   assert.equal(tags.get('og:description'), 'Useful services');
   assert.match(tags.get('robots'), /^index,follow/);
-  assert.equal(elements.find(element => element.rel === 'canonical').href, 'https://metavex.design/services');
+  assert.equal(elements.find(element => element.rel === 'canonical').href, 'https://metavex.digital/services');
   const graph = JSON.parse(elements.find(element => element.id === 'site-structured-data').textContent)['@graph'];
   assert.equal(graph.find(node => node['@type'] === 'Organization').telephone, '+919026231351');
+  assert.ok(graph.find(node => node['@type'] === 'WebSite').alternateName.includes('MetaVex'), 'site name schema must list the short brand name');
+  assert.ok(!('sameAs' in graph.find(node => node['@type'] === 'Organization')), 'no empty or invented profile links');
+  assert.equal(tags.get('og:image'), 'https://metavex.digital/og-image.png');
+  assert.equal(tags.get('twitter:card'), 'summary_large_image');
   assert.ok(!graph.some(node => node['@type'] === 'FAQPage'), 'no FAQ schema on a page without visible FAQs');
   strategy.updateTitle({ url: '/missing', title: 'Not Found', root: { data: { robots: 'noindex,follow' } } });
   assert.equal(elements.length, 0, 'unknown URLs must not retain canonical or schema from the previous page');

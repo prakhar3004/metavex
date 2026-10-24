@@ -24,13 +24,13 @@ export class PageTitleStrategy extends TitleStrategy {
     for (const [property, content] of Object.entries({
       'og:description': description, 'og:title': title, 'og:url': url,
       'og:type': 'website', 'og:site_name': SITE.name, 'og:locale': 'en_IN',
-      'og:image': SITE.url + '/logo.png', 'og:image:alt': 'MetaVex Digital logo',
-      'og:image:width': '1024', 'og:image:height': '1024'
+      'og:image': SITE.url + SITE.socialImage.path, 'og:image:alt': SITE.socialImage.alt,
+      'og:image:width': String(SITE.socialImage.width), 'og:image:height': String(SITE.socialImage.height)
     })) this.meta.updateTag({ property, content });
     this.meta.updateTag({ name: 'twitter:title', content: title });
-    this.meta.updateTag({ name: 'twitter:card', content: 'summary' });
-    this.meta.updateTag({ name: 'twitter:image', content: SITE.url + '/logo.png' });
-    this.meta.updateTag({ name: 'twitter:image:alt', content: 'MetaVex Digital logo' });
+    this.meta.updateTag({ name: 'twitter:card', content: 'summary_large_image' });
+    this.meta.updateTag({ name: 'twitter:image', content: SITE.url + SITE.socialImage.path });
+    this.meta.updateTag({ name: 'twitter:image:alt', content: SITE.socialImage.alt });
     this.meta.updateTag({ name: 'robots', content: noindex ? 'noindex,follow' : 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1' });
 
     let canonical = this.document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]');
@@ -53,12 +53,19 @@ export class PageTitleStrategy extends TitleStrategy {
     const website = SITE.url + '/#website';
     const graph: Record<string, unknown>[] = [
       {
-        '@type': 'Organization', '@id': organization, name: SITE.name, url: SITE.url + '/',
-        logo: { '@type': 'ImageObject', url: SITE.url + '/logo.png', width: 1024, height: 1024 },
+        '@type': 'Organization', '@id': organization, name: SITE.name, alternateName: SITE.alternateNames,
+        url: SITE.url + '/', description: SITE.description,
+        logo: { '@type': 'ImageObject', url: SITE.url + '/logo.png', width: 512, height: 512 },
+        image: SITE.url + SITE.socialImage.path,
         email: SITE.email, telephone: SITE.phone,
-        contactPoint: { '@type': 'ContactPoint', telephone: SITE.phone, email: SITE.email, contactType: 'customer enquiries' }
+        areaServed: { '@type': 'Country', name: 'India' }, knowsAbout: SERVICE_NAMES,
+        contactPoint: { '@type': 'ContactPoint', telephone: SITE.phone, email: SITE.email, contactType: 'customer enquiries', areaServed: 'IN' },
+        ...(SITE.sameAs.length ? { sameAs: SITE.sameAs } : {})
       },
-      { '@type': 'WebSite', '@id': website, url: SITE.url + '/', name: SITE.name, publisher: { '@id': organization }, inLanguage: SITE.language },
+      {
+        '@type': 'WebSite', '@id': website, url: SITE.url + '/', name: SITE.name, alternateName: SITE.alternateNames,
+        description: SITE.description, publisher: { '@id': organization }, inLanguage: SITE.language
+      },
       {
         '@type': path === '/contact' ? 'ContactPage' : path === '/case-studies' ? 'CollectionPage' : 'WebPage',
         '@id': url + '#webpage', url, name: title, description, inLanguage: SITE.language,

@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const output = path.resolve('dist/metavex/browser');
-const base = 'https://metavex.design';
+const base = 'https://metavex.digital';
 const routes = ['', 'services', 'comparison', 'calculator', 'case-studies', 'process', 'contact'];
 const titles = new Set();
 const descriptions = new Set();
@@ -32,6 +32,11 @@ for (const route of routes) {
   assert.equal(schema?.['@context'], 'https://schema.org');
   const graph = schema['@graph'];
   assert.equal(graph.find(node => node['@type'] === 'Organization').telephone, '+919026231351');
+  const site = graph.find(node => node['@type'] === 'WebSite');
+  assert.ok(site.name === 'MetaVex Digital' && site.alternateName.includes('MetaVex'), `${route}: brand site name schema missing`);
+  assert.ok(!strip(html).includes('METAVEXDIGITAL'), `${route}: brand words run together in page text`);
+  const image = html.match(/property="og:image" content="([^"]+)"/)?.[1] ?? '';
+  assert.ok(image.startsWith(base + '/') && fs.existsSync(path.join(output, image.slice(base.length + 1))), `${route}: missing social image`);
   assert.equal(graph.find(node => ['WebPage', 'CollectionPage', 'ContactPage'].includes(node['@type'])).url, url);
   assert.ok(!JSON.stringify(schema).includes('aggregateRating'), 'unverified ratings must not appear in schema');
   const faq = graph.find(node => node['@type'] === 'FAQPage');
@@ -41,16 +46,22 @@ for (const route of routes) {
     assert.ok(main.includes(escape(question.name)), `${route}: FAQ question not rendered`);
     assert.ok(main.includes(escape(question.acceptedAnswer.text)), `${route}: FAQ answer not rendered`);
   }
-  for (const asset of html.matchAll(/(?:src|href)="([^"?#]+\.(?:js|css|png|ico))"/g)) {
+  for (const asset of html.matchAll(/(?:src|href)="([^"?#]+\.(?:js|css|png|ico|webmanifest))"/g)) {
     if (/^https?:/.test(asset[1])) continue;
     assert.ok(fs.existsSync(path.join(output, asset[1].replace(/^\//, ''))), `${route}: missing asset ${asset[1]}`);
   }
   console.log(`PASS /${route}: rendered content, H1, metadata, canonical, schema, links and assets`);
 }
 assert.equal(locations.length, routes.length, 'sitemap must contain only public canonical pages');
-assert.match(fs.readFileSync(path.join(output, 'robots.txt'), 'utf8'), /Sitemap: https:\/\/metavex\.design\/sitemap\.xml/);
+assert.match(fs.readFileSync(path.join(output, 'robots.txt'), 'utf8'), /Sitemap: https:\/\/metavex\.digital\/sitemap\.xml/);
 assert.match(fs.readFileSync(path.join(output, '404.html'), 'utf8'), /noindex,follow/);
 const hosting = JSON.parse(fs.readFileSync('vercel.json', 'utf8'));
-assert.ok(!hosting.rewrites.some(rule => rule.source.includes('(.*)')), 'catch-all rewrites can swallow API and 404 responses');
-for (const route of routes.filter(Boolean)) assert.ok(hosting.rewrites.some(rule => rule.source === '/' + route && rule.destination === '/' + route + '/index.html'));
+const filesystemIndex = hosting.routes.findIndex(rule => rule.handle === 'filesystem');
+const missingPageIndex = hosting.routes.findIndex(rule => rule.src === '/(.*)' && rule.dest === '/404.html' && rule.status === 404);
+assert.ok(filesystemIndex >= 0 && missingPageIndex > filesystemIndex, 'missing URLs must return 404 after static files and API functions are checked');
+assert.ok(!hosting.routes.some(rule => rule.src === '/(.*)' && rule.dest === '/index.html'), 'a homepage fallback creates soft 404s');
+for (const route of routes.filter(Boolean)) assert.ok(hosting.routes.slice(0, filesystemIndex).some(rule => rule.src === '/' + route && rule.dest === '/' + route + '/index.html'));
+assert.ok(hosting.routes.slice(0, filesystemIndex).some(rule => rule.headers?.['X-Frame-Options'] === 'DENY' && rule.continue === true), 'security headers must run before filesystem matching');
+assert.ok(hosting.routes.slice(0, filesystemIndex).some(rule => rule.has?.some(condition => condition.type === 'host' && condition.value === 'www.metavex.digital') && rule.status === 308 && rule.headers?.Location === 'https://metavex.digital/$1'), 'www must permanently redirect to the canonical domain');
+for (const property of ['rewrites', 'redirects', 'headers', 'trailingSlash']) assert.ok(!(property in hosting), 'keep ordered routing in one routes array to preserve headers and redirects');
 console.log('PASS sitemap, robots, 404 and hosting route configuration');

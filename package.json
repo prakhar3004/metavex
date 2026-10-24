@@ -6,10 +6,11 @@
     "start": "ng serve --port 4200",
     "build": "ng build && node scripts/verify-seo.mjs",
     "watch": "ng build --watch --configuration development",
-    "typecheck": "ngc -p tsconfig.app.json --noEmit && node --check api/leads.mjs && node --check scripts/serve-leads-api.mjs",
+    "typecheck": "ngc -p tsconfig.app.json --noEmit && node --check api/leads.mjs && node --check scripts/serve-leads-api.mjs && node --check scripts/indexnow.mjs",
     "test": "node --test tests/audit.test.cjs tests/leads-api.test.mjs",
     "check": "npm run typecheck && npm test && npm run build",
-    "api": "node --env-file-if-exists=.env.local scripts/serve-leads-api.mjs"
+    "api": "node --env-file-if-exists=.env.local scripts/serve-leads-api.mjs",
+    "indexnow": "node scripts/indexnow.mjs"
   },
   "private": true,
   "dependencies": {

@@ -5,7 +5,7 @@ export const routes: Routes = [
     path: '',
     loadComponent: () => import('./pages/home/home.component').then(module => module.HomeComponent),
     title: 'MetaVex Digital | Websites, Meta Ads & WhatsApp Automation',
-    data: { description: "Make your business easier to find, understand, and contact with websites, Meta ads, and WhatsApp workflows from MetaVex Digital." }
+    data: { description: "MetaVex Digital helps Indian businesses get found and contacted with fast websites, Facebook & Instagram ads, and WhatsApp follow-up automation." }
   },
   {
     path: 'services',

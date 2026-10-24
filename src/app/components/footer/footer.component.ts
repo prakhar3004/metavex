@@ -90,10 +90,10 @@ import { RouterLink } from '@angular/router';
           <div class="lg:col-span-4">
             <a routerLink="/" class="inline-flex items-center gap-3 mb-3 group">
               <div class="w-9 h-9 rounded-xl overflow-hidden shadow-xs ring-1 ring-slate-200 shrink-0">
-                <img src="logo.png" alt="MetaVex Digital Logo" width="36" height="36" loading="lazy" decoding="async" class="w-full h-full object-cover">
+                <img src="logo-72.png" alt="MetaVex Digital Logo" width="36" height="36" loading="lazy" decoding="async" class="w-full h-full object-cover">
               </div>
               <div class="flex items-center gap-1.5">
-                <span class="font-heading font-black text-xl text-slate-900 tracking-wider">METAVEX</span>
+                <span class="font-heading font-black text-xl text-slate-900 tracking-wider">METAVEX </span>
                 <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-sunset-rose/10 text-sunset-rose border border-sunset-rose/30 uppercase font-bold">DIGITAL</span>
               </div>
             </a>
@@ -188,7 +188,7 @@ import { RouterLink } from '@angular/router';
 
         <!-- Bottom Bar -->
         <div class="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-slate-500">
-          <p>© {{ currentYear }} METAVEX DIGITAL. All Rights Reserved.</p>
+          <p>© {{ currentYear }} MetaVex Digital (metavex.digital). All Rights Reserved.</p>
           <div class="flex flex-wrap items-center justify-center gap-x-4 gap-y-3 text-slate-600">
             <a href="mailto:metavexdigital@gmail.com?subject=Privacy%20query" class="hover:text-slate-900">Privacy Questions</a>
             <span>•</span>

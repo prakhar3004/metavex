@@ -12,7 +12,7 @@ const lead = {
 };
 const env = { LEADS_WEBHOOK_URL: 'https://script.google.com/macros/s/example-deployment/exec', LEADS_WEBHOOK_SECRET: 'test-only-secret-that-is-longer-than-32-characters' };
 async function send(handler, overrides = {}) {
-  const request = { method: 'POST', headers: { 'content-type': 'application/json', host: 'metavex.design', origin: 'https://metavex.design' }, body: lead, ...overrides };
+  const request = { method: 'POST', headers: { 'content-type': 'application/json', host: 'metavex.digital', origin: 'https://metavex.digital' }, body: lead, ...overrides };
   const result = { headers: {} };
   const response = { setHeader(key, value) { result.headers[key] = value; }, end(value) { result.body = JSON.parse(value); result.status = this.statusCode; } };
   await handler(request, response);
@@ -32,7 +32,7 @@ test('API accepts only same-origin JSON POST requests and bounds body size', asy
   const handler = createLeadHandler({ env: {} });
   assert.equal((await send(handler, { method: 'GET' })).status, 405);
   assert.equal((await send(handler, { headers: { 'content-type': 'text/plain' } })).status, 415);
-  assert.equal((await send(handler, { headers: { 'content-type': 'application/json', host: 'metavex.design', origin: 'https://other.example' } })).status, 403);
+  assert.equal((await send(handler, { headers: { 'content-type': 'application/json', host: 'metavex.digital', origin: 'https://other.example' } })).status, 403);
   assert.equal((await send(handler, { body: { ...lead, requirements: 'x'.repeat(17000) } })).status, 413);
   assert.equal((await send(handler, { body: '{bad-json' })).status, 422);
   const request = Readable.from([JSON.stringify(lead)]);

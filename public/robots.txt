@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /api/
 
-Sitemap: https://metavex.design/sitemap.xml
+Sitemap: https://metavex.digital/sitemap.xml
