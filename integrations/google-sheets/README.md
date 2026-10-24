@@ -4,7 +4,16 @@ Target spreadsheet: [MetaVex lead sheet](https://docs.google.com/spreadsheets/d/
 
 The website sends requests to `/api/leads`. That backend validates the data and calls the Apps Script web app. The form shows success only when the script confirms the row was saved. WhatsApp and email remain available if saving fails.
 
-**Current status:** code is ready; live saving requires the spreadsheet owner to deploy Apps Script and configure the backend. The private spreadsheet contents have not been inspected or changed during this work.
+**Current status (17 October 2026):** lead capture is deployed at **https://metavex.digital/api/leads**. The owner-provided Apps Script deployment and secret are configured in the ignored local `.env.local` and Vercel Production as sensitive variables. Both the local proxy and the live production API returned HTTP 200 with matching `persisted: true` receipts for clearly labeled tests. Retries returned the same receipt. The spreadsheet has not been opened or independently read by the agent.
+
+Test request IDs:
+
+- Local: `metavex-test-b0e4ba20-feac-41f3-8b67-5e976f626724` — **TEST - Website Connection**.
+- Production: `metavex-live-test-c3981237-4068-4f73-b5dd-aaafa479dad4` — **TEST - Live Website Connection**.
+
+These are integration tests, not customer enquiries. Confirm each ID appears once in the sheet; remove the test rows if you no longer need them.
+
+The owner confirmed **metavex.digital** as the primary live domain, replacing the earlier `metavex.design` configuration. Production deployment `dpl_5zxgAHSN8UPfeEYPUiz7Xp4K9CzT` is ready and assigned to the live domain. Public pages, the API, the www redirect, response headers and missing-page HTTP 404 responses were checked on the actual domain after deployment.
 
 ## 1. Prepare the sheet as its owner
 

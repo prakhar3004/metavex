@@ -2,72 +2,113 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "buildCommand": "npm run build",
   "outputDirectory": "dist/metavex/browser",
-  "rewrites": [
+  "routes": [
     {
-      "source": "/services",
-      "destination": "/services/index.html"
+      "continue": true,
+      "headers": {
+        "Permissions-Policy": "camera=(), microphone=(), geolocation=()",
+        "X-Frame-Options": "DENY",
+        "X-Content-Type-Options": "nosniff",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+      },
+      "src": "/(.*)"
     },
     {
-      "source": "/comparison",
-      "destination": "/comparison/index.html"
-    },
-    {
-      "source": "/calculator",
-      "destination": "/calculator/index.html"
-    },
-    {
-      "source": "/case-studies",
-      "destination": "/case-studies/index.html"
-    },
-    {
-      "source": "/process",
-      "destination": "/process/index.html"
-    },
-    {
-      "source": "/contact",
-      "destination": "/contact/index.html"
-    }
-  ],
-  "headers": [
-    {
-      "source": "/(.*)",
-      "headers": [
+      "has": [
         {
-          "key": "X-Content-Type-Options",
-          "value": "nosniff"
-        },
-        {
-          "key": "X-Frame-Options",
-          "value": "DENY"
-        },
-        {
-          "key": "Referrer-Policy",
-          "value": "strict-origin-when-cross-origin"
-        },
-        {
-          "key": "Permissions-Policy",
-          "value": "camera=(), microphone=(), geolocation=()"
+          "value": "www.metavex.digital",
+          "type": "host"
         }
-      ]
+      ],
+      "status": 308,
+      "headers": {
+        "Location": "https://metavex.digital/$1"
+      },
+      "src": "/(.*)"
+    },
+    {
+      "status": 308,
+      "headers": {
+        "Location": "/$1"
+      },
+      "src": "/(services|services/website-development|services/meta-ads|services/whatsapp-automation|services/social-media-content|services/business-automation|about|guides|guides/whatsapp-business-app-vs-api|guides/meta-ads-for-small-business-india|guides/business-website-checklist|comparison|calculator|case-studies|process|contact)/"
+    },
+    {
+      "src": "/services",
+      "dest": "/services/index.html"
+    },
+    {
+      "src": "/services/website-development",
+      "dest": "/services/website-development/index.html"
+    },
+    {
+      "src": "/services/meta-ads",
+      "dest": "/services/meta-ads/index.html"
+    },
+    {
+      "src": "/services/whatsapp-automation",
+      "dest": "/services/whatsapp-automation/index.html"
+    },
+    {
+      "src": "/services/social-media-content",
+      "dest": "/services/social-media-content/index.html"
+    },
+    {
+      "src": "/services/business-automation",
+      "dest": "/services/business-automation/index.html"
+    },
+    {
+      "src": "/about",
+      "dest": "/about/index.html"
+    },
+    {
+      "src": "/guides",
+      "dest": "/guides/index.html"
+    },
+    {
+      "src": "/guides/whatsapp-business-app-vs-api",
+      "dest": "/guides/whatsapp-business-app-vs-api/index.html"
+    },
+    {
+      "src": "/guides/meta-ads-for-small-business-india",
+      "dest": "/guides/meta-ads-for-small-business-india/index.html"
+    },
+    {
+      "src": "/guides/business-website-checklist",
+      "dest": "/guides/business-website-checklist/index.html"
+    },
+    {
+      "src": "/comparison",
+      "dest": "/comparison/index.html"
+    },
+    {
+      "src": "/calculator",
+      "dest": "/calculator/index.html"
+    },
+    {
+      "src": "/case-studies",
+      "dest": "/case-studies/index.html"
+    },
+    {
+      "src": "/process",
+      "dest": "/process/index.html"
+    },
+    {
+      "src": "/contact",
+      "dest": "/contact/index.html"
+    },
+    {
+      "handle": "filesystem"
+    },
+    {
+      "dest": "/404.html",
+      "status": 404,
+      "src": "/(.*)"
     }
   ],
-  "trailingSlash": false,
   "functions": {
     "api/leads.mjs": {
       "maxDuration": 30
     }
-  },
-  "redirects": [
-    {
-      "destination": "https://metavex.design/:path*",
-      "permanent": true,
-      "source": "/:path*",
-      "has": [
-        {
-          "value": "www.metavex.design",
-          "type": "host"
-        }
-      ]
-    }
-  ]
+  }
 }

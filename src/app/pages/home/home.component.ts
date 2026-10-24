@@ -49,7 +49,7 @@ import { FaqComponent } from '../../components/faq/faq.component';
               <span class="relative inline-flex rounded-full h-2 w-2 bg-sunset-rose"></span>
             </span>
             <span class="text-[10px] sm:text-xs font-mono font-medium text-slate-700 text-center">
-              Websites, Ads & Automation • <strong class="text-sunset-rose font-bold">Built for India 🇮🇳</strong>
+              <strong class="text-slate-900 font-bold">MetaVex Digital</strong> • <span class="hidden sm:inline">Websites, Ads & Automation • </span><strong class="text-sunset-rose font-bold">Built for India 🇮🇳</strong>
             </span>
           </div>
 
@@ -63,7 +63,7 @@ import { FaqComponent } from '../../components/faq/faq.component';
 
           <!-- High-Conversion Subtitle: Direct Fayda / Benefit -->
           <p class="max-w-2xl text-slate-600 text-base sm:text-lg font-normal leading-relaxed mb-6 sm:mb-7 px-1 sm:px-0">
-            Give visitors a clearer reason to choose you. We build websites, run Meta ads, and connect WhatsApp follow-ups so interested people can explore your offer, get answers, and reach your team.
+            Give visitors a clearer reason to choose you. MetaVex Digital builds websites, runs Meta ads, and connects WhatsApp follow-ups so interested people can explore your offer, get answers, and reach your team.
           </p>
 
           <!-- Dual Magnetic CTAs -->

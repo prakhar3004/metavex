@@ -1,59 +1,34 @@
-# Nexorbit
+# MetaVex Digital
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.13.
+Angular 21 website for **https://metavex.digital**. Official phone and WhatsApp: **+91 9026231351**.
 
-## Development server
+## Run locally
 
-To start a local development server, run:
+Use Node.js 22.12+ and pnpm. Install the locked dependencies, then start the website:
 
-```bash
-ng serve
+```powershell
+pnpm install --frozen-lockfile
+pnpm start
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Open `http://localhost:4200/`. For lead capture, configure `.env.local` using `.env.example` and run `pnpm run api` in a second terminal. Angular proxies the lead API to port 4301.
 
-## Code scaffolding
+## Verify and build
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
+```powershell
+pnpm run check
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+This runs Angular and Node syntax checks, 17 Node regression tests, the production build, and checks against the generated page HTML. `pnpm test` runs the regression tests alone. There is no configured Vitest or browser end-to-end runner.
 
-```bash
-ng generate --help
-```
+The build prerenders seventeen public routes, including five service pages under `/services/`, an About page and three guides under `/guides/`, into `dist/metavex/browser`. Page content is present without JavaScript; forms and interactive tools require it. `vercel.json` serves each page's HTML and keeps `/api/leads` available as a Node function.
 
-## Building
+## Operations
 
-To build the project run:
+- [Google Sheet deployment and environment setup](integrations/google-sheets/README.md)
+- [SEO and Search Console launch steps](docs/SEO-LAUNCH.md)
+- [Audit findings, verification and remaining work](docs/AUDIT.md)
 
-```bash
-ng build
-```
+Business details used in metadata live in `src/app/site.config.ts`. Service page content, names and FAQs live in `src/app/pages/service-detail/service-pages.data.ts`; guides live in `src/app/pages/guides/guides.data.ts`. When adding or changing a page, also update `public/sitemap.xml` (with `lastmod`) and `public/llms.txt`. Route titles/descriptions live in `src/app/app.routes.ts`; public FAQs and their matching schema share one data source. Keep `sitemap.xml`, server routes and hosting rewrites aligned when adding a page. The build verification catches mismatches for the current public pages.
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+No client outcomes, ratings, customer counts or sales guarantees should be added without evidence. Use cases are illustrative and growth planner results are visitor-controlled scenarios.

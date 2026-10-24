@@ -1,0 +1,41 @@
+# MetaVex Digital
+
+> MetaVex Digital (metavex.digital) is an Indian digital services startup. It builds websites, runs Facebook and Instagram (Meta) ads, sets up WhatsApp replies and follow-up automation, creates social media content and Reels, and automates business workflows for small and growing businesses across India.
+
+Key facts:
+
+- Name: MetaVex Digital (also written Metavex Digital)
+- Website: https://metavex.digital
+- Phone and WhatsApp: +91 9026231351
+- Email: metavexdigital@gmail.com
+- Service area: businesses across India
+- Official profiles: Facebook (https://www.facebook.com/profile.php?id=61595820420995), Instagram (https://www.instagram.com/metavexdigital/)
+- Pricing: custom written quote based on scope, shared before work starts; no fixed packages are published
+- MetaVex Digital does not guarantee leads, sales, ad returns, or search rankings, and does not publish invented reviews or case studies
+
+## Services
+
+- [Website development](https://metavex.digital/services/website-development): mobile-first business websites, landing pages and online stores with WhatsApp, call and form inquiries, payments and search-ready foundations
+- [Facebook and Instagram ads (Meta ads)](https://metavex.digital/services/meta-ads): campaign planning, Meta Pixel and conversion tracking, creative testing and plain-language reporting
+- [WhatsApp automation](https://metavex.digital/services/whatsapp-automation): automated first replies, catalog sharing, inquiry collection, team handover, Google Sheets or CRM updates and WhatsApp Business API setup
+- [Social media content and Reels](https://metavex.digital/services/social-media-content): monthly content plans, Reels, posts, carousels and profile optimisation
+- [Business workflow automation](https://metavex.digital/services/business-automation): leads, orders, payments and follow-up reminders connected across website forms, WhatsApp, Google Sheets and CRMs
+- [All services](https://metavex.digital/services)
+
+## Guides
+
+- [WhatsApp Business App vs WhatsApp Business API](https://metavex.digital/guides/whatsapp-business-app-vs-api): features, costs, Meta per-message pricing in 2026 and when to switch
+- [Facebook and Instagram ads for small businesses in India](https://metavex.digital/guides/meta-ads-for-small-business-india): objectives, tracking, Click to WhatsApp ads, budgets and common mistakes
+- [Business website checklist for Indian businesses](https://metavex.digital/guides/business-website-checklist): mobile speed, Core Web Vitals, contact options, trust, SEO basics, privacy and payments
+
+## Company
+
+- [About MetaVex Digital](https://metavex.digital/about): who we are, how we work and what we will not promise
+- [Project process](https://metavex.digital/process): how projects are planned, built, tested and launched
+- [Contact](https://metavex.digital/contact): send a project brief, call or WhatsApp
+
+## Optional
+
+- [Customer journey gaps](https://metavex.digital/comparison): where website visitors and inquiries get stuck
+- [Growth planner](https://metavex.digital/calculator): scenario calculator using the visitor's own assumptions
+- [Illustrative use cases](https://metavex.digital/case-studies): example approaches, clearly labelled as illustrative rather than client results

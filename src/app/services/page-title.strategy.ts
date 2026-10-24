@@ -2,8 +2,10 @@ import { DOCUMENT } from '@angular/common';
 import { Injectable, inject } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { RouterStateSnapshot, TitleStrategy } from '@angular/router';
-import { SITE, SERVICE_NAMES } from '../site.config';
+import { SITE } from '../site.config';
 import { FAQS } from '../components/faq/faq.data';
+import { SERVICE_PAGES, ServicePage } from '../pages/service-detail/service-pages.data';
+import { GUIDES, Guide } from '../pages/guides/guides.data';
 
 @Injectable()
 export class PageTitleStrategy extends TitleStrategy {
@@ -20,17 +22,23 @@ export class PageTitleStrategy extends TitleStrategy {
     const path = snapshot.url.split(/[?#]/)[0].replace(/\/$/, '') || '/';
     const url = SITE.url + (path === '/' ? '/' : path);
     const noindex = !!page.data['robots'];
+    const service = SERVICE_PAGES.find(item => item.slug === page.data['service']);
+    const guide = GUIDES.find(item => item.slug === page.data['guide']);
     for (const name of ['description', 'twitter:description']) this.meta.updateTag({ name, content: description });
     for (const [property, content] of Object.entries({
       'og:description': description, 'og:title': title, 'og:url': url,
-      'og:type': 'website', 'og:site_name': SITE.name, 'og:locale': 'en_IN',
-      'og:image': SITE.url + '/logo.png', 'og:image:alt': 'MetaVex Digital logo',
-      'og:image:width': '1024', 'og:image:height': '1024'
+      'og:type': guide ? 'article' : 'website', 'og:site_name': SITE.name, 'og:locale': 'en_IN',
+      'og:image': SITE.url + SITE.socialImage.path, 'og:image:alt': SITE.socialImage.alt,
+      'og:image:width': String(SITE.socialImage.width), 'og:image:height': String(SITE.socialImage.height)
     })) this.meta.updateTag({ property, content });
+    for (const [property, date] of [['article:published_time', guide?.published], ['article:modified_time', guide?.updated]] as const) {
+      if (date) this.meta.updateTag({ property, content: date });
+      else this.meta.removeTag(`property="${property}"`);
+    }
     this.meta.updateTag({ name: 'twitter:title', content: title });
-    this.meta.updateTag({ name: 'twitter:card', content: 'summary' });
-    this.meta.updateTag({ name: 'twitter:image', content: SITE.url + '/logo.png' });
-    this.meta.updateTag({ name: 'twitter:image:alt', content: 'MetaVex Digital logo' });
+    this.meta.updateTag({ name: 'twitter:card', content: 'summary_large_image' });
+    this.meta.updateTag({ name: 'twitter:image', content: SITE.url + SITE.socialImage.path });
+    this.meta.updateTag({ name: 'twitter:image:alt', content: SITE.socialImage.alt });
     this.meta.updateTag({ name: 'robots', content: noindex ? 'noindex,follow' : 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1' });
 
     let canonical = this.document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]');
@@ -43,44 +51,70 @@ export class PageTitleStrategy extends TitleStrategy {
       }
       canonical.href = url;
     }
-    this.updateStructuredData(title, description, path, url, noindex);
+    this.updateStructuredData(title, description, path, url, noindex, service, guide);
   }
 
-  private updateStructuredData(title: string, description: string, path: string, url: string, noindex: boolean): void {
+  private updateStructuredData(title: string, description: string, path: string, url: string, noindex: boolean, service?: ServicePage, guide?: Guide): void {
     let script = this.document.getElementById('site-structured-data');
     if (noindex) { script?.remove(); return; }
     const organization = SITE.url + '/#organization';
     const website = SITE.url + '/#website';
     const graph: Record<string, unknown>[] = [
       {
-        '@type': 'Organization', '@id': organization, name: SITE.name, url: SITE.url + '/',
-        logo: { '@type': 'ImageObject', url: SITE.url + '/logo.png', width: 1024, height: 1024 },
+        '@type': 'Organization', '@id': organization, name: SITE.name, alternateName: SITE.alternateNames,
+        url: SITE.url + '/', description: SITE.description,
+        logo: { '@type': 'ImageObject', url: SITE.url + '/logo.png', width: 512, height: 512 },
+        image: SITE.url + SITE.socialImage.path,
         email: SITE.email, telephone: SITE.phone,
-        contactPoint: { '@type': 'ContactPoint', telephone: SITE.phone, email: SITE.email, contactType: 'customer enquiries' }
+        areaServed: { '@type': 'Country', name: 'India' }, knowsAbout: SERVICE_PAGES.map(item => item.name),
+        contactPoint: { '@type': 'ContactPoint', telephone: SITE.phone, email: SITE.email, contactType: 'customer enquiries', areaServed: 'IN' },
+        ...(SITE.sameAs.length ? { sameAs: SITE.sameAs } : {})
       },
-      { '@type': 'WebSite', '@id': website, url: SITE.url + '/', name: SITE.name, publisher: { '@id': organization }, inLanguage: SITE.language },
       {
-        '@type': path === '/contact' ? 'ContactPage' : path === '/case-studies' ? 'CollectionPage' : 'WebPage',
+        '@type': 'WebSite', '@id': website, url: SITE.url + '/', name: SITE.name, alternateName: SITE.alternateNames,
+        description: SITE.description, publisher: { '@id': organization }, inLanguage: SITE.language
+      },
+      {
+        '@type': ({ '/contact': 'ContactPage', '/about': 'AboutPage', '/case-studies': 'CollectionPage', '/guides': 'CollectionPage' } as Record<string, string>)[path] ?? 'WebPage',
         '@id': url + '#webpage', url, name: title, description, inLanguage: SITE.language,
         isPartOf: { '@id': website }, about: { '@id': organization },
+        ...(path === '/about' ? { mainEntity: { '@id': organization } } : {}),
         ...(path === '/' ? {} : { breadcrumb: { '@id': url + '#breadcrumb' } })
       }
     ];
     if (path !== '/') {
-      const names: Record<string, string> = { '/services': 'Services', '/comparison': 'Customer Journey', '/calculator': 'Growth Planner', '/case-studies': 'Illustrative Use Cases', '/process': 'Our Process', '/contact': 'Contact' };
-      graph.push({ '@type': 'BreadcrumbList', '@id': url + '#breadcrumb', itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Home', item: SITE.url + '/' },
-        { '@type': 'ListItem', position: 2, name: names[path] ?? title, item: url }
-      ] });
+      const names: Record<string, string> = { '/services': 'Services', '/about': 'About', '/guides': 'Guides', '/comparison': 'Customer Journey', '/calculator': 'Growth Planner', '/case-studies': 'Illustrative Use Cases', '/process': 'Our Process', '/contact': 'Contact' };
+      const trail = [
+        { name: 'Home', item: SITE.url + '/' },
+        ...(service ? [{ name: 'Services', item: SITE.url + '/services' }] : []),
+        ...(guide ? [{ name: 'Guides', item: SITE.url + '/guides' }] : []),
+        { name: service?.label ?? guide?.title ?? names[path] ?? title, item: url }
+      ];
+      graph.push({ '@type': 'BreadcrumbList', '@id': url + '#breadcrumb', itemListElement: trail.map((crumb, index) => ({ '@type': 'ListItem', position: index + 1, ...crumb })) });
     }
+    if (service) graph.push({
+      '@type': 'Service', '@id': url + '#service', name: service.label, serviceType: service.name, description, url,
+      provider: { '@id': organization }, areaServed: { '@type': 'Country', name: 'India' }
+    });
     if (path === '/' || path === '/services') graph.push({
       '@type': 'OfferCatalog', '@id': url + '#services', name: 'MetaVex Digital services',
-      itemListElement: SERVICE_NAMES.map(name => ({ '@type': 'Offer', itemOffered: { '@type': 'Service', name, provider: { '@id': organization }, url: SITE.url + '/services' } }))
+      itemListElement: SERVICE_PAGES.map(item => ({ '@type': 'Offer', itemOffered: { '@type': 'Service', name: item.name, provider: { '@id': organization }, url: SITE.url + '/services/' + item.slug } }))
     });
-    // These answers are rendered by FaqComponent on these two pages only.
-    if (path === '/' || path === '/contact') graph.push({
+    if (guide) graph.push({
+      '@type': 'Article', '@id': url + '#article', headline: guide.title, description, url,
+      datePublished: guide.published, dateModified: guide.updated, inLanguage: SITE.language,
+      author: { '@id': organization }, publisher: { '@id': organization }, mainEntityOfPage: { '@id': url + '#webpage' },
+      image: SITE.url + SITE.socialImage.path, citation: guide.sources.map(source => source.url)
+    });
+    if (path === '/guides') graph.push({
+      '@type': 'ItemList', '@id': url + '#guides', name: 'MetaVex Digital guides',
+      itemListElement: GUIDES.map((item, index) => ({ '@type': 'ListItem', position: index + 1, name: item.title, url: SITE.url + '/guides/' + item.slug }))
+    });
+    // These answers are rendered by FaqComponent on Home and Contact, and by each service and guide page.
+    const faqs = service?.faqs ?? guide?.faqs ?? (path === '/' || path === '/contact' ? FAQS : null);
+    if (faqs) graph.push({
       '@type': 'FAQPage', '@id': url + '#faq', isPartOf: { '@id': url + '#webpage' },
-      mainEntity: FAQS.map(faq => ({ '@type': 'Question', name: faq.question, acceptedAnswer: { '@type': 'Answer', text: faq.answer } }))
+      mainEntity: faqs.map(faq => ({ '@type': 'Question', name: faq.question, acceptedAnswer: { '@type': 'Answer', text: faq.answer } }))
     });
     if (!script) {
       script = this.document.createElement('script');

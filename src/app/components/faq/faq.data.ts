@@ -1,5 +1,9 @@
 export const FAQS = [
   {
+    question: 'What is MetaVex Digital?',
+    answer: 'MetaVex Digital (metavex.digital) is an Indian digital services startup. We build websites, run Facebook and Instagram ads, and set up WhatsApp follow-ups and business automation, so interested people can understand your offer and reach your team. Call or WhatsApp +91 9026231351.'
+  },
+  {
     question: 'What does MetaVex Digital help businesses with?',
     answer: 'We help businesses explain their offer, attract relevant inquiries, and manage follow-ups through websites, Facebook and Instagram ads, WhatsApp workflows, social content, and business automation.'
   },

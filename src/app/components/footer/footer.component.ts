@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { PROFILES } from '../../site.config';
 
 @Component({
   selector: 'app-footer',
@@ -90,17 +91,19 @@ import { RouterLink } from '@angular/router';
           <div class="lg:col-span-4">
             <a routerLink="/" class="inline-flex items-center gap-3 mb-3 group">
               <div class="w-9 h-9 rounded-xl overflow-hidden shadow-xs ring-1 ring-slate-200 shrink-0">
-                <img src="logo.png" alt="MetaVex Digital Logo" width="36" height="36" loading="lazy" decoding="async" class="w-full h-full object-cover">
+                <img src="logo-72.png" alt="MetaVex Digital Logo" width="36" height="36" loading="lazy" decoding="async" class="w-full h-full object-cover">
               </div>
               <div class="flex items-center gap-1.5">
-                <span class="font-heading font-black text-xl text-slate-900 tracking-wider">METAVEX</span>
+                <span class="font-heading font-black text-xl text-slate-900 tracking-wider">METAVEX </span>
                 <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-sunset-rose/10 text-sunset-rose border border-sunset-rose/30 uppercase font-bold">DIGITAL</span>
               </div>
             </a>
 
-            <p class="text-sm text-slate-600 leading-relaxed mb-4 max-w-sm">
-              MetaVex Digital is a startup helping Indian businesses connect their websites, marketing, and day-to-day customer follow-ups.
+            <!-- Search engines often quote this sentence for brand and domain searches; keep it a plain definition. -->
+            <p class="text-sm text-slate-600 leading-relaxed mb-2 max-w-sm">
+              MetaVex Digital (metavex.digital) is an Indian digital services startup that builds websites, runs Facebook and Instagram ads, and automates WhatsApp follow-ups for growing businesses across India.
             </p>
+            <a routerLink="/about" class="inline-block text-xs font-semibold text-electric-violet underline underline-offset-4 mb-4">About MetaVex Digital →</a>
 
             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-xs font-mono text-emerald-800 font-semibold">
               <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
@@ -112,11 +115,11 @@ import { RouterLink } from '@angular/router';
           <div class="lg:col-span-3">
             <h5 class="text-xs font-mono uppercase tracking-widest text-slate-900 mb-4 font-bold">Services & Benefits</h5>
             <ul class="space-y-2.5 text-xs text-slate-600 font-medium">
-              <li><a routerLink="/services" class="hover:text-sunset-rose transition-colors flex items-center gap-1.5"><span>›</span> Fast Mobile Websites & Stores</a></li>
-              <li><a routerLink="/services" class="hover:text-sunset-rose transition-colors flex items-center gap-1.5"><span>›</span> Facebook & Instagram Ads</a></li>
-              <li><a routerLink="/services" class="hover:text-sunset-rose transition-colors flex items-center gap-1.5"><span>›</span> WhatsApp & Lead Automation</a></li>
-              <li><a routerLink="/services" class="hover:text-sunset-rose transition-colors flex items-center gap-1.5"><span>›</span> Brand Reels & Social Content</a></li>
-              <li><a routerLink="/services" class="hover:text-sunset-rose transition-colors flex items-center gap-1.5"><span>›</span> Cloud Systems & Operations</a></li>
+              <li><a routerLink="/services/website-development" class="hover:text-sunset-rose transition-colors flex items-center gap-1.5"><span>›</span> Website Development</a></li>
+              <li><a routerLink="/services/meta-ads" class="hover:text-sunset-rose transition-colors flex items-center gap-1.5"><span>›</span> Facebook & Instagram Ads</a></li>
+              <li><a routerLink="/services/whatsapp-automation" class="hover:text-sunset-rose transition-colors flex items-center gap-1.5"><span>›</span> WhatsApp Automation</a></li>
+              <li><a routerLink="/services/social-media-content" class="hover:text-sunset-rose transition-colors flex items-center gap-1.5"><span>›</span> Social Media Content & Reels</a></li>
+              <li><a routerLink="/services/business-automation" class="hover:text-sunset-rose transition-colors flex items-center gap-1.5"><span>›</span> Business Workflow Automation</a></li>
             </ul>
           </div>
 
@@ -130,6 +133,8 @@ import { RouterLink } from '@angular/router';
               <li><a routerLink="/calculator" class="hover:text-sunset-rose transition-colors">Growth Planner</a></li>
               <li><a routerLink="/case-studies" class="hover:text-sunset-rose transition-colors">Use Cases</a></li>
               <li><a routerLink="/process" class="hover:text-sunset-rose transition-colors">Our Process</a></li>
+              <li><a routerLink="/guides" class="hover:text-sunset-rose transition-colors">Guides</a></li>
+              <li><a routerLink="/about" class="hover:text-sunset-rose transition-colors">About MetaVex</a></li>
               <li><a routerLink="/contact" class="hover:text-sunset-rose transition-colors">Contact Us</a></li>
             </ul>
           </div>
@@ -181,6 +186,18 @@ import { RouterLink } from '@angular/router';
                 </a>
               </div>
 
+              <div class="flex flex-wrap gap-x-4 gap-y-2">
+                @for (profile of profiles; track profile.url) {
+                  <a
+                    [href]="profile.url"
+                    target="_blank"
+                    rel="me noopener noreferrer"
+                    class="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-slate-600 hover:text-slate-900 transition-colors">
+                    <span>MetaVex Digital on {{ profile.name }} ↗</span>
+                  </a>
+                }
+              </div>
+
             </div>
           </div>
 
@@ -188,7 +205,7 @@ import { RouterLink } from '@angular/router';
 
         <!-- Bottom Bar -->
         <div class="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-slate-500">
-          <p>© {{ currentYear }} METAVEX DIGITAL. All Rights Reserved.</p>
+          <p>© {{ currentYear }} MetaVex Digital (metavex.digital). All Rights Reserved.</p>
           <div class="flex flex-wrap items-center justify-center gap-x-4 gap-y-3 text-slate-600">
             <a href="mailto:metavexdigital@gmail.com?subject=Privacy%20query" class="hover:text-slate-900">Privacy Questions</a>
             <span>•</span>
@@ -205,5 +222,6 @@ import { RouterLink } from '@angular/router';
 })
 export class FooterComponent {
   public readonly currentYear = new Date().getFullYear();
+  public readonly profiles = PROFILES;
 
 }

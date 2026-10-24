@@ -1,6 +1,7 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ServicesBentoComponent } from '../../components/services-bento/services-bento.component';
+import { SERVICE_PAGES } from '../service-detail/service-pages.data';
 
 @Component({
   selector: 'app-services-page',
@@ -55,6 +56,20 @@ import { ServicesBentoComponent } from '../../components/services-bento/services
 
       <!-- Main Services Bento Grid Component -->
       <app-services-bento></app-services-bento>
+
+      <!-- Links to each service detail page -->
+      <section class="max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8 mt-4 sm:mt-6" aria-labelledby="service-pages-heading">
+        <h2 id="service-pages-heading" class="font-heading text-xl sm:text-2xl font-extrabold text-slate-900 mb-4 text-center">Explore Each Service in Detail</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+          @for (service of servicePages; track service.slug) {
+            <a [routerLink]="'/services/' + service.slug" class="p-4 rounded-2xl bg-white hover:bg-slate-50 border border-slate-200 hover:border-sunset-rose/40 shadow-xs hover:shadow-md transition-all group">
+              <span class="text-xl block mb-1.5" aria-hidden="true">{{ service.icon }}</span>
+              <span class="font-heading font-bold text-sm text-slate-900 group-hover:text-sunset-rose block">{{ service.label }} →</span>
+              <span class="text-xs text-slate-500 mt-1 block leading-relaxed">{{ service.eyebrow }}</span>
+            </a>
+          }
+        </div>
+      </section>
 
       <!-- Detailed Breakdown Table of Deliverables -->
       <section class="max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8 mt-12 sm:mt-20">
@@ -129,6 +144,7 @@ import { ServicesBentoComponent } from '../../components/services-bento/services
 })
 export class ServicesPageComponent {
   @Output() openLeadModal = new EventEmitter<void>();
+  public readonly servicePages = SERVICE_PAGES;
 
   public onOpenAudit() {
     this.openLeadModal.emit();

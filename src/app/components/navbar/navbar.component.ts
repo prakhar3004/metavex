@@ -11,10 +11,11 @@ import { SoundService } from '../../services/sound.service';
     <header class="sticky top-0 z-50 w-full border-b border-slate-200 bg-white/95 backdrop-blur-xl">
       <nav aria-label="Main navigation" class="mx-auto flex w-full max-w-7xl items-center justify-between gap-3 px-3 py-3 sm:px-6 lg:px-8">
         <a routerLink="/" (click)="closeMobileMenu()" aria-label="MetaVex Digital home" class="inline-flex min-w-0 shrink-0 items-center gap-2 sm:gap-3">
-          <img src="logo.png" alt="" width="36" height="36" class="h-9 w-9 shrink-0 rounded-xl object-cover ring-1 ring-slate-200" />
+          <img src="logo-72.png" alt="" width="36" height="36" class="h-9 w-9 shrink-0 rounded-xl object-cover ring-1 ring-slate-200" />
           <span class="min-w-0">
             <span class="flex flex-wrap items-center gap-1.5">
-              <span class="font-heading text-sm font-black tracking-wide text-slate-900 sm:text-base">METAVEX</span>
+              <!-- Trailing space keeps "METAVEX DIGITAL" as two words in the HTML text Google reads. -->
+              <span class="font-heading text-sm font-black tracking-wide text-slate-900 sm:text-base">METAVEX </span>
               <span class="hidden rounded border border-sunset-rose/25 bg-sunset-rose/10 px-1.5 py-0.5 font-mono text-[10px] font-bold text-sunset-rose sm:inline">DIGITAL</span>
             </span>
             <span class="hidden font-mono text-[9px] font-semibold uppercase tracking-wide text-slate-500 md:block">Websites, Ads & Automation</span>
@@ -77,6 +78,7 @@ export class NavbarComponent {
     { path: '/calculator', label: 'Growth Planner', description: 'Explore a scenario using your own assumptions.' },
     { path: '/case-studies', label: 'Use Cases', description: 'Picture practical solutions for different businesses.' },
     { path: '/process', label: 'Process', description: 'Understand how we plan, build, and launch.' },
+    { path: '/guides', label: 'Guides', description: 'Practical answers about websites, ads, and WhatsApp.' },
     { path: '/contact', label: 'Contact', description: 'Share your requirements and start a conversation.' }
   ];
   public toggleMobileMenu() {
