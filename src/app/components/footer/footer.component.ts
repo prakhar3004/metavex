@@ -98,9 +98,11 @@ import { RouterLink } from '@angular/router';
               </div>
             </a>
 
-            <p class="text-sm text-slate-600 leading-relaxed mb-4 max-w-sm">
-              MetaVex Digital is a startup helping Indian businesses connect their websites, marketing, and day-to-day customer follow-ups.
+            <!-- Search engines often quote this sentence for brand and domain searches; keep it a plain definition. -->
+            <p class="text-sm text-slate-600 leading-relaxed mb-2 max-w-sm">
+              MetaVex Digital (metavex.digital) is an Indian digital services startup that builds websites, runs Facebook and Instagram ads, and automates WhatsApp follow-ups for growing businesses across India.
             </p>
+            <a routerLink="/about" class="inline-block text-xs font-semibold text-electric-violet underline underline-offset-4 mb-4">About MetaVex Digital →</a>
 
             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-xs font-mono text-emerald-800 font-semibold">
               <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
